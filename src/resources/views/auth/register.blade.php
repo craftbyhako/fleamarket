@@ -8,10 +8,11 @@
 <div class= "register__content">
     <h2>会員登録</h2>
     <br>
-    <form action="" method="POST">
+    <form class="register-form" action="/register" method="POST" novalidate>
+        @csrf
         <div class="register__input-form">
             <label class="register__label" for="name">ユーザー名</label>
-            <input type="text" name="name" value="{{ old('name') }}" required>
+            <input type="text" name="name" value="{{ old('name') }}" >
             <p class="register-form__error-message">
                 @error('name')
                 {{ $message }}
@@ -19,7 +20,7 @@
             </p>
 
             <label class="register__label" for="email">メールアドレス</label>
-            <input type="email" name="email" value="{{ old('email') }}" required>
+            <input type="email" name="email" value="{{ old('email') }}" >
             <p class="register-form__error-message">
                 @error('email')
                 {{ $message }}
@@ -27,17 +28,17 @@
             </p>
 
             <label class="register__label" for="password">パスワード</label>
-            <input type="password" name="password" value="" required>
+            <input type="password" name="password" value="" >
             <p class="register-form__error-message">
                 @error('password')
                 {{ $message }}
                 @enderror
             </p>
 
-            <label class="register__label" for="comfirm-password">確認用パスワード</label>
-             <input type="password" name="comfirm-password" value="" required>
+            <label class="register__label" for="password_confirmation">確認用パスワード</label>
+             <input type="password" name="password_confirmation" value="" >
             <p class="register__error-message">
-                @error('comfirm-password')
+                @error('password_comfirmation')
                 {{ $message }}
                 @enderror
             </p>

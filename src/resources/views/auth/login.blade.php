@@ -14,7 +14,7 @@
 
     
         <label for="email">メールアドレス</label>
-        <input type="email" name="email" value="{{ old('email') }}"required>
+        <input type="email" name="email" value="{{ old('email') }}">
         <div class="form__error">
                     @error('email')
                     {{ $message }}
@@ -22,7 +22,7 @@
         </div>
 
         <label for="password">パスワード</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password">
         <div class="form__error">
                     @error('password')
                     {{ $message }}

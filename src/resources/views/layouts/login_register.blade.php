@@ -11,7 +11,7 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo">PiGLy</h1>
+            <h1 class="header__logo">COACHTECH</h1>
         </div>
     </header>
     <main>
