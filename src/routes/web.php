@@ -13,16 +13,12 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 
 
 // Auth処理
 Route::middleware('auth')->group(function () {
+    Route::get('/?tab=mylist', [MypageController::class, 'index']);
+    Route::get('/mypage', [MypageController::class, '']);
 
-
+});
