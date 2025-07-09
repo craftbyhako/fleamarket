@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,9 @@ Route::get('/', function () {
 
 
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
+
+
+// Auth処理
+Route::middleware('auth')->group(function () {
 
 

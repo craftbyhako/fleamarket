@@ -1,0 +1,56 @@
+.register__content {
+    width: 300px;
+    margin: 0 auto;
+    padding-top: 40px;
+    }
+
+.register__title {
+    text-align:center;
+    margin-bottom: 24px;
+}
+
+.register__input-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.register__label {
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.register__error-message {
+    color:red;
+}
+
+.register__input-form__button {
+    text-align: center;
+
+}
+
+button {
+    background-color: red;
+        /* 背景：親の赤に「なじむ」 */
+        color: white;
+        /* 文字色：見やすい白 */
+        font-size: 16px;
+        padding: 10px 24px;
+        border: none;
+        /* 枠なし */
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+    /* ホバー時、少しだけ反応 */
+}
+
+.login__link {
+    text-align: center;
+    padding-top: 20px;
+}

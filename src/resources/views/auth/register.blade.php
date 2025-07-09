@@ -2,50 +2,54 @@
 
 @section('css')
 <link rel="stylesheet" href="{{asset('css/register.css')}}">
+
 @endsection
 
 @section('content')
 <div class= "register__content">
-    <h2>会員登録</h2>
+    <h2 class="register__title">会員登録</h2>
     <br>
     <form class="register-form" action="/register" method="POST" novalidate>
         @csrf
         <div class="register__input-form">
-            <label class="register__label" for="name">ユーザー名</label>
-            <input type="text" name="name" value="{{ old('name') }}" >
-            <p class="register-form__error-message">
-                @error('name')
+            <label class="register__label" for="user_name">ユーザー名</label>
+            <input type="text" name="user_name" value="{{ old('user_name') }}" >
+                <p class="register-form__error-message">
+                @error('user_name')
                 {{ $message }}
                 @enderror
-            </p>
+                </p>
 
             <label class="register__label" for="email">メールアドレス</label>
             <input type="email" name="email" value="{{ old('email') }}" >
-            <p class="register-form__error-message">
+                <p class="register-form__error-message">
                 @error('email')
                 {{ $message }}
                 @enderror
-            </p>
+                </p>
 
             <label class="register__label" for="password">パスワード</label>
             <input type="password" name="password" value="" >
-            <p class="register-form__error-message">
+                <p class="register-form__error-message">
                 @error('password')
                 {{ $message }}
                 @enderror
-            </p>
+                </p>
 
             <label class="register__label" for="password_confirmation">確認用パスワード</label>
-             <input type="password" name="password_confirmation" value="" >
-            <p class="register__error-message">
+            <input type="password" name="password_confirmation" value="" >
+                <p class="register__error-message">
                 @error('password_comfirmation')
                 {{ $message }}
                 @enderror
-            </p>
+                </p>
         </div>
 
-        <input class="register__input-form__btn" type="submit" value="登録する">
+        <div class="register__input-form__button">
+            <button type="submit">登録する</button>
+        </div>
     </form>
     <div class="login__link">
         <a class="login__button-submit" href="/login">ログインはこちら</a>
     </div>
+@endsection
