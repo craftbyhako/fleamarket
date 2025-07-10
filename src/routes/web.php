@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MypageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +15,16 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/login', [UserController::class, 'login'])->name('user.login');
+
+Route::post('/resister', [UserController::class, 'storeUser']);
+Route::post('/mypage', [UserController::class, 'storePlofile']);
+Route::post('/login', [UserController::class, 'loginUser']);
 
 
 // Auth処理
 Route::middleware('auth')->group(function () {
-    Route::get('/?tab=mylist', [MypageController::class, 'index']);
-    Route::get('/mypage', [MypageController::class, '']);
+    Route::get('/', [MypageController::class, 'admin']);
+    
+    Route::get('/mypage', [MypageController::class, 'profile']);
 
 });

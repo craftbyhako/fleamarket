@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use App\Http\Controllers\Auth\UserController;
 
+
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
@@ -45,7 +46,7 @@ class FortifyServiceProvider extends ServiceProvider
         // });
 
         Fortify::registerView(function () {
-            return view('auth.register');
+            return view('auth.profile');
         });
             
         Fortify::loginView(function () {
@@ -57,5 +58,7 @@ class FortifyServiceProvider extends ServiceProvider
         
             return Limit::perMinute(10)->by($email . $request->ip());
         });
+
+         $this->app->bind(FortifyLoginRequest::class, RegisterRequest::class);
     }
 }
