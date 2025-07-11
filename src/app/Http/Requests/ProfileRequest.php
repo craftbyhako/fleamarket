@@ -25,9 +25,22 @@ class ProfileRequest extends FormRequest
     {
         return [
             //
-            'email.required'=>['メールアドレスを入力してください'],
-            'email.email'=>['メールアドレスは「ユーザー名＠ドメイン」形式で入力してください'],
-            'password.required'=>['パスワードを入力してください'],
+            'user_name'=>['required', 'max:20'],
+            'image'=>['mimes:jpeg,png'],
+            'postcode'=>['required', 'regex:/^\d{3}-\d{4}$/'],
+            'address'=>['required'],
+        ];
+    }
+        
+    public function messages()
+    {
+        return [
+            'user_name.required'=>['ユーザー名を入力してください'],
+            'user_name.max'=>['ユーザー名は２０文字内で入力してください'],
+            'image.mimes'=>['拡張子が.jpegまたは.pngのファイルを選択してください'],
+            'postcode.required'=>['郵便番号を入力してください'],
+            'postcode.regex'=>['郵便番号はハイフンを含めて、８文字で入力してください'],
+            'address.required'=>['住所を入力してください']
         ];
     }
 }

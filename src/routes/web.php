@@ -18,7 +18,6 @@ use App\Http\Controllers\MypageController;
 
 Route::post('/resister', [UserController::class, 'storeUser']);
 Route::post('/mypage', [UserController::class, 'storePlofile']);
-Route::post('/login', [UserController::class, 'loginUser']);
 
 
 // Auth処理
@@ -27,4 +26,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/mypage', [MypageController::class, 'profile']);
 
+    Route::post('/mypage/upload', [UserController::class, 'upload']);
+
+    Route::get('/?tab=mylist', [MypageController::class, 'admin']);
 });

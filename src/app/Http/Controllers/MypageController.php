@@ -13,13 +13,15 @@ class MypageController extends Controller
     public function profile(){
         return view('auth.profile');
     }
-
-    public function admin(Request $request){
+    
+    // ログイン後の一覧画面
+    public function mypage(Request $request){
 
         $userId = Auth::id();
         $likes = Like::where('user_id', $userId)->get();
         $tab = $request->query('tab');
-        return view ('mypage.admin', compact('likes', 'tab'));
+       
+        return view ('mypage.index', compact('likes', 'tab'));
     }
 
 
