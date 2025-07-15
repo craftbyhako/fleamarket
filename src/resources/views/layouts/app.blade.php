@@ -16,19 +16,19 @@
       <h1 class="header__heading">COACHTECH</h1>
         <nav class="header__nav">
             <ul class="header__list">
+
+                @if (Auth::check())
                  <!-- 検索ボックス -->
                 <li class="header__list-item">
                     <form class="header__form" action="/ class="header__form" method="get">
                             @csrf
                         
-                    
-                            <button class="header__form--target">目標体重設定</button>
                     </form>
                 </li>
 
                     <!-- ログアウト -->
                 <li class="header__list-item">
-                    <form action="/logout" class="header__form" method="post">
+                    <form class="header__form" action="/logout" method="post">
                             @csrf
                             <button class="header__form--logout" type="submit">ログアウト</button>
                     </form>
@@ -49,6 +49,7 @@
                             <button class="header__form--sell" type="button">出品</button>
                     </form>
                 </li>
+                @endif
             </ul>
         </nav>
 

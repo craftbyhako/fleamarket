@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\ItemController;
+
 
 
 /*
@@ -18,7 +20,7 @@ use App\Http\Controllers\MypageController;
 
 Route::post('/resister', [UserController::class, 'storeUser']);
 Route::post('/mypage', [UserController::class, 'storePlofile']);
-
+Route::get('/', [ItemController::class, 'index']);
 
 // Auth処理
 Route::middleware('auth')->group(function () {
@@ -28,5 +30,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/mypage/upload', [UserController::class, 'upload']);
 
-    Route::get('/?tab=mylist', [MypageController::class, 'admin']);
+    Route::get('/', [ItemController::class, 'index']);
 });
