@@ -29,5 +29,15 @@ body {
     /* grid-column: 3; */
 }
 
+.header__form--logout {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    font-size: 1rem;
+}
+
 /* 参考：contactform/common.css */
 /*  */

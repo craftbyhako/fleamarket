@@ -5,23 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Like;
+use App\Models\Item;
 
 
 
-class MypageController extends Controller
+
+class MylistController extends Controller
 {
-    public function profile(){
-        return view('auth.profile');
-    }
+   
     
     // ログイン後の一覧画面
-    public function mypage(Request $request){
+    public function admin(Request $request){
 
         $userId = Auth::id();
         $likes = Like::where('user_id', $userId)->get();
         $tab = $request->query('tab');
-       
-        return view ('mypage.index', compact('likes', 'tab'));
+        $items = Item::all();
+        
+        return view ('mylist.index', compact('items', 'likes', 'tab'));
     }
 
 

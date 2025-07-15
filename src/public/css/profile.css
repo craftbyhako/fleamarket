@@ -9,6 +9,19 @@
     margin-bottom: 24px;
 }
 
+.profile-form {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.profile__input-form input[type="text"],
+.register__input-form__button button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .profile__image-label{
     display: inline-block;
         padding: 10px 20px;
@@ -63,4 +76,36 @@ button:hover {
 .login__link {
     text-align: center;
     padding-top: 20px;
+}
+
+.profile__image-wrapper {
+    width: 120px;
+    /* 丸いスペースのサイズ */
+    height: 120px;
+    border-radius: 50%;
+    /* 円形 */
+    overflow: hidden;
+    /* はみ出し防止 */
+    background-color: #ccc;
+    /* 画像がないときのグレー背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 画像の縦横比を保ちつつ枠内に収める */
+    border-radius: 50%;
+    /* 画像も丸く */
+}
+
+.no-image {
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    /* グレー背景 */
+    border-radius: 50%;
 }

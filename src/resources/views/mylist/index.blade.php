@@ -21,7 +21,7 @@
             <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
             <!-- 商品名 -->
             <div class="detail-content">
-                <p>{{$item->name}}</p>
+                <p>{{ $item->name }}</p>
             </div>
         </div>
         @endforeach

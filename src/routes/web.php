@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\MypageController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\MylistController;
 use App\Http\Controllers\ItemController;
 
 
@@ -18,19 +18,28 @@ use App\Http\Controllers\ItemController;
 |
 */
 
-Route::post('/resister', [UserController::class, 'storeUser']);
+
 Route::post('/mypage', [UserController::class, 'storePlofile']);
+
+// 非会員のトップページ表示
 Route::get('/', [ItemController::class, 'index']);
+
+// 会員登録
+Route::post('/resister', [UserController::class, 'storeUser']);
 
 // Auth処理
 Route::middleware('auth')->group(function () {
-    Route::get('/', [MypageController::class, 'admin']);
+
     
-    Route::get('/mypage', [MypageController::class, 'profile']);
+    // 初回プロフィール登録ページの表示
+    Route::get('/mypage', [UserController::class, 'profile']);
 
-    Route::post('/mypage/upload', [UserController::class, 'upload']);
+    // 初回プロフィール情報・写真の保存
+    Route::post('/mypage', [UserController::class, 'upload']);
 
-    Route::get('/', [ItemController::class, 'index']);
+    // 会員のトップページの表示（adminで表示)
+    Route::get('/', [MylistController::class, 'admin']);
 
+    
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });

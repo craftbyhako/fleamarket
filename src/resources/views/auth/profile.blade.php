@@ -9,23 +9,27 @@
 <div class= "profile__content">
     <h2 class="profile__title">プロフィール設定</h2>
     <br>
-    <form class="profile-form" action="/profile/upload" method="POST" enctype="multipart/form-data" novalidate>
+    <form class="profile-form" action="/mypage" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
 
         <!-- プロフィール画像欄 -->
         <div class="profile__picture-group">
             <div class="profile__img">
-                <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール写真">
+                @if(Auth::user()->profile_image)
+                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール写真" style="max-width: 100%; height: auto;">
+                @else
+                    <p>画像なし</p>
+                @endif
 
-                <input type="file" id="file" hidden>
+                <input type="file" id="file" name="image" hidden>
                 <label for="file" class="profile__img-label">画像を選択</label>
-                    <p class="register-form__error-message">
-                    @error('user_name')
+                <p class="register-form__error-message">
+                @error('user_name')
                     {{ $message }}
-                    @enderror
-                    </p>
+                @enderror
+                </p>
             </div>
-
+        </div>
 
         <!-- ユーザー情報追加入力欄 -->
         <div class="profile__input-form">
