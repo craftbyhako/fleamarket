@@ -31,4 +31,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/mypage/upload', [UserController::class, 'upload']);
 
     Route::get('/', [ItemController::class, 'index']);
+
+    // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });

@@ -12,13 +12,18 @@ class Item extends Model
     protected $fillable = 
     [
         'user_id',
+        'condition_id',
         'item_name',
         'image',
         'brand',
         'price',
         'description',
-        'condition'
     ];
+
+    public function conditions()
+    {
+        return $this->belongsTo(Condition::class);
+    }
 
     public function categories()
     {

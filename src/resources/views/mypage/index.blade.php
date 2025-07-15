@@ -8,8 +8,8 @@
 
 @section('content')
 <ul>
-    <li>おすすめ</li>
-    <li>マイリスト</li>
+    <li><a class="index__menu" href="src/resources/views/mypage/index.blade.php"></a>おすすめ</li>
+    <li><a class="index__menu" href="http://"></a>マイリスト</li>
 </ul>
 
 <div class="mylist">

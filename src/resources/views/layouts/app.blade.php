@@ -21,8 +21,9 @@
                  <!-- 検索ボックス -->
                 <li class="header__list-item">
                     <form class="header__form" action="/ class="header__form" method="get">
-                            @csrf
-                        
+                          @csrf
+                          <input type="text" name="keyword" class="keyword" placeholder="なにをお探しですか？">
+                            <button type="submit" class="submit-button">検索</button>  
                     </form>
                 </li>
 
