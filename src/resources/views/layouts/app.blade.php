@@ -13,49 +13,39 @@
 <body>
   <div class="app">
     <header class="header">
-      <h1 class="header__heading">COACHTECH</h1>
+      <div class="header__inner">
+        <h1 class="header__heading">COACHTECH</h1>
+        @if (Auth::check())
         <nav class="header__nav">
-            <ul class="header__list">
 
-                @if (Auth::check())
-                 <!-- 検索ボックス -->
-                <li class="header__list-item">
-                    <form class="header__form" action="/ class="header__form" method="get">
-                          @csrf
-                          <input type="text" name="keyword" class="keyword" placeholder="なにをお探しですか？">
-                            <button type="submit" class="submit-button">検索</button>  
-                    </form>
-                </li>
+           <!-- 検索ボックス -->
+          <form class="header__form" action="/" method="GET" >
+            <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？">
+            <button class="header__button" type="submit" >検索</button>  
+          </form>
 
-                    <!-- ログアウト -->
-                <li class="header__list-item">
-                    <form class="header__form" action="/logout" method="post">
-                            @csrf
-                            <button class="header__form--logout" type="submit">ログアウト</button>
-                    </form>
-                </li>
-
-                    <!-- マイページ -->
-                <li class="header__list-item">
-                    <form class="header__form" action="/?tab=mylist" method="GET">
-                            @csrf
-                            <button class="header__form--mypage" type="button">マイページ</button>
-                    </form>
-                </li>
-
-                    <!-- 出品 -->
-                <li class="header__list-item">
-                    <form class="header__form" action="/sell" method="get">
-                            @csrf
-                            <button class="header__form--sell" type="button">出品</button>
-                    </form>
-                </li>
-                @endif
-            </ul>
+          <!-- ログアウト -->
+          <form class="header__form" action="/logout" method="post">
+            @csrf
+            <button class="header__button" type="submit">ログアウト</button>
+          </form>
+          
+          <!-- マイリスト -->
+          <form class="header__form" action="/?tab=mylist" method="GET">
+            <button class="header__button" type="submit">マイページ</button>
+          </form>
+          
+          <!-- 出品 -->
+          <form class="header__form" action="/sell" method="get">
+            <button class="header__button" type="submit">出品</button>
+          </form>
         </nav>
-
+        @endif
+      </div>
       <!-- @yield('link') -->
     </header>
+
+    
     <div class="content">
       @yield('content')
     </div>

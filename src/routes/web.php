@@ -17,7 +17,11 @@ use App\Http\Controllers\ItemController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/register', function() {
+    return view('auth.register');
+});
 
+Route::post('/register', [UserController::class, 'storeUser']);
 
 Route::post('/mypage', [UserController::class, 'storePlofile']);
 
@@ -30,7 +34,6 @@ Route::post('/resister', [UserController::class, 'storeUser']);
 // Auth処理
 Route::middleware('auth')->group(function () {
 
-    
     // 初回プロフィール登録ページの表示
     Route::get('/mypage', [UserController::class, 'profile']);
 
@@ -40,6 +43,7 @@ Route::middleware('auth')->group(function () {
     // 会員のトップページの表示（adminで表示)
     Route::get('/', [MylistController::class, 'admin']);
 
+    
     
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });

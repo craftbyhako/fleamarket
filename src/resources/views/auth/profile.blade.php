@@ -22,12 +22,12 @@
                 @endif
 
                 <input type="file" id="file" name="image" hidden>
-                <label for="file" class="profile__img-label">画像を選択</label>
-                <p class="register-form__error-message">
+                <label for="file" class="profile__image-label">画像を選択する</label>
+                <!-- <p class="register-form__error-message">
                 @error('user_name')
                     {{ $message }}
                 @enderror
-                </p>
+                </p> -->
             </div>
         </div>
 
@@ -50,7 +50,7 @@
                 </p>
 
             <label class="profile__label" for="address">住所</label>
-            <input type="text" name="address" value="{{ old('address') }}" >
+            <input type="text" name="address" value="{{ (old('address')) }}" >
                 <p class="profile-form__error-message">
                 @error('address')
                 {{ $message }}

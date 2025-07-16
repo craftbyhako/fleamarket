@@ -8,8 +8,8 @@
 
 @section('content')
 <ul>
-    <li><a class="index__menu" href="src/resources/views/mypage/index.blade.php"></a>おすすめ</li>
-    <li><a class="index__menu" href="http://"></a>マイリスト</li>
+    <li><a class="index__menu" href="{{ url('/') }}">おすすめ</a></li>
+    <li><a class="index__menu" href="{{ url('/?tab=mylist') }}">マイリスト</a></li>
 </ul>
 
 <div class="mylist">
@@ -17,8 +17,9 @@
         @foreach ($items as $item)
         <div class="mylist__item">
             <!-- 画像 -->
-            <a href="/item/:item_id" class="item-link"></a>
-            <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
+            <a href="{{ url('/item/' . $item->id) }}" class="item-link">
+                <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
+            </a>
             <!-- 商品名 -->
             <div class="detail-content">
                 <p>{{ $item->name }}</p>

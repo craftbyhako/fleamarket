@@ -11,13 +11,12 @@ body {
 
 /* ヘッダー */
 .header {
-    display: grid;
-    align-items: center;
+    background-color: black;
+    color: white;
     padding: 16px 0;
     height: 80px;
     border: 1px solid #E0DFDE;
-    text-align: center;
-    font-family: serif;
+
 }
 
 .header__logo {

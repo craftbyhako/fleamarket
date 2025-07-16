@@ -15,9 +15,9 @@ class UserController extends Controller
 {
     public function storeUser(RegisterRequest $request){
         $user = User::create([
-            'name'=>$request->name,
+            'user_name'=>$request->user_name,
             'email'=>$request->email,
-            'password'=>Hash::make($request->password)
+            'password'=>Hash::make($request->password),
         ]);
         Auth::login($user);
 
@@ -50,8 +50,7 @@ class UserController extends Controller
 
         // 初回プロフ情報の保存
         $user->update($data);
-
-
+       
         // 会員ページへリダイレクト
         return redirect('/');
     }

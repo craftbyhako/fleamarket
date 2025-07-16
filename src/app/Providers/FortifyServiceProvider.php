@@ -13,6 +13,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use App\Http\Controllers\Auth\UserController;
+use Laravel\Fortify\Contracts\RegisterResponse;
+
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -30,7 +32,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Fortify::createUsersUsing(CreateNewUser::class);
+        // Fortify::createUsersUsing(CreateNewUser::class);
 
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
     
@@ -59,6 +61,17 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-         $this->app->bind(FortifyLoginRequest::class, RegisterRequest::class);
+         
+
+        $this->app->singleton(RegisterResponse::class, function () {
+            return new class implements RegisterResponse {
+                public function toResponse($request)
+            {
+                return redirect('/profile'); // 会員登録後のリダイレクト先
+            }
+        };
+    });
+
+    $this->app->bind(FortifyLoginRequest::class, RegisterRequest::class);
     }
 }

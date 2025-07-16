@@ -31,9 +31,9 @@
 
         <button class="login__button-submit" type="submit">ログイン</button>
     </form>
-    @if ($errors->any())
+    <!-- @if ($errors->any())
     <div class="error">{{ $errors->first() }}</div>
-    @endif
+    @endif -->
 
 
     <div class="register__link">
