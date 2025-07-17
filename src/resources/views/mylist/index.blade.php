@@ -2,6 +2,11 @@
 
 @section('css')
 <link rel="stylesheet" href="{{asset('css/index.css')}}">
+<!-- <style>
+div {
+  unicode-bidi: normal !important;
+}
+</style> -->
 
 @endsection
 
