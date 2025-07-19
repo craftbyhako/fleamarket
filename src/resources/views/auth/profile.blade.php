@@ -15,7 +15,7 @@
         <!-- プロフィール画像欄 -->
         <div class="profile__picture-group">
             <div class="profile__img">
-                @if(Auth::user()->profile_image)
+                @if(Auth::check() && Auth::user()->profile_image)
                     <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール写真" style="max-width: 100%; height: auto;">
                 @else
                     <p>画像なし</p>

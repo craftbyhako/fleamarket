@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Models\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Item;
+
 
 class Category extends Model
 {
@@ -15,6 +17,6 @@ class Category extends Model
 
     public function items()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class, 'category_item');
     }
 }

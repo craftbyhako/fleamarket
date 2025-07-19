@@ -16,33 +16,17 @@ class ConditionsTableSeeder extends Seeder
     public function run()
     {
         $conditions = [
-            ['condition' => '良好'],
-            ['condition' => '目立った傷や汚れなし'],
-            ['condition' => 'やや傷や汚れあり'],
-            ['condition' => '状態が悪い'],
-           
+            '良好',
+            '目立った傷や汚れなし',
+            'やや傷や汚れあり',
+            '状態が悪い',   
         ];
-        DB::table('conditions')->insert($conditions);
 
-        // $param = [
-        //     'condition' => '良好',
-        // ];
-        // DB::table('conditions')->insert($param);
-        
-        // $param = [
-        //     'condition' => '目立った傷や汚れなし',
-        // ];
-        // DB::table('conditions')->insert($param);
-        
-        // $param = [
-        //     'condition' => 'やや傷や汚れあり',
-        // ];
-        // DB::table('conditions')->insert($param);
-        
-        // $param = [
-        //     'condition' => '状態が悪い',
-        // ];
-        // DB::table('conditions')->insert($param);
+        foreach ($conditions as $condition) {
+            DB::table('conditions')->insert([
+                'condition' => $condition,
+            ]);
+        }
 
     }
 }

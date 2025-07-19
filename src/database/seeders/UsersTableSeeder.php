@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class UsersTableSeeder extends Seeder
             'user_name' => 'テスト１００',
             'email' => 'test@email.com100',
             'password' => Hash::make('password'),
-            'image' => '',
+            'profile_image' => '',
             'postcode' => '100-1001',
             'address' => '東京都千代田区100',
             'building' => '100ビルディング',
@@ -30,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'user_name' => 'テスト１０１',
             'email' => 'test@email.com101',
             'password' => Hash::make('password'),
-            'image' => '',
+            'profile_image' => '',
             'postcode' => '101-1011',
             'address' => '東京都千代田区101',
             'building' => '101ビルディング',
@@ -41,7 +42,7 @@ class UsersTableSeeder extends Seeder
             'user_name' => 'テスト１０２',
             'email' => 'test@email.com102',
             'password' => Hash::make('password'),
-            'image' => '',
+            'profile_image' => '',
             'postcode' => '102-1021',
             'address' => '東京都千代田区102',
             'building' => '',
@@ -52,7 +53,7 @@ class UsersTableSeeder extends Seeder
             'user_name' => 'テスト１０３',
             'email' => 'test@email.com103',
             'password' => Hash::make('password'),
-            'image' => '',
+            'profile_image' => 'public/images/Leather+Shoes+Product+Photo.jpg',
             'postcode' => '103-1031',
             'address' => '東京都千代田区103',
             'building' => '103ビルディング',
