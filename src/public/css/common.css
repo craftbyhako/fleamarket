@@ -55,7 +55,8 @@ body {
 
 } */
 
-.header__nav--item a,a:visited {
+.header__nav--item a,
+.header__nav--item a:visited {
     display: flex;
     align-items: center;
     text-decoration: none;
