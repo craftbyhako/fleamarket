@@ -11,13 +11,13 @@ class ItemController extends Controller
     public function index(){
 
         $items = Item::all();
-        return view('mylist.index', compact('items'));
+        return view('home', compact('items'));
     }
 
     // soldoutの表示
-    public function show($id){
-        $item = Item::with('sold')->findOrFail($id);
-        return view('mylist.index', compact('item'));
+    public function sold($id){
+        $items = Item::with('sold')->get();
+        return view('home', compact('items'));
     }
 }
 

@@ -18,6 +18,7 @@ div {
 
 <div class="mylist">
     <div class="mylist__items">
+       
         @foreach ($items as $item)
         <!-- {{ dd($item) }}  -->
         <div class="mylist__item">

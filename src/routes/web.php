@@ -17,25 +17,39 @@ use App\Http\Controllers\ItemController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/register', function() {
-    return view('auth.register');
+
+// 全ユーザーに共通の / ルート
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect('/?tab=mylist');
+    }
+    return app()->call([ItemController::class, 'index']);
 });
 
-Route::post('/register', [UserController::class, 'storeUser']);
+Route::middleware('guest')->group (function () {
 
-Route::post('/mypage', [UserController::class, 'storePlofile']);
+    Route::get('/register', function() {
+    return view('auth.register');
+    });
 
-// 非会員のトップページ表示
-Route::get('/', [ItemController::class, 'index']);
+    // 会員登録
+    Route::post('/register', [UserController::class, 'storeUser']);
+
+    // プロフィール登録
+    Route::post('/mypage', [UserController::class, 'storePlofile']);
+});
+
+
+
 
 // // soldout表示
 // Route::get('/', [ItemController::class, 'show']);
 
-// 会員登録
-Route::post('/resister', [UserController::class, 'storeUser']);
 
 // Auth処理
 Route::middleware('auth')->group(function () {
+
+    
 
     // 初回プロフィール登録ページの表示
     Route::get('/mypage', [UserController::class, 'profile']);
@@ -43,8 +57,7 @@ Route::middleware('auth')->group(function () {
     // 初回プロフィール情報・写真の保存
     Route::post('/mypage', [UserController::class, 'upload']);
 
-    // 会員のトップページの表示（adminで表示)
-    Route::get('/', [MylistController::class, 'admin']);
+    
 
     
     
