@@ -10,14 +10,11 @@ class ItemController extends Controller
 {
     public function index(){
 
-        $items = Item::all();
-        return view('home', compact('items'));
-    }
-
-    // soldoutの表示
-    public function sold($id){
+        // itemsとsold-itemを同時調査して表示
         $items = Item::with('sold')->get();
         return view('home', compact('items'));
     }
+
+    
 }
 

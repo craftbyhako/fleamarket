@@ -2,11 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{asset('css/index.css')}}?v={{ time() }}">
-<!-- <style>
-div {
-  unicode-bidi: normal !important;
-}
-</style> -->
+
 @endsection
 
 
