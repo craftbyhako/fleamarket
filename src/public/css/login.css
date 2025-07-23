@@ -1,5 +1,6 @@
 .login__content {
-    width: 300px;
+    width: 430px;
+    height: 700px;
     margin: 0 auto;
     padding-top: 40px;
 }
@@ -15,11 +16,17 @@
     margin-bottom: 16px;
     width: 100%;
     box-sizing: border-box;
+
 }
 
 .login__label {
     margin-bottom: 4px;
     font-weight: bold;
+}
+
+.login__input {
+    height: 30px;
+    font-size: 17px;
 }
 
 .login__error-message {
@@ -29,6 +36,7 @@
 
 .login__button-submit {
     text-align: center;
+    margin-top: 50px;
 
 }
 

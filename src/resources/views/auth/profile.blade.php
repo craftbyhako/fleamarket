@@ -34,7 +34,7 @@
         <!-- ユーザー情報追加入力欄 -->
         <div class="profile__input-form">
             <label class="profile__label" for="user_name">ユーザー名</label>
-            <input type="text" name="user_name" value="{{ old('user_name') }}" >
+            <input class="profile__input" type="text" name="user_name" value="{{ old('user_name') }}" >
                 <p class="register-form__error-message">
                 @error('user_name')
                 {{ $message }}
@@ -42,7 +42,7 @@
                 </p>
 
             <label class="profile__label" for="postcode">郵便番号</label>
-            <input type="text" name="postcode" value="{{ old('postcode') }}" >
+            <input class="profile__input" type="text" name="postcode" value="{{ old('postcode') }}" >
                 <p class="profile-form__error-message">
                 @error('postcode')
                 {{ $message }}
@@ -50,7 +50,7 @@
                 </p>
 
             <label class="profile__label" for="address">住所</label>
-            <input type="text" name="address" value="{{ (old('address')) }}" >
+            <input class="profile__input" type="text" name="address" value="{{ (old('address')) }}" >
                 <p class="profile-form__error-message">
                 @error('address')
                 {{ $message }}
@@ -58,7 +58,7 @@
                 </p>
 
             <label class="profile__label" for="building">建物名</label>
-            <input type="text" name="building" value="{{ old('building') }}" >
+            <input class="profile__input" type="text" name="building" value="{{ old('building') }}" >
                 <p class="profile__error-message">
                 @error('building')
                 {{ $message }}

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{asset('css/index.css')}}?v={{ time() }}">
+<link rel="stylesheet" href="{{asset('css/home.css')}}?v={{ time() }}">
 <!-- <style>
 div {
   unicode-bidi: normal !important;

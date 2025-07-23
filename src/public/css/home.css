@@ -5,7 +5,7 @@
     font-weight: bold;
     display: flex;
     border-bottom: 1px solid black;
-    
+
 }
 
 .index__menu--item {
@@ -16,11 +16,11 @@
 }
 
 .mylist__items {
-    display:flex;
-    flex-wrap:wrap;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     max-width: 1200px;
-    margin:auto;
+    margin: auto;
     gap: 16px;
 }
 
@@ -44,7 +44,7 @@
     height: 180px;
     background-color: white;
     object-fit: cover;
-    
+
 }
 
 .detail-content {
@@ -54,7 +54,7 @@
 }
 
 .detail-content__name {
-font-size: 16px;
+    font-size: 16px;
 }
 
 .sold-label {

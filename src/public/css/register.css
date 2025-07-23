@@ -1,11 +1,11 @@
 .register__content {
-    width: 300px;
+    width: 430px;
     margin: 0 auto;
     padding-top: 40px;
-    }
+}
 
 .register__title {
-    text-align:center;
+    text-align: center;
     margin-bottom: 24px;
 }
 
@@ -22,25 +22,31 @@
     font-weight: bold;
 }
 
-.register__error-message {
-    color:red;
+.register__input {
+    height: 30px;
+    width: 430px;
+    font-size: 17px;
+}
+
+.register-form__error-message {
+    color: red;
 }
 
 .register__input-form__button {
     text-align: center;
+    width: 430px;
 
 }
 
 button {
     background-color: red;
-        /* 背景：親の赤に「なじむ」 */
-        color: white;
-        font-size: 16px;
-        padding: 10px 24px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        width: 100%;
+    color: white;
+    font-size: 16px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
 }
 
 button:hover {

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use App\Models\Condition;
+use App\Models\Sold;
 
 class Item extends Model
 {
@@ -53,5 +55,12 @@ class Item extends Model
             $returnTxt = "no";
             return $returnTxt;
          }
+    }
+
+    // Soldモデルとリレーション
+    public function sold()
+    {
+        return $this->hasOne(Sold::class);
+
     }
 }

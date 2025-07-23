@@ -14,7 +14,7 @@
 
     
         <label class="login__label" for="email">メールアドレス</label>
-        <input type="email" name="email" value="{{ old('email') }}">
+        <input class="login__input" type="email" name="email" value="{{ old('email') }}">
         <p class="login__error-message">
                     @error('email')
                     {{ $message }}
@@ -22,14 +22,14 @@
         </p>
 
         <label class="login__label" for="password">パスワード</label>
-        <input type="password" name="password">
+        <input class="login__input" type="password" name="password">
         <p class="login__error-message">
                     @error('password')
                     {{ $message }}
                     @enderror
         </p>
 
-        <button class="login__button-submit" type="submit">ログイン</button>
+        <button class="login__button-submit" type="submit">ログインする</button>
     </form>
     <!-- @if ($errors->any())
     <div class="error">{{ $errors->first() }}</div>

@@ -28,6 +28,9 @@ Route::post('/mypage', [UserController::class, 'storePlofile']);
 // 非会員のトップページ表示
 Route::get('/', [ItemController::class, 'index']);
 
+// // soldout表示
+// Route::get('/', [ItemController::class, 'show']);
+
 // 会員登録
 Route::post('/resister', [UserController::class, 'storeUser']);
 
