@@ -1,10 +1,13 @@
 .index__menu {
     list-style: none;
-    height: 50px;
-    margin: 30px 50px;
+    height: 80px;
+    width: 100%;
+    margin: 0 auto;
     font-weight: bold;
     display: flex;
     border-bottom: 1px solid black;
+    text-align: center;
+    padding-top: 25px;
 
 }
 
@@ -13,6 +16,8 @@
     margin-left: 100px;
     text-decoration: none;
     color: black;
+    text-align: center;
+
 }
 
 .mylist__items {
@@ -22,6 +27,7 @@
     max-width: 1200px;
     margin: auto;
     gap: 16px;
+    margin-top: 50px;
 }
 
 .mylist__item {
@@ -49,18 +55,18 @@
 
 .detail-content {
     padding: 10px;
-    text-align: left;
     background-color: white;
+    text-align: left;
 }
 
 .detail-content__name {
-    font-size: 16px;
+    font-size: 15px;
+    
 }
 
 .sold-label {
-    background-color: red;
+    background-color: rgb(193, 192, 192);
     color: white;
     padding: 4px 8px;
     border-radius: 4px;
-    font-weight: bold;
 }

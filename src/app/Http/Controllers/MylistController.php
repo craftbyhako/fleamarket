@@ -18,9 +18,12 @@ class MylistController extends Controller
     public function admin(Request $request){
 
         $userId = Auth::id();
+        $tab = $request->query('tab', ''); 
+
+        $items = Item::with('user')->get();
+        
+        
         $likes = Like::where('user_id', $userId)->get();
-        $tab = $request->query('tab');
-        $items = Item::all();
         
         return view ('mylist.index', compact('items', 'likes', 'tab'));
     }

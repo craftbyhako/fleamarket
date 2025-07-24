@@ -14,6 +14,7 @@
 
 <div class="mylist">
     <div class="mylist__items">
+
         @foreach ($items as $item)
         <!-- {{ dd($item) }}  -->
         <div class="mylist__item">
@@ -32,6 +33,9 @@
                         <span class="sold-label">SOLD</span>
                         @endif
                     </p>
+
+                    <!-- <p>出品者: {{ $item->user->name ?? '不明' }} -->
+
                 </div>
 
             </a>

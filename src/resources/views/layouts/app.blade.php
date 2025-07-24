@@ -16,7 +16,7 @@
     <header class="header">
       <div class="header__inner">
         <h1 class="header__heading"><a href="/">COACHTECH</a></h1>
-        @if (Auth::check())
+
         <nav class="header__nav">
 
            <!-- 検索ボックス -->
@@ -25,12 +25,21 @@
             <!-- <button class="header__button" type="submit" >検索</button>   -->
           </form>
 
+
+        @if (Auth::check())
+
           <!-- ログアウト -->
           <form class="header__form" action="/logout" method="post">
             @csrf
             <button class="header__button" type="submit">ログアウト</button>
           </form>
-          
+        @else
+          <!-- ログイン前：ログイン -->
+          <div class="header__nav--item">
+            <a href="/login">ログイン</a>
+          </div>
+        @endif
+
           <!-- マイリスト -->
           <div class="header__nav--item">
             <a href="/?tab=mylist">マイページ</a>
@@ -41,7 +50,6 @@
             <a href="/sell">出品</a>
           </div>
         </nav>
-        @endif
       </div>
       <!-- @yield('link') -->
     </header>

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Sold;
+use App\Models\User;
+
 
 class Item extends Model
 {
@@ -62,5 +64,10 @@ class Item extends Model
     {
         return $this->hasOne(Sold::class);
 
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

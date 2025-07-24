@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\MylistController;
 use App\Http\Controllers\ItemController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -19,9 +21,9 @@ use App\Http\Controllers\ItemController;
 */
 
 // 全ユーザーに共通の / ルート
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect('/?tab=mylist');
+Route::get('/', function (Request $request) {
+    if (Auth::check() && $request->query('tab') === 'mylist') {
+        return app()->call([MylistController::class, 'admin']);
     }
     return app()->call([ItemController::class, 'index']);
 });
