@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Item;
+
+
 
 class Like extends Model
 {
@@ -14,4 +18,13 @@ class Like extends Model
         'user_id',
         'item_id',
     ];
+
+    public function item(){
+        return $this->belongsTo(Item::class);
+    }
+
+    public function users(){
+        return $this->belongsTo(User::class);
+    }
+
 }

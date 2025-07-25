@@ -10,8 +10,8 @@ class ItemController extends Controller
 {
     public function index(){
 
-        // itemsとsold-itemを同時調査して表示
-        $items = Item::with('sold')->get();
+        // itemsとsold-item,like,userを同時調査して表示
+        $items = Item::with(['user', 'sold', 'likes'])->get();
         return view('home', compact('items'));
     }
 

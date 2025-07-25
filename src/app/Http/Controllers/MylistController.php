@@ -19,40 +19,21 @@ class MylistController extends Controller
 
         $userId = Auth::id();
         $tab = $request->query('tab', ''); 
+        
+        // おすすめ
+        $items = Item::with('user', 'sold')->get();
 
-        $items = Item::with('user')->get();
+        // マイリスト
+        if ($tab === 'mylist') {
+            if ($user) {
+                $likedItemIds = $user->likes()->pluck('item_id');
+                $items = Item::whereIn('id', $likedItemIds)->with('user', 'likes')->get();
+            } else {
+            // 未ログイン時のマイリスト → 空のコレクション
+            $items = collect(); // 空データを返す
+            }
+        }
         
-        
-        $likes = Like::where('user_id', $userId)->get();
-        
-        return view ('mylist.index', compact('items', 'likes', 'tab'));
+        return view ('mylist.index', compact('items', 'tab'));
     }
-
-
-    // そして、コントローラーでこう処理します：
-
-    // public function admin(Request $request)
-    // {
-    //     $tab = $request->query('tab'); // 例: "mylist"
-        
-    //     // 条件に応じてビューや処理を分岐させるなど
-    //     if ($tab === 'mylist') {
-    //         // マイリスト処理
-    //     }
-    
-    //     return view('mypage.admin', compact('tab'));
-    // }
-
-
-
-    
-    // public function purchase(){
-    //         return view ('purchase');
-    // }
-
-    // public function sell(){
-    //         return view('sell');
-    // }
-    
-    
-}
+    }

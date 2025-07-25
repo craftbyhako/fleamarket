@@ -20,15 +20,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// 全ユーザーに共通の / ルート
-Route::get('/', function (Request $request) {
-    if (Auth::check() && $request->query('tab') === 'mylist') {
-        return app()->call([MylistController::class, 'admin']);
-    }
-    return app()->call([ItemController::class, 'index']);
-});
-
 Route::middleware('guest')->group (function () {
+    Route::get('/', [ItemController::class, 'index'])->name('home');
 
     Route::get('/register', function() {
     return view('auth.register');
@@ -42,14 +35,9 @@ Route::middleware('guest')->group (function () {
 });
 
 
-
-
-// // soldout表示
-// Route::get('/', [ItemController::class, 'show']);
-
-
 // Auth処理
 Route::middleware('auth')->group(function () {
+    Route::get('/', [MylistController::class, 'admin'])->name('mylist');
 
     
 

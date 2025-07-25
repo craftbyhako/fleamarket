@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Sold;
 use App\Models\User;
+use App\Models\like;
 
 
 class Item extends Model
@@ -65,9 +66,20 @@ class Item extends Model
         return $this->hasOne(Sold::class);
 
     }
-
+    // Userモデルとのリレーション
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    // Likeモデルとのリレーション
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public  function likedUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    } 
 }

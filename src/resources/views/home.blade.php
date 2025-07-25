@@ -8,8 +8,8 @@
 
 @section('content')
 <ul class="index__menu">
-    <li><a class="index__menu--item" href="{{ url('/') }}">おすすめ</a></li>
-    <li><a class="index__menu--item" href="{{ url('/?tab=mylist') }}">マイリスト</a></li>
+    <li><a class="index__menu--item" href="/">おすすめ</a></li>
+    <li><a class="index__menu--item" href="/?tab=mylist">マイリスト</a></li>
 </ul>
 
 <div class="mylist">
