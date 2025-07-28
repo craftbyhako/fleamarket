@@ -17,11 +17,19 @@ class MylistController extends Controller
     // ログイン後の一覧画面
     public function admin(Request $request){
 
+        $user = Auth::user();
         $userId = Auth::id();
         $tab = $request->query('tab', ''); 
         
         // おすすめ
-        $items = Item::with('user', 'sold')->get();
+        $query = Item::with('user', 'sold');
+        if ($user) {
+            $query->where('user_id', '<>', $user->id);
+        }
+            $items = $query->get();
+
+
+
 
         // マイリスト
         if ($tab === 'mylist') {

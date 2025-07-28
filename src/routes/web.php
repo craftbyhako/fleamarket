@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::middleware('guest')->group (function () {
-    Route::get('/', [ItemController::class, 'index'])->name('home');
+// 会員・非会員共通のトップ画面
+Route::get('/', [ItemController::class, 'index'])->name('home');
 
+Route::middleware('guest')->group (function () {
+    
     Route::get('/register', function() {
     return view('auth.register');
     });
@@ -30,13 +32,25 @@ Route::middleware('guest')->group (function () {
     // 会員登録
     Route::post('/register', [UserController::class, 'storeUser']);
 
-    // プロフィール登録
-    Route::post('/mypage', [UserController::class, 'storePlofile']);
+     // ログインページ表示
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+
+    // ログイン処理
+    Route::post('/login', [UserController::class, 'loginUser'])->name('login');
+
+
 });
 
 
 // Auth処理
 Route::middleware('auth')->group(function () {
+    
+    // プロフィール登録
+    Route::post('/mypage', [UserController::class, 'storePlofile']);
+
+
     Route::get('/', [MylistController::class, 'admin'])->name('mylist');
 
     

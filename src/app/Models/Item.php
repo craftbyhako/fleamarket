@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Sold;
 use App\Models\User;
-use App\Models\like;
+use App\Models\Like;
 
 
 class Item extends Model
