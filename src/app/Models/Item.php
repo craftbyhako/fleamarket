@@ -26,7 +26,7 @@ class Item extends Model
         'description',
     ];
 
-    public function conditions()
+    public function condition()
     {
         return $this->belongsTo(Condition::class);
     }

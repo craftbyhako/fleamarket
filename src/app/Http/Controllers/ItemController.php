@@ -15,6 +15,13 @@ class ItemController extends Controller
         return view('home', compact('items'));
     }
 
-    
-}
+    // 詳細画面表示
+    public function show($item_id){
+    {
+        $item = Item::with('user', 'category', 'comments.user', 'condition')->find($item_id);
+        $comments = $item->comments;
 
+        return view('item', compact('item', 'comments'));
+    }
+    }
+}

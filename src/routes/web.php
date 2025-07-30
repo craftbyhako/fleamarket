@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Auth;
 // 会員・非会員共通のトップ画面
 Route::get('/', [ItemController::class, 'index'])->name('home');
 
+Route::get('/item/{item_id}', [ItemController::class, 'show']);
+
 Route::middleware('guest')->group (function () {
     
     Route::get('/register', function() {
@@ -42,6 +44,7 @@ Route::middleware('guest')->group (function () {
 
 
 });
+
 
 
 // Auth処理
@@ -67,3 +70,4 @@ Route::middleware('auth')->group(function () {
     
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });
+
