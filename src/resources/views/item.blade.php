@@ -33,9 +33,9 @@
 
     <h3>商品の情報</h3>
     <label for="category">カテゴリー</label>
-    <input type="text" name="category">
-    @foreach( $item->categories as category )
-    <p>{{ $category->category }}</p>
+    
+    @foreach( $item->categories as $category )
+        <p>{{ $category->category_name }}</p>
     @endforeach
 
 
