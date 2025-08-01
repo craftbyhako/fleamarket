@@ -15,4 +15,16 @@ class Comment extends Model
             'item_id',
             'content'
         ];
-}
+
+        // Itemモデルとのリレーション
+        public function item()
+        {
+            return $this->belongsTo(Item::class);
+        }
+
+        // Userモデルとのリレーション
+        public function user()
+        {
+            return $this->belongsTo(User::class);
+        }
+}   

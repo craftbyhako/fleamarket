@@ -82,4 +82,15 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'likes');
     } 
+
+    // Commentsモデルとのリレーション
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function commentedUsers()
+    {
+        return $this->belongsToMany(User::class, 'comments');
+    }
 }

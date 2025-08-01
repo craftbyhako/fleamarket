@@ -49,11 +49,25 @@ class User extends Authenticatable
 
     ];
 
-    public function likes(){
+    // Likeモデルとのリレーション
+    public function likes()
+    {
         return $this->hasMany(Like::class); 
     }
 
-    public function likedItems() {
+    public function likedItems() 
+    {
         return $this->belongsToMany(Item::class, 'likes');
+    }
+    
+    // Commentsモデルとのリレーション
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function CommentedItems()
+    {
+        return $this->belongsToMany(Item::class, 'comments');
     }
 }

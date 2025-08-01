@@ -6,6 +6,8 @@ use App\Http\Controllers\MylistController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
+
 
 
 
@@ -64,7 +66,23 @@ Route::middleware('auth')->group(function () {
     // 初回プロフィール情報・写真の保存
     Route::post('/mypage', [UserController::class, 'upload']);
 
-    
+    // コメント投稿 
+    Route::post('/comments', function(Request $request)
+    {
+        $request->validate([
+            'item_id' => 'required|exists:items,id',
+            'content' => 'required|string|max:1000',
+        ]);
+
+        Comment::create([
+            'item_id' => $request->item_id,
+            'user_id' => Auth::id(),
+            'content' => $request->content,
+        ]);
+
+        return redirect()->back()->with('success', 'コメントを投稿しました。');
+
+    })->name('comments.store');   
 
     
     

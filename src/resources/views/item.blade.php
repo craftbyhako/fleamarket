@@ -10,6 +10,7 @@
 
 
 <div class="item__left-part">
+
     <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
 </div>
 
@@ -18,7 +19,7 @@
 <div class="item__right-part">
     <h2>{{$item->item_name}}</h2> 
     <div class="brand-name">{{ $item->brand_name }}</div>
-    <div class="price">{{ $item->price }} (税込）</div>
+    <div class="price">￥{{ $item->price }} (税込）</div>
 
     <!-- Like/Commentsのカウント -->
      <!-- DBからLike/Commentsの数を抽出する -->
@@ -40,32 +41,35 @@
 
 
     <label for="condition">商品の状態</label>
-    <input type="text" name="condition">
     <P>{{ $item->condition->condition ?? '未設定' }}</P>
 
     <div class="item__comment-part">
-        コメント({{ count($comments) }})
+        <h4>コメント({{ count($comments) }})</h4>
         
         @foreach ($comments as $comment)
-        <div class="item__comment-part--content">
-        {{$comment->content}}
-        </div>
-        @endforeach
-   
-            <img src="" alt="">
-            <p> {{ $item->user->user_name }} </p>
             <div class="item__comment-part--content">
-                {{$comment->content}}
+                <div class="comment__user">
+                    <img src="{{ asset('strage/' . $comment->user->profile_image) }}" alt="プロフィール写真">
+                    <p>{{$comment->user->user_name}}</p>
+                </div>
+
+            <div class="comment__body">
+                <p>{{$comment->content}}</p>
             </div>
+    </div>
+        @endforeach
+
 
             <h4>商品へのコメント </h4>
 
-            <textarea name="" id=""></textarea>
-
-            <button type="submit">コメントを送信する</button>
-
+            <!-- <form action="{{ route('comments.store') }}" method="POST">
+            @csrf -->
+                <textarea name="content" id="content" required></textarea>
+                <input type="hidden" name="item_id" value="{{ $item->id }}">
+            
+                <button type="submit">コメントを送信する</button>
+            <!-- </form> -->
     </div>
-</div>
 
 @endsection
 
