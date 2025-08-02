@@ -26,7 +26,7 @@
             
                              <a href="{{ url('/?tab=mylist' . $item->id) }}" class="item-link">
                                 <!-- 画像 -->
-                                <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
+                                <img src="{{ asset('storage/' .$item->image) }}" alt="商品画像" class="img-content">
             
                                 <!-- 商品名 -->
                                 <div class="detail-content">
@@ -56,7 +56,7 @@
             
                              <a href="{{ url('/item/' . $item->id) }}" class="item-link">
                                 <!-- 画像 -->
-                                <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
+                                <img src="{{ asset('storage/' .$item->image) }}" alt="商品画像" class="img-content">
             
                                 <!-- 商品名 -->
                                 <div class="detail-content">
