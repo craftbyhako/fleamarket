@@ -44,4 +44,15 @@ class MylistController extends Controller
         
         return view ('mylist.index', compact('items', 'tab'));
     }
+
+    public function show($item_id){
+    {
+        $item = Item::with('user', 'categories', 'comments.user', 'condition')->withCount(['likes', 'comments'])->findOrFail($item_id);
+        $comments = $item->comments;
+
+
+        return view('item', compact('item', 'comments'));
+    }
+    }
+
     }

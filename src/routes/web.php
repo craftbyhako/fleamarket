@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
     // いいね機能
     Route::post('/items/{id}/like', [LikeController::class, 'toggleLike']);
 
+    Route::get('/item/{item_id}', [MylistController::class, 'show']);
+
     
     
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);

@@ -18,38 +18,45 @@
 
 
     <div class="item__right-part">
+        <!-- 商品名 -->
         <h1>{{ $item->item_name }}</h1> 
+
+        <!-- ブランド名 -->
+        <div class="brand-name">{{ $item->brand_name }}</div>
         
-        @if(Auth::user()->likedItems->contains($item->id))
-            <form action="{{ url('/items'. $item->id. 'like') }}" method="post">
+        <!-- 値段 -->
+        <div class="price">￥{{ $item->price }} (税込）</div>
+
+        
+@auth
+    @php
+        $isLiked = Auth::user()->likedItems->contains($item->id);
+    @endphp
+
+    <div class="item__actions">
+        <!-- いいね数の表示-->
+        <div class="action__item">
+            <form action="{{ url('/items/' . $item->id . '/like') }}" method="POST">
                 @csrf
-                <button class="like-button" type="submit">いいね解除</button>
+                <button type="submit" class="like-button">
+                    <img src="{{ asset('storage/like.jpeg') }}" alt="いいね画像" class="like-image  {{ $isLiked ? 'liked' : '' }}">
+                </button>
             </form>
-        @else
-            <form action="{{ url('/items'. $item->id. 'like') }}" method="post">
-                @csrf
-                <button class="like-button" type="submit">いいね！</button>
-            </form>
-        @endif
+            <span class="count">{{ $item->likes_count ?? 0 }}</span>
+        </div>
+               
+        <!-- コメント数の表示 -->
+        <div class="action__item">
+            <img src="{{ asset('storage/comment.jpeg') }}" alt="コメント画像" >
+            <span class="count">{{ $item->comments_count ?? 0 }}</span>
+        </div>
+    </div>
+@endauth
 
-                <div class="brand-name">{{ $item->brand_name }}</div>
-            <div class="price">￥{{ $item->price }} (税込）</div>
-
-            <div class="item__actions">
-                <div class="action__item">
-                    <img src="{{ asset('storage/like.jpeg') }}" alt="">
-                    <span class="count">{{ $item->likes_count ?? 0 }}</span>
-                </div>
-            
-
-                <div class="action__item">
-                    <img src="{{ asset('storage/comment.jpeg') }}" alt="">
-                    <!-- <span class="comment-icon">💬</span> -->
-                    <span class="count">{{ $item->comments_count ?? 0 }}</span>
-                </div>
-            </div>
-
+            <!-- 購入手続きのボタン -->
             <button class="item__button" type="submit"> 購入手続きへ</button>
+        
+        <!-- 商品説明     -->
         <h2>商品説明</h2>
             <div>カラー：グレー</div>
             <div>新品</div>
