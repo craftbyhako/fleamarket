@@ -8,6 +8,7 @@
 
 @section('content')
 
+
 <div class="item__all-contents">
     <div class="item__left-part">
 
@@ -17,8 +18,21 @@
 
 
     <div class="item__right-part">
-        <h1>{{$item->item_name}}</h1> 
-            <div class="brand-name">{{ $item->brand_name }}</div>
+        <h1>{{ $item->item_name }}</h1> 
+        
+        @if(Auth::user()->likedItems->contains($item->id))
+            <form action="{{ url('/items'. $item->id. 'like') }}" method="post">
+                @csrf
+                <button class="like-button" type="submit">いいね解除</button>
+            </form>
+        @else
+            <form action="{{ url('/items'. $item->id. 'like') }}" method="post">
+                @csrf
+                <button class="like-button" type="submit">いいね！</button>
+            </form>
+        @endif
+
+                <div class="brand-name">{{ $item->brand_name }}</div>
             <div class="price">￥{{ $item->price }} (税込）</div>
 
             <div class="item__actions">
@@ -93,5 +107,6 @@
             <!-- </form> -->
     </div>
 </div>
+
 @endsection
 

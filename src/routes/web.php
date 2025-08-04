@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\MylistController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
@@ -83,6 +84,9 @@ Route::middleware('auth')->group(function () {
         return redirect()->back()->with('success', 'コメントを投稿しました。');
 
     })->name('comments.store');   
+
+    // いいね機能
+    Route::post('/items/{id}/like', [LikeController::class, 'toggleLike']);
 
     
     
