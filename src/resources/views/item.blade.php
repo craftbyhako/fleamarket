@@ -54,7 +54,7 @@
 @endauth
 
             <!-- 購入手続きのボタン -->
-            <button class="item__button" type="submit"> 購入手続きへ</button>
+            <button class="item__button" onclick="location.href='{{ url('/purchase/' . $item->id) }}'"> 購入手続きへ</button>
         
         <!-- 商品説明     -->
         <h2>商品説明</h2>

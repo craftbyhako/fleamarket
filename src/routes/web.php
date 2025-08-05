@@ -5,9 +5,11 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\MylistController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+
 
 
 
@@ -91,6 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{item_id}', [MylistController::class, 'show']);
 
     
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'showForm']);
     
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });
