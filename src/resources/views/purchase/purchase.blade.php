@@ -12,9 +12,9 @@
         
         <!-- 購入商品 -->
         <div class="purchase__item">
-            <img class="item-img"src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
-            <h2>{{ $item->item_name }}</h2>
-            <h3>￥{{ $item->price }}</h3>
+            <img class="item-img" src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
+            <h2 class="item-name">{{ $item->item_name }}</h2>
+            <h3 class="item-price">￥{{ $item->price }}</h3>
         </div>
 
         <!-- 支払い方法 -->
@@ -45,7 +45,8 @@
 
     <div class="purcahse__right-part">
         <table class="purchase__summary">
-            <tr>
+            <tr class = "summary-row" {
+">
                 <th>商品代金</th>
                 <td>{{ $item->price }}</td>
             </tr>

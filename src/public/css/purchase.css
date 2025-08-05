@@ -1,22 +1,41 @@
 .purchase{
     display: flex;
+    max-width: 1340px;
+    margin: 0 auto;
+    padding:30px;
+    gap:40px;
+
 }
 
 .purchase__left-part {
-    display: flex;
+    flex: 2;
 }
 
 .purchase__item {
     display: flex;
-    margin:50px 20px;
+    margin-bottom:20px;
+    gap: 20px;
 }
 
 .item-img {
-    width: 40%;
+    width: 200px;
     height: 200px;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
 
+.item-name {
+    margin: 0;
+    font-size: 20px;
+}
+
+.item-price {
+    font-size: 18px;
+    margin-top: 10px;
+}
 
 
 
@@ -46,3 +65,42 @@
     background-color: red;
     color: white;
 }
+
+/* セクション */
+.section {
+    border-top: 1px solid #ccc;
+    padding: 20px 0;
+}
+
+.section h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.select-box select {
+    padding: 6px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.destionation {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.purcahse__right-part {
+    flex: 1;
+}
+
+.purchase__summary {
+    border: 1px solid #333;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.purchase__summar {
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  };
