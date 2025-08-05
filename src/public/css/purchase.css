@@ -1,3 +1,27 @@
+.purchase{
+    display: flex;
+}
+
+.purchase__left-part {
+    display: flex;
+}
+
+.purchase__item {
+    display: flex;
+    margin:50px 20px;
+}
+
+.item-img {
+    width: 40%;
+    height: 200px;
+    
+}
+
+
+
+
+
+
 .purchase__summary {
     width: 100%;
     border-collapse: collapse;

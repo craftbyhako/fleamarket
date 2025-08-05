@@ -93,7 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{item_id}', [MylistController::class, 'show']);
 
     
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'showForm']);
+    Route::get('/purchase/{item}', [PurchaseController::class, 'showForm']);
     
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });

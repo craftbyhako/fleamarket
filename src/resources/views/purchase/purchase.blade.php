@@ -8,11 +8,11 @@
 @section('content')
 
 <div class="purchase">
-    <div class="purcahse__left-part">
+    <div class="purchase__left-part">
         
         <!-- 購入商品 -->
         <div class="purchase__item">
-            <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
+            <img class="item-img"src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
             <h2>{{ $item->item_name }}</h2>
             <h3>￥{{ $item->price }}</h3>
         </div>
