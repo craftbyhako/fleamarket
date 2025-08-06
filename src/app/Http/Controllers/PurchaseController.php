@@ -38,7 +38,7 @@ class PurchaseController extends Controller
         'user_id' => Auth::id(),
         ]);
 
-    return redirect()->route('mylist.index')->with('success', 購入が完了しました');
+    return redirect()->route('mylist.index')->with('success', '購入が完了しました');
 
     }
 
