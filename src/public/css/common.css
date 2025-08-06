@@ -1,10 +1,10 @@
 html,
 body {
     height: 100%;
-    max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
-}
+    /* padding: 0 20px;
+} */
 
 .flex-box {
     display: flex;
@@ -25,6 +25,7 @@ body {
     padding: 16px 0;
     height: 80px;
     border: 1px solid #E0DFDE;
+    width: 100%;
 }
 
 .header__inner {
@@ -32,7 +33,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    max-width: 1200px;
+    max-width: 1340px;
     margin: 0 auto;
     padding: 0 20px;
 }

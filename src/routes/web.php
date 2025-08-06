@@ -92,9 +92,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/item/{item_id}', [MylistController::class, 'show']);
 
-    
-    Route::get('/purchase/{item}', [PurchaseController::class, 'showForm']);
-    
+    Route::get('/purchase/{item}', [PurchaseController::class, 'showForm'])->name('purchase.form');
+
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'showDestination'])->name('purchase.showDestination');
+
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 });
 

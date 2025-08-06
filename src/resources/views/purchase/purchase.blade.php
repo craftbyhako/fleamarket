@@ -13,17 +13,20 @@
         <!-- 購入商品 -->
         <div class="purchase__item">
             <img class="item-img" src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
-            <h2 class="item-name">{{ $item->item_name }}</h2>
-            <h3 class="item-price">￥{{ $item->price }}</h3>
+            <div class="purchase__info">
+                <p class="item-name">{{ $item->item_name }}</p>
+                <p class="item-price">￥{{ number_format($item->price) }}</p>
+            </div>
         </div>
 
         <!-- 支払い方法 -->
         <div class="payment">
-            <form action="">
+            <form action="{{ route('purchase.form', ['item' => $item->id]) }}" method="get">
                 <p>支払い方法</p>
-                <select name="payment" id="" placeholder="選択してください">
-                    <option value="1">コンビニ払い</option>
-                    <option value="2">カード支払い</option>
+                <select class="payment__select" name="payment" onchange="this.form.submit()" >
+                    <option value="" disabled {{ request('payment') == '' ? 'selected' : '' }}>支払い方法を選択してください</option>
+                    <option value="コンビニ払い" {{ request('payment') == 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
+                    <option value="カード支払い" {{ request('payment') == 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
                 </select>
             </form>
         </div>
@@ -31,12 +34,12 @@
         <!-- 配送先 -->
         <div class="destination">
             <div class="destination-wrapper">
-                <div class="destination__comfirm">配送先
-                    <div>{{ $user->postcode }}</div>
-                    <div>{{ $user->address }}</div>
-                    <div>{{ $user->building }}</div>
-                </div>
-                <p class="destination__edit">変更する</p>
+                <p class="destination__comfirm">配送先 <a href="{{ route('purchase.showDestination', ['item_id' => $item->id]) }}" class="change-link">変更する</a></p>
+                    <div class="user-address">
+                        <p>〒{{ $user->postcode }}</p>
+                        <p>{{ $user->address }}</p>
+                        <p>{{ $user->building }}</p>
+                    </div>
             </div>   
         </div>
 
@@ -45,15 +48,14 @@
 
     <div class="purcahse__right-part">
         <table class="purchase__summary">
-            <tr class = "summary-row" {
-">
+            <tr class = "summary-row">
                 <th>商品代金</th>
-                <td>{{ $item->price }}</td>
+                <td>￥{{ number_format($item->price) }}</td>
             </tr>
 
             <tr>
                 <th>支払い方法</th>
-                <td>{{ $item->name }}</td>
+                <td>{{ request('payment') ?? '未選択' }}</td>
             </tr>
         </table>
 

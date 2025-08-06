@@ -59,7 +59,7 @@
 
             <label class="profile__label" for="building">建物名</label>
             <input class="profile__input" type="text" name="building" value="{{ old('building') }}" >
-                <p class="profile__error-message">
+                <p class="profile-form__error-message">
                 @error('building')
                 {{ $message }}
                 @enderror
