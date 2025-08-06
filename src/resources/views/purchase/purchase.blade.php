@@ -61,12 +61,5 @@
 
         <button class="purchase__button" type="submit">購入する</button>
     </div>
-
-
-
-
-
-
-
 </div>
 @endsection

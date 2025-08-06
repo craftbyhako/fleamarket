@@ -34,8 +34,10 @@
                                         {{ $item->item_name }}
                          
                                     <!-- soldout表示 -->
-                                    @if ($item->sold)
+                                    @if ($isSold)
                                         <span class="sold-label">SOLD</span>
+                                    @else
+                                        <p class="price">¥{{ $item->price }}</p>
                                     @endif
                                     </p>
                                 </div>

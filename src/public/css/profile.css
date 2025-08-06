@@ -119,3 +119,5 @@ button:hover {
     /* グレー背景 */
     border-radius: 50%;
 }
+
+@media screen and (min-width: 768px) and (max-width: 850px) {}

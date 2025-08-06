@@ -1,0 +1,71 @@
+.destination__content {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 40px;
+    position: relative;
+    left: 0;
+    right: 0;
+}
+
+.destination__title {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.destination-form {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.destination__input-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.destination__label {
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.destination__input {
+    height: 30px;
+    font-size: 17px;
+    width: 430px;
+}
+
+.destination__error-message {
+    color: red;
+}
+
+.destination__input-form__button {
+    text-align: center;
+
+}
+
+button {
+    background-color: red;
+    /* 背景：親の赤に「なじむ」 */
+    color: white;
+    /* 文字色：見やすい白 */
+    font-size: 16px;
+    padding: 10px 24px;
+    border: none;
+    /* 枠なし */
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+    /* ホバー時、少しだけ反応 */
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 850px) {}
