@@ -52,8 +52,8 @@ class PurchaseController extends Controller
     }
 
 
-    public function update()
-    {
-        soldモデルの
-    }
+    // public function update()
+    // {
+        
+    // }
 }

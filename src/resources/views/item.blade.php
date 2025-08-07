@@ -7,8 +7,6 @@
 
 
 @section('content')
-
-
 <div class="item__all-contents">
     <div class="item__left-part">
 
@@ -39,7 +37,7 @@
             <form action="{{ url('/items/' . $item->id . '/like') }}" method="POST">
                 @csrf
                 <button type="submit" class="like-button">
-                    <img src="{{ asset('storage/like.jpeg') }}" alt="いいね画像" class="like-image  {{ $isLiked ? 'liked' : '' }}">
+                    <img src="{{ asset($isLiked ? 'storage/like_red.jpeg' : 'storage/like_black.jpeg') }}" alt="いいね画像" class="like-image  {{ $isLiked ? 'liked' : '' }}">
                 </button>
             </form>
             <span class="count">{{ $item->likes_count ?? 0 }}</span>
@@ -57,13 +55,12 @@
             <button class="item__button" onclick="location.href='{{ url('/purchase/' . $item->id) }}'"> 購入手続きへ</button>
         
         <!-- 商品説明     -->
-        <h2>商品説明</h2>
-            <div>カラー：グレー</div>
-            <div>新品</div>
-            <div>商品の状態は良好です。傷もありません。</div>
-            <div>購入後、即発送いたします。</div>
+         <div class="item__description">
+            <h2>商品説明</h2>
+                <p>{{ $item->description }}</p>
+                <p>購入後、即発送いたします。</p>
 
-
+        </div>
         <h2>商品の情報</h2>
             <div class="item__category">
                 <label class="item__label--item" for="category">カテゴリー</label>

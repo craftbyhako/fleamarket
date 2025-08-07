@@ -19,14 +19,14 @@
             <a href="{{ url('/item/' . $item->id) }}" class="item-link">
 
             <!-- 画像 -->
-            <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
+            <img src="{{ asset('storage/'. $item->image) }}" alt="商品画像" class="img-content">
 
             <!-- 商品名 -->
             <div class="detail-content">
                 <p class="detail-content__name">
                     {{ $item->item_name }}
 
-                    @if (!empty($item->sold))
+                    @if ($item->sold)
                         <span class="sold-label">SOLD</span>
                     @endif
                     

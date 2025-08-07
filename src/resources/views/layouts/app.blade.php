@@ -20,11 +20,12 @@
         <nav class="header__nav">
 
            <!-- 検索ボックス -->
-          <form class="header__form" action="/" method="GET" >
-            <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？">
-            <!-- <button class="header__button" type="submit" >検索</button>   -->
+        <div class="search-form">
+          <form class="header__form" action="{{ route('home') }}" method="GET" >
+            <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
+            <button class="header__button" type="submit" >検索</button>  
           </form>
-
+        </div>        
 
         @if (Auth::check())
 
