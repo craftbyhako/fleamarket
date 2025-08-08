@@ -24,9 +24,9 @@
             <form action="{{ route('purchase.form', ['item' => $item->id]) }}" method="get">
                 <p>支払い方法</p>
                 <select class="payment__select" name="payment" onchange="this.form.submit()" >
-                    <option value="" disabled {{ request('payment') == '' ? 'selected' : '' }}>支払い方法を選択してください</option>
-                    <option value="コンビニ払い" {{ request('payment') == 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
-                    <option value="カード支払い" {{ request('payment') == 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
+                    <option value="" disabled {{ $payment === '' ? 'selected' : '' }}>支払い方法を選択してください</option>
+                    <option value="コンビニ払い" {{ $payment === 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
+                    <option value="カード支払い" {{ $payment === 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
                 </select>
             </form>
         </div>
@@ -36,9 +36,9 @@
             <div class="destination-wrapper">
                 <p class="destination__comfirm">配送先 <a href="{{ route('purchase.showDestination', ['item_id' => $item->id]) }}" class="change-link">変更する</a></p>
                     <div class="user-address">
-                        <p>〒{{ $user->postcode }}</p>
-                        <p>{{ $user->address }}</p>
-                        <p>{{ $user->building }}</p>
+                        <p>〒{{ $address['postcode'] }}</p>
+                        <p>{{ $address['address'] }}</p>
+                        <p>{{ $address['building'] }}</p>
                     </div>
             </div>   
         </div>
@@ -55,7 +55,7 @@
 
             <tr>
                 <th>支払い方法</th>
-                <td>{{ request('payment') ?? '未選択' }}</td>
+                <td>{{ $payment ?: '未選択' }}</td>
             </tr>
         </table>
 

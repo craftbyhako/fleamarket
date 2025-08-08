@@ -7,6 +7,10 @@ use App\Models\Item;
 use App\Models\User;
 use App\Models\Sold;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\EditAddressRequest;
+use Illuminate\Support\Facades\Session;
+
+
 
 class PurchaseController extends Controller
 {
@@ -15,9 +19,23 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        return view ('purchase.purchase', [
-            'item' => $item,
-            'user' => $user,
+       if ($request->has('payment')) {
+        session(['payment_method' => $request->input('payment')]);
+        }
+
+        $payment = session('payment_method', '');
+
+        $address = session('purchase_address', [
+        'postcode' => $user->postcode,
+        'address' => $user->address,
+        'building' => $user->building,
+    ]);
+
+        return view('purchase.purchase', [
+        'item' => $item,
+        'user' => $user,
+        'payment' => $payment,
+        'address' => $address,
         ]);
     }
 
@@ -38,6 +56,7 @@ class PurchaseController extends Controller
         'user_id' => Auth::id(),
         ]);
 
+
     return redirect()->route('mylist.index')->with('success', '購入が完了しました');
 
     }
@@ -50,23 +69,18 @@ class PurchaseController extends Controller
         return view('purchase.edit_address', compact('item', 'user'));
     }
 
-    public function parchDestination(Request $request, $item_id)
+    public function updateDestination(EditAddressRequest $request, $item_id)
     {
-        $request->validate([
-            'destination_postcode' => 'required|string',
-            'destination_address' => 'required|string',
+        session([
+            'purchase_address' => [
+                'postcode' => $request->input('destination_postcode'),
+                'address' => $request->input('destination_address'),
+                'building' => $request->input('destination_building'),
+            ]
         ]);
 
-        $user = Auth::user();
-        $user->postcode = $request->input('postcode');
-        $user->address = $request->input('address');
-        $user->save();
-
-        return redirect()->route('purchase.showForm', ['item_id' => $item_id])->with('message', '住所を更新しました。');
+        return redirect()->route('purchase.form', ['item' => $item_id])->with('success', '配送先を変更しました。');
     }
 
-    // public function update()
-    // {
-        
-    // }
+    
 }
