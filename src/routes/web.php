@@ -96,6 +96,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'showDestination'])->name('purchase.showDestination');
 
+    Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'patchDestination'])->name('purcahse.patchDestination');
+
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
 
     Route::post('/logout', function () {

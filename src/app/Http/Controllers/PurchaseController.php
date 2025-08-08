@@ -43,7 +43,6 @@ class PurchaseController extends Controller
     }
 
 
-
     public function showDestination($item_id)
     {
         $item = Item::findOrFail($item_id);
@@ -51,6 +50,20 @@ class PurchaseController extends Controller
         return view('purchase.edit_address', compact('item', 'user'));
     }
 
+    public function parchDestination(Request $request, $item_id)
+    {
+        $request->validate([
+            'destination_postcode' => 'required|string',
+            'destination_address' => 'required|string',
+        ]);
+
+        $user = Auth::user();
+        $user->postcode = $request->input('postcode');
+        $user->address = $request->input('address');
+        $user->save();
+
+        return redirect()->route('purchase.showForm', ['item_id' => $item_id])->with('message', '住所を更新しました。');
+    }
 
     // public function update()
     // {
