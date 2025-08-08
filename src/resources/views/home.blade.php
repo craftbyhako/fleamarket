@@ -7,15 +7,15 @@
 
 
 @section('content')
-<ul class="index__menu">
-    <li><a class="index__menu--item" href="/">おすすめ</a></li>
-    <li><a class="index__menu--item" href="/?tab=mylist">マイリスト</a></li>
+<ul class="home__menu">
+    <li><a class="home__menu--item" href="/">おすすめ</a></li>
+    <li><a class="home__menu--item" href="/mylist">マイリスト</a></li>
 </ul>
 
-<div class="mylist">
-    <div class="mylist__items">
+<div class="home-list">
+    <div class="home__items">
         @foreach ($items as $item)
-        <div class="mylist__item">
+        <div class="home__item">
             <a href="{{ url('/item/' . $item->id) }}" class="item-link">
 
             <!-- 画像 -->
@@ -33,34 +33,9 @@
                 </p>
             </div>
 
-        </a>
-    </div>
-@endforeach
-
-       
-       <!-- @foreach ($items as $item)
-        
-        <div class="mylist__item">
-            
-            <a href="{{ url('/item/' . $item->id) }}" class="item-link">
-                画像
-                <img src="{{ asset($item->image) }}" alt="商品画像" class="img-content">
-            
-                商品名
-                <div class="detail-content">
-                    <p class="detail-content__name">
-                        {{ $item->item_name }}
-                         
-                        soldout表示
-                        @if ($item->sold)
-                        <span class="sold-label">SOLD</span>
-                        @endif
-                    </p>
-                </div>
-
             </a>
         </div>
-        @endforeach -->
-    <!-- </div>
-</div>
+        @endforeach
 @endsection
+       
+       

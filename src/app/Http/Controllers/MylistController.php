@@ -18,34 +18,45 @@ class MylistController extends Controller
     public function admin(Request $request){
 
         $user = Auth::user();
-        $userId = Auth::id();
-        $tab = $request->query('tab', ''); 
-        
-        // おすすめ
-        $query = Item::with('user', 'sold');
-        if ($user) {
-            $query->where('user_id', '<>', $user->id);
+        // $userId = Auth::id();
+        $tab = $request->query('tab', 'mylist'); 
+
+        $keyword = $request->input('keyword', null);
+
+        if (!empty($keyword)) {
+            $tab = 'recommend' ;
         }
-            $items = $query->get();
 
-
-
-
-        // マイリスト
         if ($tab === 'mylist') {
-            if ($user) {
-                $likedItemIds = $user->likes()->pluck('item_id');
-                $items = Item::whereIn('id', $likedItemIds)->with('user', 'likes')->get();
-            } else {
-            // 未ログイン時のマイリスト → 空のコレクション
-            $items = collect(); // 空データを返す
+            $items = $user->likedItems()->with('user', 'sold')->get();
+
+            foreach ($items as $item) {
+                $item->isSold = $item->sold !==null;
             }
-        }
+        } elseif ($tab === 'recommend') {
+            $query = Item::with('user', 'sold');
+            
+            if ($user) {
+                $query->where('user_id', '<>', $user->id);
+            }
+
+            if(!empty($keyword)) {
+                $query->where('item_name', 'like', '%' . $keyword . '%');
+            }        
         
-        return view ('mylist.index', compact('items', 'tab'));
+            $items = $query->get();
+            foreach($items as $item) {
+                $item->isSold = $item->sold !==null;
+            }
+        } else {
+            $items = collect();
+        }        
+
+    return view ('mylist.index',compact('items', 'tab', 'keyword')); 
     }
 
-    public function show($item_id){
+
+    public function show($item_id)
     {
         $item = Item::with('user', 'categories', 'comments.user', 'condition')->withCount(['likes', 'comments'])->findOrFail($item_id);
         $comments = $item->comments;
@@ -53,6 +64,4 @@ class MylistController extends Controller
 
         return view('item', compact('item', 'comments'));
     }
-    }
-
-    }
+}

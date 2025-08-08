@@ -1,4 +1,4 @@
-.index__menu {
+.home__menu {
     list-style: none;
     height: 80px;
     width: 100%;
@@ -11,7 +11,7 @@
 
 }
 
-.index__menu--item {
+.home__menu--item {
     list-style: none;
     margin-left: 100px;
     text-decoration: none;
@@ -20,7 +20,7 @@
 
 }
 
-.mylist__items {
+.home__items {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -30,7 +30,7 @@
     margin-top: 50px;
 }
 
-.mylist__item {
+.home__item {
     margin: 3px;
     width: 270px;
     /* box-shadow: 4px 4px rgb(224, 224, 224); */

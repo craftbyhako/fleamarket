@@ -28,7 +28,7 @@ class UserController extends Controller
         $credentials=$request->only('email', 'password');
         
         if(Auth::attempt($credentials)){
-            return redirect('/?tab=mylist');
+            return redirect('mylist', ['tab' => 'mylist']);
         } else {
             return back()->withErrors(['email' => '認証に失敗しました']);
         }

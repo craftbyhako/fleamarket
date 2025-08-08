@@ -8,11 +8,23 @@ use App\Models\Sold;
 
 class ItemController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        // itemsとsold-item,like,userを同時調査して表示
-        $items = Item::with(['user', 'sold', 'likes'])->get();
-        return view('home', compact('items'));
+        if (auth()->check()) {
+            return redirect()->route('mylist', ['tab' => 'mylist']);
+        }
+
+        $keyword = $request->input('keyword');
+
+        // Itemのデータを、user, sold, likes のデータも同時取得する
+        $query = Item::with(['user', 'sold', 'likes']);
+
+        if(!empty($keyword)) {
+            $query->where('item_name', 'like', '%' . $keyword . '%');
+        }
+
+        $items = $query->get();
+        return view('home', compact('items', 'keyword'));
     }
 
     // 詳細画面表示

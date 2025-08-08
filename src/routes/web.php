@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/mypage', [UserController::class, 'storePlofile']);
 
 
-    Route::get('/', [MylistController::class, 'admin'])->name('mylist');
+    Route::get('/mylist', [MylistController::class, 'admin'])->name('mylist');
 
     
 
@@ -97,5 +97,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'showDestination'])->name('purchase.showDestination');
 
     // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
+
+    Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+    })->name('logout');
 });
 

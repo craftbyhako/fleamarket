@@ -9,8 +9,16 @@
 @section('content')
 
 <ul class="index__menu">
-    <li><a class="index__menu--item {{ $tab === '' ? 'active' : '' }}" href="{{ url('/') }}">おすすめ</a></li>
-    <li><a class="index__menu--item {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/?tab=mylist') }}">マイリスト</a></li>
+    <li>
+        <a class="index__menu--item {{ $tab === 'recommend' || $tab === '' ? 'active' : '' }}" href="{{ url('/mylist?tab=recommend') }}">
+            おすすめ
+        </a>
+    </li>
+    <li>
+        <a class="index__menu--item {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/mylist?tab=mylist') }}">
+            マイリスト
+        </a>
+    </li>
 </ul>
 
 <div class="mylist">
@@ -23,21 +31,17 @@
                     @foreach ($items as $item)
                         <!-- マイリスト商品表示 -->
                          <div class="mylist__item">
-            
-                             <a href="{{ url('/item/' . $item->id) }}" class="item-link">
+                            <a href="{{ url('/item/' . $item->id) }}" class="item-link">
                                 <!-- 画像 -->
                                 <img src="{{ asset('storage/' .$item->image) }}" alt="商品画像" class="img-content">
             
                                 <!-- 商品名 -->
                                 <div class="detail-content">
                                     <p class="detail-content__name">
-                                        {{ $item->item_name }}
-                         
-                                    <!-- soldout表示 -->
-                                    @if ($isSold)
+                                    {{ $item->item_name }}
+
+                                    @if ($item->isSold)
                                         <span class="sold-label">SOLD</span>
-                                    @else
-                                        <p class="price">¥{{ $item->price }}</p>
                                     @endif
                                     </p>
                                 </div>
@@ -66,7 +70,7 @@
                                         {{ $item->item_name }}
                          
                                     <!-- soldout表示 -->
-                                    @if ($item->sold)
+                                    @if ($item->isSold)
                                         <span class="sold-label">SOLD</span>
                                     @endif
                                     </p>

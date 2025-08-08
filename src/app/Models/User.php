@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Like;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 
 class User extends Authenticatable
@@ -57,7 +59,7 @@ class User extends Authenticatable
 
     public function likedItems() 
     {
-        return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
+        return $this->belongsToMany(Item::class, 'likes', 'user_id', 'item_id')->withTimestamps();
     }
     
     // Commentsモデルとのリレーション
@@ -69,5 +71,11 @@ class User extends Authenticatable
     public function CommentedItems()
     {
         return $this->belongsToMany(Item::class, 'comments');
+    }
+
+    // itemsとのリレーション
+    public function items(): HasMany
+    {
+         return $this->hasMany(Item::class);
     }
 }

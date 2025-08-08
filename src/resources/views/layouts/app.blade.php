@@ -20,17 +20,27 @@
         <nav class="header__nav">
 
            <!-- 検索ボックス -->
-        <div class="search-form">
-          <form class="header__form" action="{{ route('home') }}" method="GET" >
+      <div class="search-form">
+        @auth
+        <form class="header__form" action="{{ route('mylist') }}" method="GET" >
+
+            <input type="hidden" name="tab" value="recommend">
             <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
             <button class="header__button" type="submit" >検索</button>  
           </form>
-        </div>        
+        @else
+          <form class="header__form" action="{{ route('home') }}" method="GET" >
+            <input class="header__keyword" type="text" name="keyword" value="{{ old('keyword', $keyword ?? '') }}" placeholder="なにをお探しですか？">
+            <button type="submit" >検索</button>
+        </form>
+        @endauth 
+      </div>
+              
 
         @if (Auth::check())
 
           <!-- ログアウト -->
-          <form class="header__form" action="/logout" method="post">
+          <form class="header__form" action="{{ route('logout') }}" method="post">
             @csrf
             <button class="header__button" type="submit">ログアウト</button>
           </form>
@@ -43,7 +53,7 @@
 
           <!-- マイリスト -->
           <div class="header__nav--item">
-            <a href="/?tab=mylist">マイページ</a>
+            <a href="{{ route('mylist') }}">マイページ</a>
           </div>
           
           <!-- 出品 -->
