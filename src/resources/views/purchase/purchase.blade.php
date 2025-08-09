@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-
+{{ dd($item) }}
 <div class="purchase">
     <div class="purchase__left-part">
         
@@ -46,7 +46,7 @@
     </div>
  <!-- _________________________________________ -->
 
-    <div class="purcahse__right-part">
+    <div class="purchase__right-part">
         <table class="purchase__summary">
             <tr class = "summary-row">
                 <th>商品代金</th>
@@ -59,7 +59,12 @@
             </tr>
         </table>
 
-        <button class="purchase__button" type="submit">購入する</button>
+        <div class="purchase">
+            <form action="{{ route('purchase.store', ['Item_id' => $item->id]) }}" method="POST">
+                @csrf
+                <button class="purchase__button" type="submit">購入する</button>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
