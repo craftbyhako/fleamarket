@@ -1,0 +1,73 @@
+@extends('layouts.app')
+
+@section('css')
+<link rel="stylesheet" href="{{asset('css/mypage.css')}}?v={{ time() }}">
+
+@endsection
+
+
+@section('content')
+<div class="mypage__content">
+    <div class="mypage__profile-group">
+        <div class="mypage__profile_image">
+            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+
+        </div>
+        <div class="mypage__user_name">
+            {{ $user->user_name }}
+        </div>
+        <div class="mypage__profile-edit-button">
+            <a href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
+        </div>
+    </div>
+
+<!-- タブの設定部分 -->
+    <ul class="mypage__tabs">
+        <li class="{{ $tab === 'sell' ? 'active' : '' }}">
+            <a href="{{ url()->current() }}?tab=sell">
+            出品した商品
+            </a>
+        </li>
+        <li class="{{ $tab === 'bought' ? 'active' : '' }}">
+            <a href="{{ url()->current() }}?tab=bought">
+            購入した商品
+            </a>
+        </li>
+    </ul>
+
+
+<!-- タブ内容（出品・購入） -->
+    <div class="mypage__tab">
+        @if ($tab === 'sell')
+            <div class="mypage__sell-group">       
+                @foreach ($sellItems as $sellItem)
+                    <div class="mypage__card">
+                        <div class="mypage__image">
+                            <img src="{{ asset('storage/' . $sellItem->image) }}" alt="{{ $sellItem->item_name }}">
+                            <div class="mypage__item_name">
+                    {{ $sellItem->item_name }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        @elseif ($tab ==='bought')
+            <div  class="mypage__bought-group">
+                @foreach ($boughtItems as $boughtItem)
+                    <div class="mypage__card">
+                        <div class="mypage__image">
+                            <img src="{{ asset('storage/' . $boughtItem->image) }}" alt="{{ $boughtItem->item_name }}">
+                            <div class="mypage__item_name">
+                            {{ $boughtItem->item_name }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
+
+</div>
+@endsection

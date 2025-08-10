@@ -1,0 +1,88 @@
+.mypage__tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mypage__tabs li {
+    margin-right: 10px;
+}
+
+.mypage__tabs li a {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.mypage__tabs li.active a {
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #000;
+}
+
+/* タブ全体のスタイル */
+.mypage__tabs {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    border-bottom: 2px solid #ddd;
+    gap: 30px;
+}
+
+/* タブ項目 */
+.mypage__tabs li {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* タブリンク */
+.mypage__tabs a {
+    text-decoration: none;
+    color: #666;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    transition: color 0.3s;
+}
+
+/* ホバー時 */
+.mypage__tabs a:hover {
+    color: #333;
+}
+
+/* アクティブなタブ */
+.mypage__tabs .active a {
+    color: #000;
+    border-bottom: 3px solid #ff6600;
+    padding-bottom: 8px;
+}
+
+/* カード部分（出品・購入のアイテム一覧） */
+.mypage__sell-group,
+.mypage__bought-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.mypage__card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+}
+
+.mypage__image img {
+    max-width: 100%;
+    border-radius: 6px;
+}
+
+.mypage__item_name {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+}

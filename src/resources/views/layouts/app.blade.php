@@ -53,7 +53,7 @@
 
           <!-- マイリスト -->
           <div class="header__nav--item">
-            <a href="{{ route('mylist') }}">マイページ</a>
+            <a href="{{ route('user.adminMypage') }}">マイページ</a>
           </div>
           
           <!-- 出品 -->

@@ -26,7 +26,7 @@ class ProfileRequest extends FormRequest
         return [
             //
             'user_name'=>['required', 'max:20'],
-            'image'=>['nullable', 'mimes:jpeg,png'],
+            'profile_image'=>['nullable', 'mimes:jpeg,png'],
             'postcode'=>['required', 'regex:/^\d{3}-\d{4}$/'],
             'address'=>['required', 'string'],
         ];

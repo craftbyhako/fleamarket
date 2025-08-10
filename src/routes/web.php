@@ -100,7 +100,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
-    // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy' ]);
+    Route::get('/mypage', [UserController::class, 'adminMypage'])->name('user.adminMypage');
+
+    Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('user.editProfile');
+
+    Route::patch('/mypage/profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
 
     Route::post('/logout', function () {
     Auth::logout();

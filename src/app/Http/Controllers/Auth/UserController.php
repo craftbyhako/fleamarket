@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Item;
+use App\Models\Sold;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileRequest;
@@ -55,7 +57,47 @@ class UserController extends Controller
         return redirect('/');
     }
 
-     public function profile(){
+     public function profile()
+    {
         return view('auth.profile');
+    }
+
+
+    public function adminMypage(Request $request)
+    {
+        $user = Auth::user();
+
+        $sellItems = Item::where('user_id', $user->id)->get(); 
+
+        $boughtItems = $user->boughtItems()->get();
+
+        $tab = $request->query('tab', 'sell');
+
+        return view('mylist.mypage', compact('sellItems', 'boughtItems', 'user', 'tab', 'request'));
+    }
+
+    public function editProfile()
+    {
+        $user = Auth::user();
+        return view ('mylist.edit_profile', compact('user'));
+    }
+
+    public function updateProfile(ProfileRequest $request)
+    {
+        $user = Auth::user();
+
+        $user->user_name = $request->user_name;
+        $user->postcode = $request->postcode;
+        $user->address = $request->address;
+        $user->building = $request->building;
+
+        if ($request->hasFile('profile_image')) {
+        $path = $request->file('profile_image')->store('profile_images', 'public');
+        $user->profile_image = $path;
+        }
+
+        $user->save();
+        
+        return redirect('mypage')->with('success', 'プロフィールを更新しました');
     }
 }

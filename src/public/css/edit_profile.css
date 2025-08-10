@@ -1,0 +1,120 @@
+.edit-profile__content {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 40px;
+    left: 0;
+    right: 0;
+}
+
+.edit-profile__title {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.edit-profile-form {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.edit-profile__img-group{
+    display:block;
+    margin: 0 auto;
+}
+
+.edit-profile__input-form input[type="text"],
+.edit-profile__button button {
+    width: 430px;
+    box-sizing: border-box;
+}
+
+.edit-profile__image-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white;
+    color: red;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.edit-profile__input-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-profile__label {
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.edit-profile__input {
+    height: 30px;
+    font-size: 17px;
+    width: 430px;
+}
+
+.edit-profile__error-message {
+    color: red;
+}
+
+.edit-profile__button {
+    text-align: center;
+
+}
+
+button {
+    background-color: red;
+    /* 背景：親の赤に「なじむ」 */
+    color: white;
+    /* 文字色：見やすい白 */
+    font-size: 16px;
+    padding: 10px 24px;
+    border: none;
+    /* 枠なし */
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+    /* ホバー時、少しだけ反応 */
+}
+
+.edit-profile__placeholder {
+    width: 120px;
+    /* 丸いスペースのサイズ */
+    height: 120px;
+    border-radius: 50%;
+    /* 円形 */
+    overflow: hidden;
+    /* はみ出し防止 */
+    background-color: #ccc;
+    /* 画像がないときのグレー背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-profile__img {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.no-image {
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    /* グレー背景 */
+    border-radius: 50%;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {}
