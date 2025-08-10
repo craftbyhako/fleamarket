@@ -39,14 +39,29 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function store($item_id)
+    public function store(Request $request,$item_id)
     {
+        $user = Auth::user();
         $item = Item::findOrFail($item_id);
-        
+
+        $payment = $request->input('payment');
+
+        if (!$payment) {
+            return redirect()->back()->with('error', '支払方法を選択してください');
+        }
+
+        $address = session('purchase_address', [
+            'postcode' => $user->postcode,
+            'address' => $user->address,
+            'building' => $user->building,
+        ]);
+
         // sold済か確認する
         $isAlreadySold = Sold::where('item_id', $item_id)->exists();
+        
 
         if($isAlreadySold) {
+            
             return redirect()->back()->with('error', 'この商品は売切れです');
         }
 
@@ -54,10 +69,13 @@ class PurchaseController extends Controller
         Sold::create([
         'item_id' => $item_id,
         'user_id' => Auth::id(),
+        'payment' => $payment,
+        'destination_postcode' => $address['postcode'],
+        'destination_address' => $address['address'],
+        'destination_building' => $address['building'],
         ]);
-
-
-    return redirect()->route('mylist.index')->with('success', '購入が完了しました');
+        
+    return redirect()->route('mylist', ['tab' => 'mylist'])->with('success', '購入が完了しました');
 
     }
 

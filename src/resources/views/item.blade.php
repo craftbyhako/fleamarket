@@ -51,8 +51,10 @@
     </div>
 @endauth
 
-            <!-- 購入手続きのボタン -->
-            <button class="item__button" onclick="location.href='{{ url('/purchase/' . $item->id) }}'"> 購入手続きへ</button>
+            <!-- 購入手続きのリンクボタン -->
+            <a href="{{ route('purchase.form', ['item' => $item->id]) }}" class="item__button">
+                購入手続きへ
+            </a>
         
         <!-- 商品説明     -->
          <div class="item__description">
@@ -102,12 +104,13 @@
 
                 <h3>商品へのコメント </h3>
 
-            <!-- <form action="{{ route('comments.store') }}" method="POST">
-            @csrf -->
+            <form action="{{ route('comments.store') }}" method="POST">
+            @csrf
                 <textarea name="content" id="content" required></textarea>
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
             
                 <button class="item_button" type="submit">コメントを送信する</button>
+            </form>
             <!-- </form> -->
     </div>
 </div>

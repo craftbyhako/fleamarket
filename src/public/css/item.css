@@ -106,6 +106,18 @@ form {
 }
 
 .item__button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    width: 50%;
+    font-size: 20px;
+}
+/* .item__button {
     color:white;
     background-color: red;
     border: none;
@@ -113,7 +125,7 @@ form {
     font-size: 20px;
     margin: 20px;
     cursor: pointer;
-}
+} */
 
 .item__category {
     display: flex;

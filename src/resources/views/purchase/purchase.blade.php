@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-{{ dd($item) }}
+
 <div class="purchase">
     <div class="purchase__left-part">
         
@@ -60,8 +60,10 @@
         </table>
 
         <div class="purchase">
-            <form action="{{ route('purchase.store', ['Item_id' => $item->id]) }}" method="POST">
+            <form action="{{ route('purchase.store', ['item_id' => $item->id]) }}" method="POST">
                 @csrf
+                <input type="hidden" name="payment" value="{{ $payment }}">
+
                 <button class="purchase__button" type="submit">購入する</button>
             </form>
         </div>
