@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Sold;
+use App\Models\Category;
 
 class ItemController extends Controller
 {
@@ -38,5 +39,31 @@ class ItemController extends Controller
     }
     }
 
+    public function create()
+    {
+        $allCategories = Category::all();
+
+        return view ('sell', compact('allCategories'));
+    }
+
+    public function store(ExhibitionRequest $request)
+    {
+        $data = $request->validated();
+
+        $item = new item();
+        if($request->hasFile('file')) {
+            $path = $request->file('file')->store('items', 'public');
+            $data['image'] = $path;
+        }
+
+        $item = Item::create($data);
+
+        if($request->has('categories')) 
+        {
+            $item->categories()->attach($request->categories);
+        }
+        
+        return redirect()->route('item.create');
+    }
 
 }

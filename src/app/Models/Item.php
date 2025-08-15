@@ -93,4 +93,5 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'comments');
     }
+
 }

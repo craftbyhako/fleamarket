@@ -110,5 +110,11 @@ Route::middleware('auth')->group(function () {
     Auth::logout();
     return redirect('/');
     })->name('logout');
+
+    Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
+
+    Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+
+    
 });
 

@@ -58,7 +58,7 @@
           
           <!-- 出品 -->
           <div class="header__nav--item">
-            <a href="/sell">出品</a>
+            <a href="{{ route('item.create') }}">出品</a>
           </div>
         </nav>
       </div>
