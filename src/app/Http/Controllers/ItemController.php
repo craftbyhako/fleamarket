@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Sold;
 use App\Models\Category;
+use App\Http\Requests\ExhibitionRequest;
+
 
 class ItemController extends Controller
 {
@@ -50,11 +52,12 @@ class ItemController extends Controller
     {
         $data = $request->validated();
 
-        $item = new item();
-        if($request->hasFile('file')) {
-            $path = $request->file('file')->store('items', 'public');
+        if($request->hasFile('image')) {
+            $path = $request->file('image')->store('items', 'public');
             $data['image'] = $path;
         }
+
+        $data['user_id'] = auth()->id();
 
         $item = Item::create($data);
 
