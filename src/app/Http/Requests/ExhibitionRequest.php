@@ -29,6 +29,9 @@ class ExhibitionRequest extends FormRequest
             'brand' => ['nullable'],
             'price' => ['required', 'numeric', 'min:0'],
             'description' => ['required', 'max:255'],
+            'condition_id' => ['required', 'exists:conditions,id'],
+            'categories' => ['array'],
+            'categories' => ['exists:categories,id'],
         ];
     }
 

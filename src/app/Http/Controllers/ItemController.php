@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Sold;
 use App\Models\Category;
+use App\Models\Condition;
 use App\Http\Requests\ExhibitionRequest;
 
 
@@ -44,26 +45,34 @@ class ItemController extends Controller
     public function create()
     {
         $allCategories = Category::all();
+        $conditions = Condition::all();
 
-        return view ('sell', compact('allCategories'));
+        return view ('sell', compact('allCategories', 'conditions'));
     }
 
     public function store(ExhibitionRequest $request)
     {
+        // dd($request->all());
         $data = $request->validated();
 
+        $data['brand'] = $data['brand'] ?? '';
+
+        // 画像保存
         if($request->hasFile('image')) {
             $path = $request->file('image')->store('items', 'public');
             $data['image'] = $path;
         }
 
+        // ログインユーザーID
         $data['user_id'] = auth()->id();
 
+        // Itemテーブルへの新規作成
         $item = Item::create($data);
 
-        if($request->has('categories')) 
+        // カテゴリ紐付け
+        if($request->filled('categories')) 
         {
-            $item->categories()->attach($request->categories);
+            $item->categories()->sync($request->input('categories'));
         }
         
         return redirect()->route('item.create');

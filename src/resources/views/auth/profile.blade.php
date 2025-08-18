@@ -23,11 +23,6 @@
 
                 <input type="file" id="file" name="image" hidden>
                 <label for="file" class="profile__image-label">画像を選択する</label>
-                <!-- <p class="register-form__error-message">
-                @error('user_name')
-                    {{ $message }}
-                @enderror
-                </p> -->
             </div>
         </div>
 
