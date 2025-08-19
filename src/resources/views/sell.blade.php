@@ -12,28 +12,33 @@
         @csrf
         <div class="sell__image--group">
             <h3 class="sell__label">商品画像</h3>
-            <label class="sell__image-upload-button" for="file-upload">画像を選択する</label>
-            <input type="file" id="file-upload" name="image">
+            <div class="sell__image-wrapper">
+                <label class="sell__image-upload-button" for="file-upload">画像を選択する</label>
+                <input type="file" id="file-upload" name="image" hidden>
+                <!-- <span class="file-name" id="file-name">選択されていません</span> -->
+            </div>
         </div>
 
         <div class="sell__detail--group">
-            <p class="sell__detail--title">商品の詳細</p>
+            <h2 class="sell__detail--title">商品の詳細</h2>
 
                 <h3 class="sell__label">カテゴリー</h3>
                 @foreach($allCategories as $category)
-                    <input type="checkbox" name="categories[]" value="{{ $category->id }}">
-                    {{ $category->category_name }}
+                    <label class="category-option">
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                        <span>{{ $category->category_name }}</span>
+                    </label>
                 @endforeach
 
                 <h3 class="sell__label">商品の状態</h3>
-                <select name="condition_id" id="condition" >
+                <select class="condition-select" name="condition_id" id="condition" >
                     <option selected disabled>選択してください</option>
                     @foreach($conditions as $condition)
                         <option value="{{ $condition->id }}">{{ $condition->condition }}</option>
                     @endforeach
                 </select>
 
-            <p class="sell__detail--title">商品名と説明</p>
+            <h2 class="sell__detail--title">商品名と説明</h2>
                 <label class="sell__label" for="item_name">商品名</label>
                 <input class="sell__input-form" type="text" name="item_name" value="{{ old('item_name') }}">
 
@@ -47,7 +52,7 @@
                 <input class="sell__input-form" type="text" name="price" placeholder="￥" value="{{ old('price') }}">
         </div>
         
-        <button type="submit">出品する</button>
+        <button class="sell__submit-button" type="submit">出品する</button>
         
     </form>
 </div>

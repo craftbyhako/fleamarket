@@ -1,0 +1,89 @@
+.sell__content {
+    margin: 0 auto;
+    width: 600px;
+}
+
+.sell__title {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.sell__image-wrapper {
+    border: 1px solid #adabab;
+    border-radius: 3px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+}
+
+.sell__image-upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid red;
+    border-radius: 3px;
+    color: red;
+    cursor: pointer;
+    text-align: center;
+    width: 33%;
+    margin: 0 auto;
+}
+
+.sell__detail--title {
+    font: 80px;
+    border-bottom: 1px solid #adabab;
+    margin-top: 60px;
+    color: gray;
+
+}
+
+.category-option input {
+    display: none;
+}
+
+.category-option span {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 4px;
+    border: 1px solid rgb(239, 137, 137);
+    color: rgb(239, 137, 137);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.category-option input:checked + span {
+    background: rgb(239, 137, 137);
+    border-color: rgb(239, 137, 137);
+    color: white;
+}
+
+.sell__label {
+    margin-top: 30px;
+    display: block;
+        /* 改行して見出し風に */
+    font-size: 1.2rem;
+        /* h3っぽい大きさに */
+    font-weight: bold;
+}
+
+.condition-select, .sell__input-form {
+    font-size: 20px;
+    padding:6px 12px;
+    width: 100%;
+}
+
+textarea.sell__input-form {
+    height: 100px;
+}
+
+.sell__submit-button {
+    color: white;
+    border: 1px solid red;
+    background-color: red;
+    margin:70px 0;
+    width: 100%;
+    font-size: 20px;
+    padding: 5px 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {}
