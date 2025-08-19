@@ -1,3 +1,56 @@
+.mypage__content {
+    margin: 0 auto;
+    width: 800px;
+}
+
+.mypage__profile-group {
+    display: flex;
+    flex-direction: row;
+    margin: 50px 0;
+    gap:100px;
+    align-items: center;
+}
+
+.mypage__profile_image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile_image,
+.profile-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-placeholder {
+    background-color: #ccc;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.mypage__user-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mypage__edit-button {
+    color: red;
+    border: 1px solid  red;
+    border-radius: 6px;
+    padding: 5px 15px;
+    text-decoration: none;
+}
+
+
+
 .mypage__tabs {
     display: flex;
     list-style: none;

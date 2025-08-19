@@ -80,7 +80,7 @@
             </div>
 
             <div class="item__comment-part">
-                <h3>コメント({{ count($comments) }})</h3>
+                <h3 class="item__comment-count">コメント({{ count($comments) }})</h3>
         
                 @foreach ($comments as $comment)
                 <div class="item__comment-part--content">
@@ -92,11 +92,11 @@
                             {{ strtoupper(substr($comment->user->user_name, 0, 1)) }}
                         </div>
                     @endif
-                        <p>{{$comment->user->user_name}}</p>
+                        <p class="comment-user">{{$comment->user->user_name}}</p>
                     </div>
 
                     <div class="comment__body">
-                        <p>{{$comment->content}}</p>
+                        <p class="comment-content">{{$comment->content}}</p>
                     </div>
                 </div>
                 @endforeach
@@ -106,10 +106,10 @@
 
             <form action="{{ route('comments.store') }}" method="POST">
             @csrf
-                <textarea name="content" id="content" required></textarea>
+                <textarea class="item__comment-textarea" name="content" id="content" required></textarea>
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
             
-                <button class="item_button" type="submit">コメントを送信する</button>
+                <button class="item__comment-button" type="submit">コメントを送信する</button>
             </form>
             <!-- </form> -->
     </div>

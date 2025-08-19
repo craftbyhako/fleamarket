@@ -74,4 +74,12 @@ body {
     color: white;
 }
 
+.header__nav--item:last-child a {
+    border: 1px solid white;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+}
+
 @media screen and (min-width: 768px) and (max-width: 850px) {}

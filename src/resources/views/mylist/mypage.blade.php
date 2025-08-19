@@ -10,14 +10,14 @@
 <div class="mypage__content">
     <div class="mypage__profile-group">
         <div class="mypage__profile_image">
-            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+            <img class="profile_image" src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
 
         </div>
-        <div class="mypage__user_name">
+        <div class="mypage__user-name">
             {{ $user->user_name }}
         </div>
         <div class="mypage__profile-edit-button">
-            <a href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
+            <a class="mypage__edit-button" href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
         </div>
     </div>
 
