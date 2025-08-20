@@ -86,4 +86,8 @@ textarea.sell__input-form {
     padding: 5px 0;
 }
 
+.sell__error-message {
+    color: red;
+}
+
 @media screen and (min-width: 768px) and (max-width: 850px) {}
