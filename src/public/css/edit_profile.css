@@ -1,9 +1,11 @@
 .edit-profile__content {
-    width: 100%;
+    width: 500px;
     margin: 0 auto;
     padding-top: 40px;
-    left: 0;
-    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .edit-profile__title {
@@ -12,15 +14,30 @@
 }
 
 .edit-profile-form {
-    width: 100%;
-    max-width: 430px;
+    /* width: 430px; */
     margin: 0 auto;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .edit-profile__img-group{
-    display:block;
-    margin: 0 auto;
+    margin-bottom: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+}
+
+.edit-profile__image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 16px;
 }
 
 .edit-profile__input-form input[type="text"],
@@ -37,25 +54,29 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+    border: 1px solid red;
 }
 
 .edit-profile__input-form {
     display: flex;
     flex-direction: column;
     margin-bottom: 16px;
-    width: 100%;
-    box-sizing: border-box;
+    width: 430px;
+    align-items: flex-start;
 }
 
 .edit-profile__label {
     margin-bottom: 4px;
     font-weight: bold;
+    display: block;
+    text-align: left;
 }
 
 .edit-profile__input {
     height: 30px;
     font-size: 17px;
-    width: 430px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .edit-profile__error-message {
@@ -64,6 +85,7 @@
 
 .edit-profile__button {
     text-align: center;
+    margin-bottom: 50px;
 
 }
 

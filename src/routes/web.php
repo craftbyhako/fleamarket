@@ -56,7 +56,7 @@ Route::middleware('guest')->group (function () {
 Route::middleware('auth')->group(function () {
     
     // プロフィール登録
-    Route::post('/mypage', [UserController::class, 'storePlofile']);
+    Route::post('/mypage/profile', [UserController::class, 'storePlofile']);
 
 
     Route::get('/mylist', [MylistController::class, 'admin'])->name('mylist');
@@ -64,10 +64,10 @@ Route::middleware('auth')->group(function () {
     
 
     // 初回プロフィール登録ページの表示
-    Route::get('/mypage', [UserController::class, 'profile']);
+    Route::get('/mypage/profile', [UserController::class, 'profile']);
 
     // 初回プロフィール情報・写真の保存
-    Route::post('/mypage', [UserController::class, 'upload']);
+    Route::post('/mypage/profile', [UserController::class, 'upload']);
 
     // コメント投稿 
     Route::post('/comments', function(Request $request)
@@ -100,10 +100,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
+    // ログイン後のトップ画面
     Route::get('/mypage', [UserController::class, 'adminMypage'])->name('user.adminMypage');
 
+    // ログイン後のプロフィール設定（編集）画面
     Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('user.editProfile');
 
+    // プロフィール更新の実行
     Route::patch('/mypage/profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
 
     Route::post('/logout', function () {

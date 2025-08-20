@@ -20,6 +20,17 @@
     box-sizing: border-box;
 }
 
+.profile__picture-group {
+    margin: 0 auto;
+    width: 600px;
+}
+
+.profile__image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
 .profile__input-form input[type="text"],
 .register__input-form__button button {
     width: 430px;

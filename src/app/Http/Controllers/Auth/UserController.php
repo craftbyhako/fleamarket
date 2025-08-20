@@ -23,7 +23,7 @@ class UserController extends Controller
         ]);
         Auth::login($user);
 
-        return redirect('/mypage');
+        return redirect('/mypage/profile');
     }
 
     public function loginUser(LoginRequest $request){

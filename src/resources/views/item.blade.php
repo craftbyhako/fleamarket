@@ -23,7 +23,7 @@
         <div class="brand-name">{{ $item->brand_name }}</div>
         
         <!-- 値段 -->
-        <div class="price">￥{{ $item->price }} (税込）</div>
+        <div class="price">￥{{ number_format($item->price) }} (税込）</div>
 
         
 @auth
