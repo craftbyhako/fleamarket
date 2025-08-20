@@ -20,7 +20,7 @@
         <h1>{{ $item->item_name }}</h1> 
 
         <!-- ブランド名 -->
-        <div class="brand-name">{{ $item->brand_name }}</div>
+        <div class="brand-name">{{ $item->brand }}</div>
         
         <!-- 値段 -->
         <div class="price">￥{{ number_format($item->price) }} (税込）</div>

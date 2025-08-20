@@ -19,23 +19,22 @@
 }
 
 .profile_image,
-.profile-placeholder {
+.mypage-profile__placeholder {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.profile-placeholder {
+.mypage-profile__placeholder {
+    border-radius: 50%;
+    overflow: hidden;
+    /* はみ出し防止 */
     background-color: #ccc;
-    color: #fff;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 18px;
+    align-items: center;
 }
-
 .mypage__user-name {
     font-weight: bold;
     font-size: 20px;
@@ -141,5 +140,7 @@
     font-size: 14px;
     color: #333;
 }
+
+
 
 @media screen and (min-width: 768px) and (max-width: 850px) {}

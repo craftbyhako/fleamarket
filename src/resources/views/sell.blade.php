@@ -30,26 +30,30 @@
                 <h3 class="sell__label">カテゴリー</h3>
                 @foreach($allCategories as $category)
                     <label class="category-option">
-                    <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                    <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                    {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
                         <span>{{ $category->category_name }}</span>
                     </label>
                 @endforeach
                         <p class="sell__error-message">
                         @error('categories')
-                        {{ $message }}
+                            {{ $message }}
                         @enderror
                         </p>
 
                 <h3 class="sell__label">商品の状態</h3>
                 <select class="condition-select" name="condition_id" id="condition" >
-                    <option value="" selected disabled>選択してください</option>
+                    <option value="" selected disabled {{ old('condition_id') ? '' : 'selected' }}>選択してください</option>
                     @foreach($conditions as $condition)
-                        <option value="{{ $condition->id }}">{{ $condition->condition }}</option>
+                        <option value="{{ $condition->id }}" 
+                        {{ old('condition_id') == $condition->id ? 'selected' : '' }}>
+                        {{ $condition->condition }}
+                        </option>
                     @endforeach
                 </select>
                 <p class="sell__error-message">
                     @error('condition_id')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </p>
 
@@ -58,7 +62,7 @@
                 <input class="sell__input-form" type="text" name="item_name" value="{{ old('item_name') }}">
                     <p class="sell__error-message">
                     @error('item_name')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </p>
 
@@ -70,7 +74,7 @@
                 <textarea class="sell__input-form" type="text" name="description">{{ old('description') }}</textarea>
                     <p class="sell__error-message">
                     @error('description')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                     </p>
 
@@ -78,7 +82,7 @@
                 <input class="sell__input-form" type="text" name="price" placeholder="￥" value="{{ old('price') }}">
                     <p class="sell__error-message">
                     @error('price')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </p>
         </div>

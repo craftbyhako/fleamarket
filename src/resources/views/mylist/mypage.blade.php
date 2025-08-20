@@ -10,8 +10,14 @@
 <div class="mypage__content">
     <div class="mypage__profile-group">
         <div class="mypage__profile_image">
-            <img class="profile_image" src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
-
+            @if($user->profile_image)
+                <img class="profile_image" src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+            @else
+                <div class="mypage-profile__placeholder">
+                        {{ strtoupper(substr(Auth::user()->user_name, 0, 1)) }}
+                </div>
+                <!-- <img class="profile_image" src="{{ asset('images/placeholder.png') }}" alt=""> -->
+            @endif
         </div>
         <div class="mypage__user-name">
             {{ $user->user_name }}
