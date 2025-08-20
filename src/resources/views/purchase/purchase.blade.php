@@ -59,7 +59,7 @@
             </tr>
         </table>
 
-        <div class="purchase">
+        <div class="purchase__button-group">
             <form action="{{ route('purchase.store', ['item_id' => $item->id]) }}" method="POST">
                 @csrf
                 <input type="hidden" name="payment" value="{{ $payment }}">
