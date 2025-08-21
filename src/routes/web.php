@@ -31,23 +31,33 @@ Route::get('/', [ItemController::class, 'index'])->name('home');
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
 Route::middleware('guest')->group (function () {
-    
-    Route::get('/register', function() {
-    return view('auth.register');
-    });
 
-    // 会員登録
-    Route::post('/register', [UserController::class, 'storeUser']);
+    // 登録ページ表示（Fortify）
+    Route::get('/register', [\Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'create']);
+    
+    // 会員登録の実行（Fortify）
+    Route::post('/register', [\Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'store']);
 
      // ログインページ表示
-    Route::get('/login', function () {
+    Route::get('/login', function ()
+    {
         return view('auth.login');
     })->name('login');
 
-    // ログイン処理
+    // ログインの実行
     Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 
 
+    
+    // Route::get('/register', function()
+    // {
+    //     return view('auth.register');
+    // });
+
+    // 会員登録
+    // Route::post('/register', [UserController::class, 'storeUser']);
+
+    
 });
 
 

@@ -15,16 +15,16 @@ use App\Http\Requests\RegisterRequest;
 
 class UserController extends Controller
 {
-    public function storeUser(RegisterRequest $request){
-        $user = User::create([
-            'user_name'=>$request->user_name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password),
-        ]);
-        Auth::login($user);
+    // public function storeUser(RegisterRequest $request){
+    //     $user = User::create([
+    //         'user_name'=>$request->user_name,
+    //         'email'=>$request->email,
+    //         'password'=>Hash::make($request->password),
+    //     ]);
+    //     Auth::login($user);
 
-        return redirect('/mypage/profile');
-    }
+    //     return redirect('/');
+    // }
 
     public function loginUser(LoginRequest $request){
         $credentials=$request->only('email', 'password');
@@ -53,9 +53,12 @@ class UserController extends Controller
         // 初回プロフ情報の保存
         $user->update($data);
        
+        $request->session()->forget('url.intended');
+        
         // 会員ページへリダイレクト
         return redirect('/');
     }
+
 
      public function profile()
     {

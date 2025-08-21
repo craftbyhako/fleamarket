@@ -34,7 +34,17 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Fortify::createUsersUsing(CreateNewUser::class);
+        Fortify::createUsersUsing(CreateNewUser::class);
+
+        $this->app->singleton(RegisterResponse::class, function()
+        {
+            return new class implements RegisterResponse {
+                public function toResponse($request)
+                {
+                    return redirect('/mypage/profile'); 
+                }
+            };
+        });
 
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
     
@@ -49,10 +59,12 @@ class FortifyServiceProvider extends ServiceProvider
         //     return Limit::perMinute(5)->by($request->session()->get('login.id'));
         // });
 
+        // 自作登録画面
         Fortify::registerView(function () {
             return view('auth.register');
         });
             
+        // 自作ログイン画面
         Fortify::loginView(function () {
             return view('auth.login');
         });
@@ -68,11 +80,11 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->singleton(RegisterResponse::class, function () {
             return new class implements RegisterResponse {
                 public function toResponse($request)
-            {
-                return redirect('/'); // 会員登録後のリダイレクト先
-            }
-        };
-    });
+                {
+                return redirect('/mypage/profile'); // 会員登録後のリダイレクト先
+                }
+            };
+        });
 
     $this->app->bind(FortifyLoginRequest::class,  LoginRequest::class);
     }
