@@ -9,6 +9,7 @@ use App\Http\Controllers\PurchaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 
 
 
@@ -30,6 +31,8 @@ Route::get('/', [ItemController::class, 'index'])->name('home');
 
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
+
+// ゲスト
 Route::middleware('guest')->group (function () {
 
     // 登録ページ表示（Fortify）
@@ -62,31 +65,39 @@ Route::middleware('guest')->group (function () {
 
 
 
-// Auth処理
+// 認証済ユーザー用、Auth処理
 Route::middleware('auth')->group(function () {
     
-    // プロフィール登録
-    Route::post('/mypage/profile', [UserController::class, 'storePlofile']);
-
-
-    Route::get('/mylist', [MylistController::class, 'admin'])->name('mylist');
-
-    
-
     // 初回プロフィール登録ページの表示
-    Route::get('/mypage/profile', [UserController::class, 'profile']);
+    Route::get('/mypage/profile/create', [UserController::class, 'createProfile'])->name('user.createProfile');
+
+    // 初回プロフィール登録
+    Route::post('/mypage/profile', [UserController::class, 'storeProfile'])->name('user.storeProfile');
 
     // 初回プロフィール情報・写真の保存
-    Route::post('/mypage/profile', [UserController::class, 'upload']);
+    // Route::post('/mypage/profile', [UserController::class, 'upload'])->name('user.upload');
+
+    // ログイン後のトップ画面（マイリストタブ）
+    Route::get('/mylist', [MylistController::class, 'admin'])->name('mylist');
+
+    // ログイン後のトップ画面
+    // Route::get('/mylist/?tab=mylist', [UserController::class, 'adminMypage'])->name('user.adminMypage');
+
+
+     // マイページ画面（出品・購入商品閲覧・プロフ編集画面）
+    Route::get('/mypage', [UserController::class, 'adminMypage'])->name('user.adminMypage');
+
+    // ログイン後のプロフィール設定（編集）画面
+    Route::get('/mypage/profile/edit', [UserController::class, 'editProfile'])->name('user.editProfile');
+
+    // プロフィール更新の実行
+    Route::patch('/mypage/profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
+
+
 
     // コメント投稿 
-    Route::post('/comments', function(Request $request)
+    Route::post('/comments', function(CommentRequest $request)
     {
-        $request->validate([
-            'item_id' => 'required|exists:items,id',
-            'content' => 'required|string|max:1000',
-        ]);
-
         Comment::create([
             'item_id' => $request->item_id,
             'user_id' => Auth::id(),
@@ -100,18 +111,20 @@ Route::middleware('auth')->group(function () {
     // いいね機能
     Route::post('/items/{id}/like', [LikeController::class, 'toggleLike']);
 
+    // 商品詳細画面の表示
     Route::get('/item/{item_id}', [MylistController::class, 'show']);
 
+    // 商品購入画面の表示
     Route::get('/purchase/{item}', [PurchaseController::class, 'showForm'])->name('purchase.form');
 
+    // 購入配送先変更画面の表示
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'showDestination'])->name('purchase.showDestination');
 
+    // 購入配送先変更の実行
     Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'updateDestination'])->name('purchase.updateDestination');
 
+    // 購入の登録
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
-
-    // ログイン後のトップ画面
-    Route::get('/mypage', [UserController::class, 'adminMypage'])->name('user.adminMypage');
 
     // ログイン後のプロフィール設定（編集）画面
     Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('user.editProfile');

@@ -104,14 +104,17 @@
 
                 <h3>商品へのコメント </h3>
 
-            <form action="{{ route('comments.store') }}" method="POST">
+            <form action="{{ route('comments.store') }}" method="POST" novalidate>
             @csrf
                 <textarea class="item__comment-textarea" name="content" id="content" required></textarea>
-                <input type="hidden" name="item_id" value="{{ $item->id }}">
-            
+                <input type="hidden" name="item_id" value="{{ $item->id }}" >
+                    <p class="item__comment-error-message">
+                            @error('content')
+                            {{ $message }}
+                            @enderror
+                    </p>
                 <button class="item__comment-button" type="submit">コメントを送信する</button>
             </form>
-            <!-- </form> -->
     </div>
 </div>
 

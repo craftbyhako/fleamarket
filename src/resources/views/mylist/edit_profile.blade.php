@@ -9,7 +9,7 @@
 <div class= "edit-profile__content">
     <h2 class="edit-profile__title">プロフィール設定</h2>
     <br>
-    <form class="edit-profile__form" action="/mypage/profile" method="POST" enctype="multipart/form-data" novalidate>
+    <form class="edit-profile__form" action="{{ route('user.updateProfile') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         @method('PATCH')
 

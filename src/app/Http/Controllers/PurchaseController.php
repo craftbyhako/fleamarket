@@ -41,6 +41,7 @@ class PurchaseController extends Controller
 
     public function store(Request $request,$item_id)
     {
+
         $user = Auth::user();
         $item = Item::findOrFail($item_id);
 
@@ -58,10 +59,8 @@ class PurchaseController extends Controller
 
         // sold済か確認する
         $isAlreadySold = Sold::where('item_id', $item_id)->exists();
-        
-
+    
         if($isAlreadySold) {
-            
             return redirect()->back()->with('error', 'この商品は売切れです');
         }
 
@@ -72,9 +71,11 @@ class PurchaseController extends Controller
         'payment' => $payment,
         'destination_postcode' => $address['postcode'],
         'destination_address' => $address['address'],
-        'destination_building' => $address['building'],
+        'destination_building' => $address['building'] ?? null,
         ]);
         
+         $request->session()->forget('purchase_address');
+
     return redirect()->route('mylist', ['tab' => 'mylist'])->with('success', '購入が完了しました');
 
     }
@@ -96,6 +97,9 @@ class PurchaseController extends Controller
                 'building' => $request->input('destination_building'),
             ]
         ]);
+            // 確認用
+            // dd(session('purchase_address'));
+        
 
         return redirect()->route('purchase.form', ['item' => $item_id])->with('success', '配送先を変更しました。');
     }

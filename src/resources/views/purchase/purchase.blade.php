@@ -47,6 +47,17 @@
  <!-- _________________________________________ -->
 
     <div class="purchase__right-part">
+        <!-- バリデーションエラー表示 --> 
+    <!-- @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li style="color:red;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif -->
+
         <table class="purchase__summary">
             <tr class = "summary-row">
                 <th>商品代金</th>

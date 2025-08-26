@@ -17,6 +17,7 @@ use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\LoginRequest;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -41,7 +42,9 @@ class FortifyServiceProvider extends ServiceProvider
             return new class implements RegisterResponse {
                 public function toResponse($request)
                 {
-                    return redirect('/mypage/profile'); 
+                    $request->session()->forget('url.intended');
+
+                    return redirect('/mypage/profile/create');
                 }
             };
         });
@@ -86,6 +89,7 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-    $this->app->bind(FortifyLoginRequest::class,  LoginRequest::class);
+        
+
     }
 }

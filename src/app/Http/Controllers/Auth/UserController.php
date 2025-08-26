@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -30,14 +31,17 @@ class UserController extends Controller
         $credentials=$request->only('email', 'password');
         
         if(Auth::attempt($credentials)){
-            return redirect('/mylist?tab=mylist');
+                    
+            return redirect()->intended(RouteServiceProvider::HOME);
+
         } else {
-            return back()->withErrors(['email' => '認証に失敗しました']);
+            
+            return back()->withErrors(['email' => 'ログイン情報が登録されていません']);
         }
     }
 
     // /mypageで画像のアップロード
-    public function upload(ProfileRequest $request)
+    public function storeProfile(ProfileRequest $request)
     {
         $user = Auth::user();
         
@@ -45,22 +49,25 @@ class UserController extends Controller
         $data = $request->only(['user_name', 'postcode', 'address', 'building']);
 
         // プロフィール写真の保存
-        if ($request->hasFile('image')){
-            $path = $request->file('image')->store('profile_images', 'public');
+        if ($request->hasFile('profile_image')){
+            $path = $request->file('profile_image')->store('profile_images', 'public');
             $user->profile_image = $path;
         }
 
         // 初回プロフ情報の保存
         $user->update($data);
        
+
+        $redirectUrl = route('mylist', ['tab' => 'mylist']);
+
         $request->session()->forget('url.intended');
-        
+
         // 会員ページへリダイレクト
-        return redirect('/');
+        return redirect()->route('mylist', ['tab' => 'mylist']);
     }
 
 
-     public function profile()
+     public function createProfile()
     {
         return view('auth.profile');
     }
@@ -103,4 +110,6 @@ class UserController extends Controller
         
         return redirect('mypage')->with('success', 'プロフィールを更新しました');
     }
+
+    
 }

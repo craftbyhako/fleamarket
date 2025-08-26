@@ -9,7 +9,7 @@
 <div class= "profile__content">
     <h2 class="profile__title">プロフィール設定</h2>
     <br>
-    <form class="profile-form" action="/mypage" method="POST" enctype="multipart/form-data" novalidate>
+    <form class="profile-form" action="{{ route('user.storeProfile') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
 
         <!-- プロフィール画像欄 -->
@@ -22,7 +22,7 @@
                     <p>画像なし</p>
                 @endif
 
-                <input type="file" id="file" name="image" hidden>
+                <input type="file" id="file" name="profile_image" hidden>
                 <label for="file" class="profile__image-label">画像を選択する</label>
             </div>
         </div>

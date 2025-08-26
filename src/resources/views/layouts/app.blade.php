@@ -51,7 +51,7 @@
           </div>
         @endif
 
-          <!-- マイリスト -->
+          <!-- マイページ -->
           <div class="header__nav--item">
             <a href="{{ route('user.adminMypage') }}">マイページ</a>
           </div>

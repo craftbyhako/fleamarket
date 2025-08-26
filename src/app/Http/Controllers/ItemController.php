@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Http\Requests\CommentRequest;
 use App\Models\Item;
 use App\Models\Sold;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Http\Requests\ExhibitionRequest;
+
 
 
 class ItemController extends Controller
@@ -32,7 +34,7 @@ class ItemController extends Controller
     }
 
     // 詳細画面表示
-    public function show($item_id){
+    public function show(CommentRequest $request, $item_id){
     {
         $item = Item::with('user', 'categories', 'comments.user', 'condition')->withCount(['likes', 'comments'])->findOrFail($item_id);
         $comments = $item->comments;
