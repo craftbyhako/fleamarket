@@ -57,7 +57,7 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors([
             'email' => 'ログイン情報が登録されていません',
 
-        $this->assertGuest();
+        $this->assertGuest()
         ]);       
     }
 
