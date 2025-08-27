@@ -18,17 +18,22 @@ class MylistController extends Controller
     public function admin(Request $request){
 
         $user = Auth::user();
-        // $userId = Auth::id();
         $tab = $request->query('tab', 'mylist'); 
-
         $keyword = $request->input('keyword', null);
 
-        if (!empty($keyword)) {
-            $tab = 'recommend' ;
+        if ($tab === 'mylist') {
+            $items = $user->likedItems()->with('user', 'sold');
+            
+            // ->get();
+            
+            if (!empty($keyword)) {
+                $items->where('item_name', 'like', '%' . $keyword . '%');
+
+            // $tab = 'recommend' ;
         }
 
-        if ($tab === 'mylist') {
-            $items = $user->likedItems()->with('user', 'sold')->get();
+            $items = $items->get();
+        
 
             foreach ($items as $item) {
                 $item->isSold = $item->sold !==null;

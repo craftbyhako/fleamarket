@@ -29,7 +29,7 @@ use App\Http\Requests\CommentRequest;
 // 会員・非会員共通のトップ画面
 Route::get('/', [ItemController::class, 'index'])->name('home');
 
-Route::get('/item/{item_id}', [ItemController::class, 'show']);
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
 
 
 // ゲスト
@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/items/{id}/like', [LikeController::class, 'toggleLike']);
 
     // 商品詳細画面の表示
-    Route::get('/item/{item_id}', [MylistController::class, 'show']);
+    // Route::get('/item/{item_id}', [MylistController::class, 'show']);
 
     // 商品購入画面の表示
     Route::get('/purchase/{item}', [PurchaseController::class, 'showForm'])->name('purchase.form');

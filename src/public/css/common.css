@@ -68,7 +68,11 @@ body {
 }
 
 .header__nav--item a,
-.header__nav--item a:visited {
+.header__nav--item a:visited,
+.header__nav--item a:focus,
+.header__nav--item a:hover,
+.header__nav--item a:active
+ {
     display: flex;
     align-items: center;
     text-decoration: none;

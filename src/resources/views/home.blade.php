@@ -16,7 +16,7 @@
     <div class="home__items">
         @foreach ($items as $item)
         <div class="home__item">
-            <a href="{{ url('/item/' . $item->id) }}" class="item-link">
+            <a href="{{ route('item.show', $item->id ) }}" class="item-link">
 
             <!-- 画像 -->
             <img src="{{ asset('storage/'. $item->image) }}" alt="商品画像" class="img-content">

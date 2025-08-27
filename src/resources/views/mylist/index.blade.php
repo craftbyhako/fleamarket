@@ -10,12 +10,12 @@
 
 <ul class="index__menu">
     <li>
-        <a class="index__menu--item {{ $tab === 'recommend' || $tab === '' ? 'active' : '' }}" href="{{ url('/mylist?tab=recommend') }}">
+        <a class="index__menu--item {{ $tab === 'recommend' || $tab === '' ? 'active' : '' }}" href="{{ url('/mylist?tab=recommend&keyword=' . ($keyword ?? '')) }}">
             おすすめ
         </a>
     </li>
     <li>
-        <a class="index__menu--item {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/mylist?tab=mylist') }}">
+        <a class="index__menu--item {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/mylist?tab=mylist&keyword=' . ($keyword ?? '')) }}">
             マイリスト
         </a>
     </li>
