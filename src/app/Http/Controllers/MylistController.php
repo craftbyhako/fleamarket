@@ -24,12 +24,8 @@ class MylistController extends Controller
         if ($tab === 'mylist') {
             $items = $user->likedItems()->with('user', 'sold');
             
-            // ->get();
-            
             if (!empty($keyword)) {
                 $items->where('item_name', 'like', '%' . $keyword . '%');
-
-            // $tab = 'recommend' ;
         }
 
             $items = $items->get();
