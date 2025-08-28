@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
+use Illuminate\Support\Facades\Hash;
+
 
 class ItemStoreTest extends TestCase
 {
@@ -17,7 +19,12 @@ class ItemStoreTest extends TestCase
     public function test_item_can_be_saved_with_all_required_fields()
     {
         // Arrange: ユーザーとカテゴリ、商品の状態を作成
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'user_name' => '鈴木　一郎',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password'),
+        ]);
+        
         $category = Category::factory()->create(['category_name' => 'テストカテゴリ']);
         $condition = Condition::factory()->create(['condition' => '新品']);
 
@@ -30,9 +37,10 @@ class ItemStoreTest extends TestCase
             'condition_id' => $condition->id,
         ];
 
+       
         // Act: 商品出品画面で POST
         $response = $this->actingAs($user)
-                         ->post(route('items.store'), $itemData);
+                         ->post(route('item.store'), $itemData);
 
         // Assert: リダイレクトされること
         $response->assertStatus(302);
@@ -50,7 +58,7 @@ class ItemStoreTest extends TestCase
 
         // カテゴリとの紐づけも確認（中間テーブル item_category など）
         $this->assertDatabaseHas('category_item', [
-            'item_id' => Item::first()->id,
+            'item_id' => $item->id,
             'category_id' => $category->id,
         ]);
     }
