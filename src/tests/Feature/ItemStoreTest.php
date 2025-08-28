@@ -10,6 +10,8 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\UploadedFile;
+
 
 
 class ItemStoreTest extends TestCase
@@ -26,25 +28,30 @@ class ItemStoreTest extends TestCase
         ]);
         
         $category = Category::factory()->create(['category_name' => 'テストカテゴリ']);
-        $condition = Condition::factory()->create(['condition' => '新品']);
+        $condition = Condition::factory()->create(['condition' => '良好']);
 
         $itemData = [
             'item_name' => 'テスト商品',
             'brand' => 'テストブランド',
             'description' => 'テスト商品の説明です。',
             'price' => 5000,
-            'category_ids' => [$category->id], // 複数選択可
+            'categories' => [$category->id], // 複数選択可
             'condition_id' => $condition->id,
+            'image'        => UploadedFile::fake()->create('dummy.jpg', 10),
         ];
 
        
         // Act: 商品出品画面で POST
         $response = $this->actingAs($user)
                          ->post(route('item.store'), $itemData);
+        
+        // dd(auth()->check(), auth()->id());
+        // dd($response->getContent(), $response->getStatusCode(), $response->headers->all());
+
 
         // Assert: リダイレクトされること
         $response->assertStatus(302);
-        $response->assertRedirect(route('items.index')); // 出品後のページ
+        $response->assertRedirect('/sell'); // 出品後のページ
 
         // DBに保存されていることを確認
         $this->assertDatabaseHas('items', [
@@ -55,6 +62,12 @@ class ItemStoreTest extends TestCase
             'condition_id' => $condition->id,
             'user_id' => $user->id,
         ]);
+
+        // 出品後の商品を取得
+        $item = Item::first();
+
+        $this->assertNotEmpty($item->image);
+
 
         // カテゴリとの紐づけも確認（中間テーブル item_category など）
         $this->assertDatabaseHas('category_item', [

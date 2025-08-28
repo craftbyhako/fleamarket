@@ -17,12 +17,7 @@ class ChangeDestinationTest extends TestCase
 
     public function test_session_address_is_reflected_in_purchase_page()
     {
-        // Arrange: ユーザーと商品を作成
-        $user = User::factory()->create([
-            'postcode' => '000-0000',
-            'address' => '旧住所',
-            'building' => '旧ビル',
-        ]);
+        $user = User::factory()->create();
         $item = Item::factory()->create();
 
         $addressData = [
@@ -31,20 +26,19 @@ class ChangeDestinationTest extends TestCase
             'destination_building' => 'テストビル101',
         ];
 
-        // Act: 配送先住所をセッションに登録
-        $response = $this->actingAs($user)
-                         ->withSession([])
-                         ->post(route('purchase.updateDestination', ['item' => $item->id]), $addressData);
+        // 1. PATCH で配送先住所を更新
+        $this->actingAs($user)
+            ->patch(route('purchase.updateDestination', ['item_id' => $item->id]), $addressData)
+            ->assertRedirect()
+            ->assertSessionHas('purchase_address', [
+                'postcode' => '123-4567',
+                'address' => '東京都渋谷区1-1-1',
+                'building' => 'テストビル101',
+                ]);
 
-        // Assert: セッションに保存されていることを確認
-        $this->assertEquals(session('purchase_address.postcode'), '123-4567');
-        $this->assertEquals(session('purchase_address.address'), '東京都渋谷区1-1-1');
-        $this->assertEquals(session('purchase_address.building'), 'テストビル101');
-
-        // 商品購入画面を開き、住所が反映されていることを確認
+        // 2. 商品購入ページを開いて、セッションの住所が表示されているか確認
         $response = $this->actingAs($user)
-                         ->withSession(session()->all())
-                         ->get(route('purchase.form', ['item' => $item->id]));
+            ->get(route('purchase.form', ['item' => $item->id]));
 
         $response->assertStatus(200);
         $response->assertSee('123-4567');

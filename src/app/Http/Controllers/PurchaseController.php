@@ -26,9 +26,9 @@ class PurchaseController extends Controller
         $payment = session('payment_method', '');
 
         $address = session('purchase_address', [
-        'postcode' => $user->postcode,
-        'address' => $user->address,
-        'building' => $user->building,
+        'postcode' => $user->postcode ?? '',
+        'address' => $user->address ?? '',
+        'building' => $user->building ?? '',
     ]);
 
         return view('purchase.purchase', [

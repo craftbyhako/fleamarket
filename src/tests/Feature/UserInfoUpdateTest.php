@@ -24,7 +24,7 @@ class UserInfoUpdateTest extends TestCase
         ]);
 
         // Act: プロフィールページを開く
-        $response = $this->actingAs($user)->get('/profile/edit'); // プロフィール編集画面URL
+        $response = $this->actingAs($user)->get('/mypage/profile'); // プロフィール編集画面URL
 
         // Assert: 正しい初期値が表示されていること
         $response->assertStatus(200);

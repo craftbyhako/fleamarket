@@ -36,9 +36,9 @@
             <div class="destination-wrapper">
                 <p class="destination__comfirm">配送先 <a href="{{ route('purchase.showDestination', ['item_id' => $item->id]) }}" class="change-link">変更する</a></p>
                     <div class="user-address">
-                        <p>〒{{ $address['postcode'] }}</p>
-                        <p>{{ $address['address'] }}</p>
-                        <p>{{ $address['building'] }}</p>
+                        <p>〒{{ $address['postcode'] ?? '' }}</p>
+                        <p>{{ $address['address'] ?? '' }}</p>
+                        <p>{{ $address['building'] ?? '' }}</p>
                     </div>
             </div>   
         </div>
