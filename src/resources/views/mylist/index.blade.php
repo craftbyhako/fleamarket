@@ -1,3 +1,8 @@
+@php
+    // マイリスト表示用に変数名を統一
+    $items = $sellItems ?? collect();
+@endphp
+
 @extends('layouts.app')
 
 @section('css')
@@ -25,10 +30,10 @@
     <div class="mylist__items">
         @if($tab === 'mylist')
             @auth
-                @if($items->isEmpty())
+                @if($sellitems->isEmpty())
                     <p>マイリストに商品がありません。</p>
                 @else
-                    @foreach ($items as $item)
+                    @foreach ($sellItems as $item)
                         <!-- マイリスト商品表示 -->
                          <div class="mylist__item">
                             <a href="{{ url('/item/' . $item->id) }}" class="item-link">

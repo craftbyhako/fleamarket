@@ -77,13 +77,21 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $sellItems = Item::where('user_id', $user->id)->get(); 
+        $tab = $request->query('tab', 'sell');
+        
+        $keyword = $request->query('keyword', '');
+
+        $query = Item::where('user_id', $user->id);
+
+        if (!empty($keyword)) {
+            $query->where('item_name', 'like', "%{$keyword}%");
+        }
+        $sellItems = Item::where('user_id', $user->id)->get();
+        
 
         $boughtItems = $user->boughtItems()->get();
 
-        $tab = $request->query('tab', 'sell');
-
-        return view('mylist.mypage', compact('sellItems', 'boughtItems', 'user', 'tab', 'request'));
+        return view('mylist.mypage', compact('sellItems', 'boughtItems', 'user', 'tab', 'request', 'keyword'));
     }
 
     public function editProfile()
