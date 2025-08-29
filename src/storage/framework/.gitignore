@@ -7,13 +7,13 @@
 !public/items/
 !public/profile_images/
 
-# storage/app/public 以下も追跡（開発練習用）
-!storage/
-!storage/app/
-!storage/app/public/
-!storage/app/public/images/
-!storage/app/public/items/
-!storage/app/public/profile_images/
+# src/storage/app/public 以下を追跡
+!src/storage/
+!src/storage/app/
+!src/storage/app/public/
+!src/storage/app/public/images/
+!src/storage/app/public/items/
+!src/storage/app/public/profile_images/
 
 # Laravel キャッシュ / メンテナンスファイルは無視
 /storage/framework/*.php
