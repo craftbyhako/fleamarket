@@ -48,7 +48,7 @@ class ItemDetailTest extends TestCase
         ]);
 
         // ① 商品詳細ページにアクセス
-        $response = $this->get('/items/' . $item->id);
+        $response = $this->get('/item/' . $item->id);
 
         // ② ステータスコード200
         $response->assertStatus(200);
@@ -84,7 +84,7 @@ class ItemDetailTest extends TestCase
         $item->categories()->attach([$category1->id, $category2->id]);
 
         // 商品詳細ページにアクセス
-        $response = $this->get('/items/' . $item->id);
+        $response = $this->get('/item/' . $item->id);
 
         $response->assertStatus(200);
 

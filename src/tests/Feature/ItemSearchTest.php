@@ -17,16 +17,16 @@ class ItemSearchTest extends TestCase
     public function test_search_returns_partial_matches()
     {
 
-        $hit1 = Item::factory()->create(['name' => '赤いリンゴ']);
-        $hit2 = Item::factory()->create(['name' => '青いリンゴ']);
-        $miss  = Item::factory()->create(['name' => 'みかん']);
+        $hit1 = Item::factory()->create(['item_name' => '赤いリンゴ']);
+        $hit2 = Item::factory()->create(['item_name' => '青いリンゴ']);
+        $miss  = Item::factory()->create(['item_name' => 'みかん']);
 
-        $response = $this->get('/items?keyword=りんご');
+        $response = $this->get('/?keyword=りんご');
 
         $response->assertStatus(200);
 
-        $response->assertSee($hit1->name);
-        $response->assertSee($hit2->name);
+        $response->assertSee($hit1->item_name);
+        $response->assertSee($hit2->item_name);
 
         $response->assertDontSee($miss->name);
     }
@@ -35,13 +35,30 @@ class ItemSearchTest extends TestCase
     {
         $user = User::factory()->create();
 
-        Item::factory()->create(['name' => '赤いリンゴ']);
-        Item::factory()->create(['name' => '青いリンゴ']);
-        Item::factory()->create(['name' => 'みかん']);
+        $hit1 = Item::factory()->create([
+            'item_name' => '赤いリンゴ',
+            'user_id' => $user->id, // ← ここで紐付け
+        ]);
 
-        $response = $this->actingAs($user)->get('/items?keyword=リンゴ');
+        $hit2 = Item::factory()->create([
+            'item_name' => '青いリンゴ',
+            'user_id' => $user->id,
+        ]);
+
+        $miss = Item::factory()->create([
+            'item_name' => 'みかん',
+            'user_id' => $user->id, // 必要に応じて
+        ]);
+
+        $response = $this->actingAs($user)->get('/?keyword=りんご');
+       
+        // 302 リダイレクトを確認
+        $response->assertStatus(302);
+        $response->assertRedirect('/mylist?tab=mylist');
+
+        // リダイレクト先の URL に検索キーワードが引き継がれているか確認
+        $response = $this->actingAs($user)->get('/mylist?tab=mylist&keyword=りんご');
         $response->assertStatus(200);
-
         $response->assertSee('赤いリンゴ');
         $response->assertSee('青いリンゴ');
         $response->assertDontSee('みかん');

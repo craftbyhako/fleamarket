@@ -66,6 +66,13 @@ class Item extends Model
         return $this->hasOne(Sold::class);
 
     }
+
+    // 購入済みか判定する
+    public function getIsSoldAttribute()
+    {
+    return $this->sold()->exists();
+    }
+
     // Userモデルとのリレーション
     public function user()
     {

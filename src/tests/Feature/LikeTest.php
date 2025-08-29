@@ -19,7 +19,6 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
         $item = Item::factory()->create([
             'item_name' => 'テスト商品',
-            'likes_count' => 0, // 初期値0
         ]);
 
         // Act: ログイン状態でいいねボタンを押下（POSTリクエスト）
@@ -36,7 +35,7 @@ class LikeTest extends TestCase
 
         // いいね数が1になっていることを確認
         $item->refresh(); // 最新状態を取得
-        $this->assertEquals(1, $item->likes_count);
+        $this->assertEquals(1, $item->likes()->count());
     }
 
     public function test_like_icon_changes_after_post_like()
@@ -44,7 +43,6 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
         $item = Item::factory()->create([
             'item_name' => 'テスト商品',
-            'likes_count' => 0,
         ]);
 
     // Like ボタン押下（POST）
@@ -60,10 +58,10 @@ class LikeTest extends TestCase
 
     // likes_count が増えているか確認
         $item->refresh();
-        $this->assertEquals(1, $item->likes_count);
+        $this->assertEquals(1, $item->likes()->count());
 
     // レスポンス HTML にアイコン画像パスが含まれているか確認（押下後は赤アイコンになる想定）
-        $response = $this->actingAs($user)->get('/items/' . $item->id);
+        $response = $this->actingAs($user)->get('/item/' . $item->id);
         $response->assertSee('like_red.jpeg');
 }
 
@@ -73,7 +71,6 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
         $item = Item::factory()->create([
             'item_name' => 'テスト商品',
-            'likes_count' => 1, // 初期値1
         ]);
 
         // 既にLikeがある状態を作成
@@ -93,13 +90,12 @@ class LikeTest extends TestCase
 
         // likes_count が減っているか確認
         $item->refresh();
-        $this->assertEquals(0, $item->likes_count);
+        $this->assertEquals(0, $item->likes()->count());
 
         // レスポンスHTMLで黒アイコンが表示されていることを確認
-        $response = $this->actingAs($user)->get('/items/' . $item->id);
+        $response = $this->actingAs($user)->get('/item/' . $item->id);
         $response->assertStatus(200);
         $response->assertSee('like_black.jpeg');
     }
 
 }
-

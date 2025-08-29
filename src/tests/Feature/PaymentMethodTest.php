@@ -22,20 +22,22 @@ class PaymentMethodTest extends TestCase
             'price' => 1000,
         ]);
 
-        // 小計画面や購入フォームに必要なデータを準備
-        $purchaseData = [
-            'item_id' => $item->id,
-            'payment_method' => 'credit_card', // 選択した支払い方法
-            'quantity' => 1,
-        ];
+        // 支払い方法をセッションにセット
+        $this->actingAs($user)
+             ->withSession(['payment_method' => 'コンビニ払い']);
 
-        // Act: 支払い方法を選択してPOST
-        $response = $this->actingAs($user)->post(route('purchase.subtotal'), $purchaseData);
+          // 支払い方法をセッションにセット
+        $this->actingAs($user)
+             ->get(route('purchase.form', [
+                 'item' => $item->id,
+             ]));
 
-        // Assert: リダイレクトされる（小計画面）
-        $response->assertStatus(200); // または assertRedirect() で小計画面URLを確認
+        // Act: 購入フォームを開く
+        $response = $this->actingAs($user)
+                         ->get(route('purchase.form', ['item' => $item->id]));
 
-        // レスポンスに選択した支払い方法が表示されていることを確認
-        $response->assertSee('クレジットカード'); // bladeに表示される文字列
+        // Assert: 画面に選択した支払い方法が反映されていることを確認
+        $response->assertStatus(200);
+        $response->assertSee('コンビニ払い'); // Blade 上に表示される文字列
     }
 }

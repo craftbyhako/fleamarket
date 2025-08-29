@@ -42,6 +42,7 @@ class PurchaseController extends Controller
     public function store(Request $request,$item_id)
     {
 
+
         $user = Auth::user();
         $item = Item::findOrFail($item_id);
 
@@ -66,12 +67,12 @@ class PurchaseController extends Controller
 
         // 購入履歴を保存する
         Sold::create([
-        'item_id' => $item_id,
-        'user_id' => Auth::id(),
-        'payment' => $payment,
-        'destination_postcode' => $address['postcode'],
-        'destination_address' => $address['address'],
-        'destination_building' => $address['building'] ?? null,
+            'item_id' => $item_id,
+            'user_id' => Auth::id(),
+            'payment' => $payment,
+            'destination_postcode' => $address['postcode'],
+            'destination_address' => $address['address'],
+            'destination_building' => $address['building'] ?? null,
         ]);
         
          $request->session()->forget('purchase_address');

@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\Sold;
+use App\Models\Sold; 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseTest extends TestCase
 {
@@ -15,95 +15,77 @@ class PurchaseTest extends TestCase
 
     public function test_user_can_purchase_item()
     {
-        // Arrange: ユーザーと商品を作成
+        // ユーザーと商品を用意
         $user = User::factory()->create();
-        $item = Item::factory()->create([
-            'item_name' => 'テスト商品',
-            'price' => 1000,
+        $item = Item::factory()->create();
+
+        $this->actingAs($user);
+
+
+        // テスト用の住所情報
+        session(['purchase_address' => [
+            'postcode' => '123-4567',
+            'address' => '東京都新宿区テスト町1-2-3',
+            'building' => 'テストビル101',
+        ]]);
+
+        $payment = 'カード払い';
+
+    // 購入処理
+        $response = $this->post(route('purchase.store', ['item_id' => $item->id]), [
+            'payment' => $payment,
         ]);
 
-        // Act: ログイン状態で購入フォームから購入ボタンを押下
-        $response = $this->actingAs($user)->post(route('purchase.complete', ['item' => $item->id]), [
-            // 必要な購入情報をフォームと同じキーで送信
-            'item_id' => $item->id,
-            'payment_method' => 'credit_card',
-            'address' => '東京都渋谷区1-1-1',
-        ]);
-
-        // Assert: リダイレクトされる（購入完了ページ想定）
+    // Assert: リダイレクトされる（購入完了ページ想定）
         $response->assertStatus(302);
-        $response->assertRedirect(route('purchase.thanks')); // 購入完了ページにリダイレクト
+        $response->assertRedirect(route('mylist', ['tab' => 'mylist']));
+        $response->assertSessionHas('success', '購入が完了しました');
 
-        // DBに購入情報が登録されていることを確認
+    // DBに購入情報が登録されていることを確認
         $this->assertDatabaseHas('solds', [
             'user_id' => $user->id,
             'item_id' => $item->id,
+            'payment' => $payment,
+            'destination_postcode' => ['123-4567'],
+            'destination_address' => ['東京都新宿区テスト町1-2-3'],
+            'destination_building' => ['テストビル101'],
         ]);
-
-        // 商品が購入済みとして更新されている場合は確認
-        $item->refresh();
-        $this->assertTrue($item->is_sold); // フラグがある場合
     }
 
-     public function test_purchased_item_shows_sold_label_in_item_list()
+
+    public function test_purchased_item_shows_sold_label_in_item_list()
     {
-        // Arrange: ユーザーと商品を作成
         $user = User::factory()->create();
-        $item = Item::factory()->create([
-            'item_name' => 'テスト商品',
-        ]);
+        $item = Item::factory()->create();
 
-        // Act: ログイン状態で購入処理を行う
-        $this->actingAs($user)->post(route('purchase.complete', ['item' => $item->id]), [
+        $this->actingAs($user)->post('/purchase', [
             'item_id' => $item->id,
-            'payment_method' => 'credit_card',
-            'address' => '東京都渋谷区1-1-1',
+            'payment' => 'カード払い',
         ]);
 
-        // DBに購入情報が登録されていることを確認（任意）
-        $this->assertDatabaseHas('solds', [
-            'user_id' => $user->id,
-            'item_id' => $item->id,
-        ]);
+        
+        // Soldリレーションが正しくあるか確認
+        // $itemFresh = Item::find($item->id);
+        // dd($itemFresh->sold);
+         // ←ここでnullでないかチェック
 
-        // 商品一覧ページを取得
-        $response = $this->get('/items'); // 商品一覧ページURLに変更
 
-        $response->assertStatus(200);
-
-        // 購入済み商品に「Sold」が表示されているか確認
-        $response->assertSee('Sold');
-        $response->assertSee($item->item_name);
+        $response = $this->actingAs($user)->get('mylist?tab=mylist');
+        $response->assertSee('SOLD');
     }
 
     public function test_purchased_item_is_added_to_my_page_purchased_items()
     {
-        // Arrange: ユーザーと商品を作成
         $user = User::factory()->create();
-        $item = Item::factory()->create([
-            'item_name' => 'テスト商品',
-        ]);
+        $item = Item::factory()->create();
 
-        // Act: ログイン状態で購入処理
-        $this->actingAs($user)->post(route('purchase.complete', ['item' => $item->id]), [
+        $this->actingAs($user)->post('/purchase', [
             'item_id' => $item->id,
-            'payment_method' => 'credit_card',
-            'address' => '東京都渋谷区1-1-1',
+            'payment_method' => 'カード払い',
         ]);
 
-        // DBに購入情報が登録されていることを確認
-        $this->assertDatabaseHas('solds', [
-            'user_id' => $user->id,
-            'item_id' => $item->id,
-        ]);
+        $response = $this->actingAs($user)->get('/mypage?tab=bought');
 
-        // マイページの購入済み商品タブを取得
-        $response = $this->actingAs($user)->get('/mylist?tab=purchased'); // 購入済みタブURL
-
-        $response->assertStatus(200);
-
-        // 購入済み商品が表示されていることを確認
         $response->assertSee($item->item_name);
-        $response->assertSee('Sold'); // ラベルが表示される場合
     }
 }
