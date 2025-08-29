@@ -7,10 +7,12 @@
 !public/items/
 !public/profile_images/
 
-# src/storage/app/public 以下を追跡
-!src/storage/
-!src/storage/app/
+# src/storage/app/public 以下のフォルダと既存ファイルを追跡
 !src/storage/app/public/
+!src/storage/app/public/comment.jpeg
+!src/storage/app/public/like_black.jpeg
+!src/storage/app/public/like_red.jpeg
+!src/storage/app/public/logo.svg
 !src/storage/app/public/images/
 !src/storage/app/public/items/
 !src/storage/app/public/profile_images/
