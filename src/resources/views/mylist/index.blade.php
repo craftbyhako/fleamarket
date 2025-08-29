@@ -1,8 +1,3 @@
-@php
-    // マイリスト表示用に変数名を統一
-    $items = $sellItems ?? collect();
-@endphp
-
 @extends('layouts.app')
 
 @section('css')
@@ -30,29 +25,31 @@
     <div class="mylist__items">
         @if($tab === 'mylist')
             @auth
-                @if($sellitems->isEmpty())
+                @if($sellItems->isEmpty())
                     <p>マイリストに商品がありません。</p>
                 @else
-                    @foreach ($sellItems as $item)
+                    @isset($sellItems)
+                        @foreach ($sellItems as $item)
                         <!-- マイリスト商品表示 -->
-                         <div class="mylist__item">
-                            <a href="{{ url('/item/' . $item->id) }}" class="item-link">
+                             <div class="mylist__item">
+                                <a href="{{ url('/item/' . $item->id) }}" class="item-link">
                                 <!-- 画像 -->
                                 <img src="{{ asset('storage/' .$item->image) }}" alt="商品画像" class="img-content">
             
                                 <!-- 商品名 -->
-                                <div class="detail-content">
-                                    <p class="detail-content__name">
-                                    {{ $item->item_name }}
+                                    <div class="detail-content">
+                                        <p class="detail-content__name">
+                                        {{ $item->item_name }}
 
-                                    @if ($item->isSold)
-                                        <span class="sold-label">SOLD</span>
-                                    @endif
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                                        @if ($item->isSold)
+                                            <span class="sold-label">SOLD</span>
+                                        @endif
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    @endisset
                 @endif
             @else
                 <p>ログインしてください。</p>

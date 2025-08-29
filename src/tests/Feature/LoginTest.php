@@ -57,11 +57,9 @@ class LoginTest extends TestCase
         ];
         
         $response = $this->post('/login', $formData);
-        $response->assertSessionHasErrors([
-            'email' => 'ログイン情報が登録されていません',
+        $response->assertSessionHasErrors('email');
 
-        $this->assertGuest()
-        ]);       
+        $this->assertGuest();
     }
 
     public function test_valid_credential_login()

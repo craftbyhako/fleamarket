@@ -62,8 +62,8 @@ class UserController extends Controller
 
         $request->session()->forget('url.intended');
 
-        // 会員ページへリダイレクト
-        return redirect()->route('mylist', ['tab' => 'mylist']);
+        // プロフィール設定ページへリダイレクト
+        return redirect('/mypage/profile/create');
     }
 
 

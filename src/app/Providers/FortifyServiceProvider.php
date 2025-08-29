@@ -78,16 +78,7 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-         
-
-        $this->app->singleton(RegisterResponse::class, function () {
-            return new class implements RegisterResponse {
-                public function toResponse($request)
-                {
-                return redirect('/mypage/profile'); // 会員登録後のリダイレクト先
-                }
-            };
-        });
+        
 
         
 

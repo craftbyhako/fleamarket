@@ -22,38 +22,82 @@ class MylistController extends Controller
         $keyword = $request->input('keyword', null);
 
         if ($tab === 'mylist') {
-            $items = $user->likedItems()->with('user', 'sold');
-            
+
+             // ───── 修正①: いいねした商品を取得 ──────────────
+            $likedItems = $user->likedItems()->with('user', 'sold');
             if (!empty($keyword)) {
-                $items->where('item_name', 'like', '%' . $keyword . '%');
-        }
-
-            $items = $items->get();
-        
-
-            foreach ($items as $item) {
-                $item->isSold = $item->sold !==null;
+            $likedItems->where('item_name', 'like', '%' . $keyword . '%');
             }
-        } elseif ($tab === 'recommend') {
-            $query = Item::with('user', 'sold');
+            $likedItems = $likedItems->get();
+
+            // ────── 修正②: 購入済み商品を取得 ──────────────
+            $purchasedItems = Item::with('user', 'sold')
+             ->whereHas('sold', function($query) use ($user) {
+            $query->where('user_id', $user->id);
+            });
+            if (!empty($keyword)) {
+            $purchasedItems->where('item_name', 'like', '%' . $keyword . '%');
+            }
+            $purchasedItems = $purchasedItems->get();
+
+        // ────────── 修正③: マージして重複を削除 ──────────────
+            $items = $likedItems->merge($purchasedItems)->unique('id');
+
+        //     $items = Item::with('user', 'sold')
+        //     ->whereHas('purchases', function($query) use ($user) {
+        //         $query->where('user_id', $user->id);
+        //     });
             
-            if ($user) {
-                $query->where('user_id', '<>', $user->id);
-            }
+        //     if (!empty($keyword)) {
+        //         $items->where('item_name', 'like', '%' . $keyword . '%');
+        // }
 
-            if(!empty($keyword)) {
-                $query->where('item_name', 'like', '%' . $keyword . '%');
-            }        
+        //     $items = $items->get();
         
-            $items = $query->get();
+
+        //     foreach ($items as $item) {
+        //         $item->isSold = $item->sold !==null;
+        //     }
+        // } elseif ($tab === 'recommend') {
+        //     $query = Item::with('user', 'sold');
+            
+        //     if ($user) {
+        //         $query->where('user_id', '<>', $user->id);
+        //     }
+
+        //     if(!empty($keyword)) {
+        //         $query->where('item_name', 'like', '%' . $keyword . '%');
+        //     }        
+        
+        //     $items = $query->get();
             foreach($items as $item) {
                 $item->isSold = $item->sold !==null;
             }
+
+            } elseif ($tab === 'recommend') {
+                $query = Item::with('user', 'sold');
+                if ($user) {
+                    $query->where('user_id', '<>', $user->id);
+                }
+                if (!empty($keyword)) {
+                    $query->where('item_name', 'like', '%' . $keyword . '%');
+                }        
+                $items = $query->get();
+                foreach ($items as $item) {
+                    $item->isSold = $item->sold !== null;
+        }
         } else {
             $items = collect();
         }        
 
-    return view ('mylist.index',compact('items', 'tab', 'keyword')); 
+        $sellItems = $tab === 'mylist' ? $items : collect();
+
+    return view ('mylist.index', [
+        'items' => $items,
+        'sellItems' => $sellItems,
+        'tab' => $tab,
+        'keyword' =>$keyword,
+    ]); 
     }
 
 

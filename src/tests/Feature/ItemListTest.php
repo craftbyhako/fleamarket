@@ -49,20 +49,20 @@ class ItemListTest extends TestCase
 
         $ownItem = Item::factory()->create([
             'user_id' => $user->id,
-            'name' => '自分の商品',
+            'item_name' => '自分の商品',
         ]);
 
         $otherItem = Item::factory()->create([
-            'name' => '他人の商品',
+            'item_name' => '他人の商品',
         ]);
 
-        $response = $this->actingAs($user)->get('/');
+        $response = $this->actingAs($user)->get('/mylist?tab=recommend');
 
         $response->assertStatus(200);
 
-        $response->assertDontSee($ownItem->name);
+        $response->assertDontSee($ownItem->item_name);
 
-        $response->assertSee($otherItem->name);
+        $response->assertSee($otherItem->item_name);
 
     }
 }
