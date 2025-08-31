@@ -34,21 +34,24 @@ class ItemController extends Controller
     }
 
     // 詳細画面表示
-    public function show($item_id){
+    public function show(Request $request, $item_id){
     
         $item = Item::with('user', 'categories', 'comments.user', 'condition')->withCount(['likes', 'comments'])->findOrFail($item_id);
         $comments = $item->comments;
 
+        $tab = $request->query('tab', 'mylist');
 
-        return view('item', compact('item', 'comments'));
+
+        return view('item', compact('item', 'comments', 'tab'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $allCategories = Category::all();
         $conditions = Condition::all();
+        $tab = $request->query('tab', 'sell');
 
-        return view ('sell', compact('allCategories', 'conditions'));
+        return view ('sell', compact('allCategories', 'conditions', 'tab'));
     }
 
     public function store(ExhibitionRequest $request)

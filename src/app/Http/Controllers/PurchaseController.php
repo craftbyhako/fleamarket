@@ -31,11 +31,14 @@ class PurchaseController extends Controller
         'building' => $user->building ?? '',
     ]);
 
+        $tab = $request->query('tab', 'mylist'); 
+
         return view('purchase.purchase', [
         'item' => $item,
         'user' => $user,
         'payment' => $payment,
         'address' => $address,
+        'tab' => $tab,
         ]);
     }
 
@@ -82,11 +85,14 @@ class PurchaseController extends Controller
     }
 
 
-    public function showDestination($item_id)
+    public function showDestination(Request $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
-        return view('purchase.edit_address', compact('item', 'user'));
+        $tab = $request->query('tab', 'mylist');
+
+
+        return view('purchase.edit_address', compact('item', 'user', 'tab'));
     }
 
     public function updateDestination(EditAddressRequest $request, $item_id)

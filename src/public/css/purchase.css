@@ -141,8 +141,12 @@
       color: white;
       font-size: 16px;
       padding: 5px 60px;
-        width: 100%;
+      width: 100%;
       
+  }
+
+  .purchase__button:hover {
+      opacity: 0.8;
   }
 
   

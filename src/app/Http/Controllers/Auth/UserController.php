@@ -63,7 +63,7 @@ class UserController extends Controller
         $request->session()->forget('url.intended');
 
         // プロフィール設定ページへリダイレクト
-        return redirect('/mypage/profile/create');
+        return redirect('/mylist?tab=mylist');
     }
 
 
@@ -94,10 +94,12 @@ class UserController extends Controller
         return view('mylist.mypage', compact('sellItems', 'boughtItems', 'user', 'tab', 'request', 'keyword'));
     }
 
-    public function editProfile()
+    public function editProfile(Request $request)
     {
         $user = Auth::user();
-        return view ('mylist.edit_profile', compact('user'));
+        $tab = $request->query('tab', 'mypage');
+
+        return view ('mylist.edit_profile', compact('user', 'tab'));
     }
 
     public function updateProfile(ProfileRequest $request)
