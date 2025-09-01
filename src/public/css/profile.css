@@ -1,16 +1,12 @@
 .profile__content {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 40px;
-    position: relative;
-    left: 0;
-    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile__title {
     text-align: center;
-    margin-bottom: 24px;
+    margin: 24px;
 }
 
 .profile-form {
@@ -21,8 +17,12 @@
 }
 
 .profile__picture-group {
-    margin: 0 auto;
-    width: 600px;
+    
+    display: flex;
+    align-items: center;
+    width: 430px;
+    gap: 50px;
+    margin-bottom: 50px;
 }
 
 .profile__image {
@@ -32,9 +32,10 @@
 }
 
 .profile__input-form input[type="text"],
-.register__input-form__button button {
+.profile__input-form__button button {
     width: 430px;
     box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .profile__image-label {
@@ -43,60 +44,9 @@
     background-color: white;
     color: red;
     border-radius: 5px;
+    border: 1px solid red;
     cursor: pointer;
     margin-right: 10px;
-}
-
-.profile__input-form {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.profile__label {
-    margin-bottom: 4px;
-    font-weight: bold;
-}
-
-.profile__input {
-    height: 30px;
-    font-size: 17px;
-    width: 430px;
-}
-
-.profile__error-message {
-    color: red;
-}
-
-.profile__input-form__button {
-    text-align: center;
-
-}
-
-button {
-    background-color: red;
-    /* 背景：親の赤に「なじむ」 */
-    color: white;
-    /* 文字色：見やすい白 */
-    font-size: 16px;
-    padding: 10px 24px;
-    border: none;
-    /* 枠なし */
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    opacity: 0.8;
-    /* ホバー時、少しだけ反応 */
-}
-
-.login__link {
-    text-align: center;
-    padding-top: 20px;
 }
 
 .profile__image-wrapper {
@@ -126,9 +76,83 @@ button:hover {
 .no-image {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #ccc;
     /* グレー背景 */
     border-radius: 50%;
+    box-sizing: border-box;
+        /* パディングやボーダーを含めてサイズを計算 */
+    text-align: center;
 }
+
+.profile__input-form {
+    display: flex;
+    flex-direction: column;
+    /* gap: 5px; */
+    margin: 0 auto;
+    width: 430px; 
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.profile__field {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.profile__label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+}
+
+.profile__input {
+    width: 100%;
+    height: 30px;
+    font-size: 17px;
+    box-sizing: border-box;
+}
+    
+
+.profile-form__error-message {
+    color: red;
+    margin-bottom: 20px;
+    margin-top: 0;
+
+}
+
+.profile__input-form__button {
+    /* display: flex;
+    justify-content: center; */
+    margin: 50px auto;
+    width: 430px;
+}
+
+.profile__input-form__button button {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+    /* ホバー時、少しだけ反応 */
+}
+
+.login__link {
+    text-align: center;
+    padding-top: 20px;
+}
+
+
 
 @media screen and (min-width: 768px) and (max-width: 850px) {}

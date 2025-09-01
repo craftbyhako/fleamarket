@@ -67,9 +67,13 @@ class UserController extends Controller
     }
 
 
-     public function createProfile()
+     public function createProfile(Request $request)
     {
-        return view('auth.profile');
+        $tab = $request->query('tab', 'mylist');
+        $user = Auth::user();
+        $defaultUserName = $user->user_name;
+
+        return view('auth.profile', compact('tab', 'defaultUserName'));
     }
 
 
