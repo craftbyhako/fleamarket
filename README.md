@@ -1,11 +1,12 @@
-# PiGLy
+# Fleamarket （フリマアプリ）
 
 ## 環境構築
 
 ### Docker ビルド
 
 1. git clone git@github.com:craftbyhako/fleamarket.git
-2. docker-compose up -d --build
+2. DockerDesktopアプリを立ち上げる
+3. docker-compose up -d --build
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて docker-compose.yml ファイルを編集してください。
 
@@ -17,6 +18,7 @@
 4. .env ファイルの一部を以下のように編集
 
 ```
+DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
@@ -29,14 +31,14 @@ DB_PASSWORD=laravel_pass
 
 ## user のログイン用初期データ
 
-- メールアドレス: test@example.com
+- メールアドレス: hoge@example.com
 - パスワード: 12345678
 
 ## 使用技術
 
-- MySQL 8.0.26
-- PHP 8.3.6
-- Laravel 8.38.8
+- MySQL 15.1
+- PHP 7.4.9
+- Laravel 8.83.8
 
 ## URL
 
@@ -45,4 +47,4 @@ DB_PASSWORD=laravel_pass
 
 ## ER 図
 
-![image](fleamarket_er.drawio.png)
+![image](ER_fleamarket.png)
