@@ -49,17 +49,6 @@ Route::middleware('guest')->group (function () {
 
     // ログインの実行
     Route::post('/login', [UserController::class, 'loginUser'])->name('login');
-
-
-    
-    // Route::get('/register', function()
-    // {
-    //     return view('auth.register');
-    // });
-
-    // 会員登録
-    // Route::post('/register', [UserController::class, 'storeUser']);
-
     
 });
 
@@ -74,15 +63,8 @@ Route::middleware('auth')->group(function () {
     // 初回プロフィール登録
     Route::post('/mypage/profile', [UserController::class, 'storeProfile'])->name('user.storeProfile');
 
-    // 初回プロフィール情報・写真の保存
-    // Route::post('/mypage/profile', [UserController::class, 'upload'])->name('user.upload');
-
     // ログイン後のトップ画面（マイリストタブ）
     Route::get('/mylist', [MylistController::class, 'admin'])->name('mylist');
-
-    // ログイン後のトップ画面
-    // Route::get('/mylist/?tab=mylist', [UserController::class, 'adminMypage'])->name('user.adminMypage');
-
 
      // マイページ画面（出品・購入商品閲覧・プロフ編集画面）
     Route::get('/mypage', [UserController::class, 'adminMypage'])->name('user.adminMypage');
@@ -110,9 +92,6 @@ Route::middleware('auth')->group(function () {
 
     // いいね機能
     Route::post('/items/{id}/like', [LikeController::class, 'toggleLike']);
-
-    // 商品詳細画面の表示
-    // Route::get('/item/{item_id}', [MylistController::class, 'show']);
 
     // 商品購入画面の表示
     Route::get('/purchase/{item}', [PurchaseController::class, 'showForm'])->name('purchase.form');

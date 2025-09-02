@@ -9,6 +9,8 @@ use App\Models\Sold;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\EditAddressRequest;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\PurchaseRequest;
+
 
 
 
@@ -42,24 +44,17 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function store(Request $request,$item_id)
+    public function store(PurchaseRequest $request, $item_id)
     {
-
-
         $user = Auth::user();
         $item = Item::findOrFail($item_id);
 
-        $payment = $request->input('payment');
-
-        if (!$payment) {
-            return redirect()->back()->with('error', '支払方法を選択してください');
-        }
-
-        $address = session('purchase_address', [
-            'postcode' => $user->postcode,
-            'address' => $user->address,
-            'building' => $user->building,
-        ]);
+        $validated = $request->validated();
+        
+        $payment = $validated['payment'];
+        $postcode = $validated['destination_postcode'];
+        $address = $validated['destination_address'];
+        $building = $validated['destination_building'] ?? null;
 
         // sold済か確認する
         $isAlreadySold = Sold::where('item_id', $item_id)->exists();
@@ -73,9 +68,9 @@ class PurchaseController extends Controller
             'item_id' => $item_id,
             'user_id' => Auth::id(),
             'payment' => $payment,
-            'destination_postcode' => $address['postcode'],
-            'destination_address' => $address['address'],
-            'destination_building' => $address['building'] ?? null,
+            'destination_postcode' => $postcode,
+            'destination_address' => $address,
+            'destination_building' => $building,
         ]);
         
          $request->session()->forget('purchase_address');

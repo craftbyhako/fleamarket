@@ -22,14 +22,22 @@
         <!-- 支払い方法 -->
         <div class="payment">
             <form action="{{ route('purchase.form', ['item' => $item->id]) }}" method="get">
+
                 <p>支払い方法</p>
-                <select class="payment__select" name="payment" onchange="this.form.submit()" >
-                    <option value="" disabled {{ $payment === '' ? 'selected' : '' }}>支払い方法を選択してください</option>
-                    <option value="コンビニ払い" {{ $payment === 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
-                    <option value="カード支払い" {{ $payment === 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
+                <select class="payment__select" name="payment" onchange="this.form.submit()">
+                    
+                    <option value="" {{ $payment == '' ? 'selected' : '' }} disabled>支払い方法を選択してください</option>
+                    <option value="コンビニ払い" {{ $payment == 'コンビニ払い' ? 'selected' : '' }}>コンビニ払い</option>
+                    <option value="カード支払い" {{ $payment == 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
                 </select>
+                
+                <p class="purchase__error-message">
+                    @error('payment')
+                        {{ $message }}
+                    @enderror
+                </p>
             </form>
-        </div>
+        </div>        
 
         <!-- 配送先 -->
         <div class="destination">
@@ -47,17 +55,6 @@
  <!-- _________________________________________ -->
 
     <div class="purchase__right-part">
-        <!-- バリデーションエラー表示 --> 
-    <!-- @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li style="color:red;">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif -->
-
         <table class="purchase__summary">
             <tr class = "summary-row">
                 <th>商品代金</th>
@@ -69,11 +66,14 @@
                 <td>{{ $payment ?: '未選択' }}</td>
             </tr>
         </table>
-
+  
         <div class="purchase__button-group">
-            <form action="{{ route('purchase.store', ['item_id' => $item->id]) }}" method="POST">
+            <form action="{{ route('purchase.store', ['item_id' => $item->id]) }}" method="POST">   
                 @csrf
-                <input type="hidden" name="payment" value="{{ $payment }}">
+                <input type="hidden" name="payment" value="{{ old('payment', $payment) }}">
+                <input type="hidden" name="destination_postcode" value="{{ $address['postcode'] ?? '' }}">
+                <input type="hidden" name="destination_address" value="{{ $address['address'] ?? '' }}">
+                <input type="hidden" name="destination_building" value="{{ $address['building'] ?? '' }}">
 
                 <button class="purchase__button" type="submit">購入する</button>
             </form>

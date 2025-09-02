@@ -16,16 +16,6 @@ use App\Http\Requests\RegisterRequest;
 
 class UserController extends Controller
 {
-    // public function storeUser(RegisterRequest $request){
-    //     $user = User::create([
-    //         'user_name'=>$request->user_name,
-    //         'email'=>$request->email,
-    //         'password'=>Hash::make($request->password),
-    //     ]);
-    //     Auth::login($user);
-
-    //     return redirect('/');
-    // }
 
     public function loginUser(LoginRequest $request){
         $credentials=$request->only('email', 'password');

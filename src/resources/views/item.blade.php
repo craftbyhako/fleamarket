@@ -25,31 +25,34 @@
         <!-- 値段 -->
         <div class="price">￥{{ number_format($item->price) }} (税込）</div>
 
-        
-@auth
-    @php
-        $isLiked = Auth::user()->likedItems->contains($item->id);
-    @endphp
-
-    <div class="item__actions">
+        <div class="item__actions">
         <!-- いいね数の表示-->
-        <div class="action__item">
-            <form action="{{ url('/items/' . $item->id . '/like') }}" method="POST">
-                @csrf
-                <button type="submit" class="like-button">
-                    <img src="{{ asset($isLiked ? 'storage/like_red.jpeg' : 'storage/like_black.jpeg') }}" alt="いいね画像" class="like-image  {{ $isLiked ? 'liked' : '' }}">
-                </button>
-            </form>
-            <span class="count">{{ $item->likes_count ?? 0 }}</span>
-        </div>
+            <div class="action__item">  
+                @auth
+                    @php
+                        $isLiked = Auth::user()->likedItems->contains($item->id);
+                    @endphp    
+                    <form action="{{ url('/items/' . $item->id . '/like') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="like-button">
+                            <img src="{{ asset($isLiked ? 'storage/like_red.jpeg' : 'storage/like_black.jpeg') }}" alt="いいね画像" class="like-image  {{ $isLiked ? 'liked' : '' }}">
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}">
+                        <img src="{{ asset('storage/like_black.jpeg') }}" alt="いいね画像" class="like-image">
+                    </a>
+                @endauth
+                <span class="count">{{ $item->likes_count ?? 0 }}</span>
+            </div>
                
         <!-- コメント数の表示 -->
-        <div class="action__item">
-            <img src="{{ asset('storage/comment.jpeg') }}" alt="コメント画像" >
-            <span class="count">{{ $item->comments_count ?? 0 }}</span>
+            <div class="action__item">
+                <img src="{{ asset('storage/comment.jpeg') }}" alt="コメント画像" >
+                <span class="count">{{ $item->comments_count ?? 0 }}</span>
+            </div>
         </div>
-    </div>
-@endauth
+
 
             <!-- 購入手続きのリンクボタン -->
             <a href="{{ route('purchase.form', ['item' => $item->id]) }}" class="item__button">
