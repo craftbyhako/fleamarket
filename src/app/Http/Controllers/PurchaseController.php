@@ -50,7 +50,7 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($item_id);
 
         $validated = $request->validated();
-        
+
         $payment = $validated['payment'];
         $postcode = $validated['destination_postcode'];
         $address = $validated['destination_address'];
@@ -98,10 +98,7 @@ class PurchaseController extends Controller
                 'address' => $request->input('destination_address'),
                 'building' => $request->input('destination_building'),
             ]
-        ]);
-            // 確認用
-            // dd(session('purchase_address'));
-        
+        ]);        
 
         return redirect()->route('purchase.form', ['item' => $item_id])->with('success', '配送先を変更しました。');
     }

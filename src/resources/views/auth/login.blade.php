@@ -31,10 +31,6 @@
 
         <button class="login__button-submit" type="submit">ログインする</button>
     </form>
-    <!-- @if ($errors->any())
-    <div class="error">{{ $errors->first() }}</div>
-    @endif -->
-
 
     <div class="register__link">
         <a class="register__button-submit" href="/register">会員登録はこちら</a>

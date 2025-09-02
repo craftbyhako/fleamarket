@@ -51,10 +51,8 @@
 
 .profile__image-wrapper {
     width: 120px;
-    /* 丸いスペースのサイズ */
     height: 120px;
     border-radius: 50%;
-    /* 円形 */
     overflow: hidden;
     /* はみ出し防止 */
     background-color: #ccc;
@@ -68,9 +66,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* 画像の縦横比を保ちつつ枠内に収める */
     border-radius: 50%;
-    /* 画像も丸く */
 }
 
 .no-image {
@@ -80,10 +76,8 @@
     justify-content: center;
     align-items: center;
     background-color: #ccc;
-    /* グレー背景 */
     border-radius: 50%;
     box-sizing: border-box;
-        /* パディングやボーダーを含めてサイズを計算 */
     text-align: center;
 }
 
@@ -126,8 +120,6 @@
 }
 
 .profile__input-form__button {
-    /* display: flex;
-    justify-content: center; */
     margin: 50px auto;
     width: 430px;
 }
@@ -145,7 +137,6 @@
 
 button:hover {
     opacity: 0.8;
-    /* ホバー時、少しだけ反応 */
 }
 
 .login__link {

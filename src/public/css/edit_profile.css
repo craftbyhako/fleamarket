@@ -91,13 +91,10 @@
 
 button {
     background-color: red;
-    /* 背景：親の赤に「なじむ」 */
     color: white;
-    /* 文字色：見やすい白 */
     font-size: 16px;
     padding: 10px 24px;
     border: none;
-    /* 枠なし */
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
@@ -105,15 +102,12 @@ button {
 
 button:hover {
     opacity: 0.8;
-    /* ホバー時、少しだけ反応 */
 }
 
 .edit-profile__placeholder {
     width: 120px;
-    /* 丸いスペースのサイズ */
     height: 120px;
     border-radius: 50%;
-    /* 円形 */
     overflow: hidden;
     /* はみ出し防止 */
     background-color: #ccc;

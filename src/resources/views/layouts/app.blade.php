@@ -26,12 +26,11 @@
 
             <input type="hidden" name="tab" value="{{ $tab }}">
             <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
-            <!-- <button class="header__button" type="submit" >検索</button>   -->
-          </form>
+        </form>
         @else
-          <form class="header__form" action="{{ route('home') }}" method="GET" >
+        <form class="header__form" action="{{ route('home') }}" method="GET" >
             <input class="header__keyword" type="text" name="keyword" value="{{ old('keyword', $keyword ?? '') }}" placeholder="なにをお探しですか？">
-            <!-- <button type="submit">検索</button> -->
+            
         </form>
         @endauth 
       </div>
@@ -62,7 +61,6 @@
           </div>
         </nav>
       </div>
-      <!-- @yield('link') -->
     </header>
 
     

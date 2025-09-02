@@ -15,11 +15,10 @@
 
         <!-- プロフィール画像欄 -->
         <div class="edit-profile__img-group">
-            <!-- <div class="edit-profile__img"> -->
+        
                 @if(Auth::check() && Auth::user()->profile_image)
                     <img class="edit-profile__image" src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="プロフィール写真"> 
                     
-                    <!-- style="max-width: 100%; height: auto;"> -->
                 @else
                     <div class="edit-profile__placeholder">
                         {{ strtoupper(substr(Auth::user()->user_name, 0, 1)) }}
@@ -28,12 +27,7 @@
 
                 <input type="file" id="file" name="profile_image" hidden>
                 <label for="file" class="edit-profile__image-label">画像を選択する</label>
-                <!-- <p class="register-form__error-message">
-                @error('user_name')
-                    {{ $message }}
-                @enderror
-                </p> -->
-            </div>
+        </div>
 
         <!-- ユーザー情報追加入力欄 -->
         <div class="edit-profile__input-form">

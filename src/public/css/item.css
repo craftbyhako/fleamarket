@@ -74,11 +74,7 @@ form {
     width: 40px;
     height: 40px;
     cursor: pointer;
-    /* filter: grayscale(100%); */
 }
-
-/* .like-image.liked {
-    filter: grayscale(0%) brightness(1.1); */
 
 .action__item {
     display: flex;
@@ -165,7 +161,6 @@ form {
 
 .comment__body {
     margin-left: 0;
-    /* padding-left: 48px; */
 }
 
 .comment-content {

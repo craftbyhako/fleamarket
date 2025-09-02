@@ -60,9 +60,7 @@
 .sell__label {
     margin-top: 30px;
     display: block;
-        /* 改行して見出し風に */
     font-size: 1.2rem;
-        /* h3っぽい大きさに */
     font-weight: bold;
 }
 

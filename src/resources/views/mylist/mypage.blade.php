@@ -16,7 +16,6 @@
                 <div class="mypage-profile__placeholder">
                         {{ strtoupper(substr(Auth::user()->user_name, 0, 1)) }}
                 </div>
-                <!-- <img class="profile_image" src="{{ asset('images/placeholder.png') }}" alt=""> -->
             @endif
         </div>
         <div class="mypage__user-name">

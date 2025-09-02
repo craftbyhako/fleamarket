@@ -72,7 +72,6 @@
     border-bottom: 2px solid #000;
 }
 
-/* タブ全体のスタイル */
 .mypage__tabs {
     display: flex;
     justify-content: center;
@@ -83,13 +82,11 @@
     gap: 30px;
 }
 
-/* タブ項目 */
 .mypage__tabs li {
     padding: 10px 20px;
     cursor: pointer;
 }
 
-/* タブリンク */
 .mypage__tabs a {
     text-decoration: none;
     color: #666;
@@ -99,19 +96,16 @@
     transition: color 0.3s;
 }
 
-/* ホバー時 */
 .mypage__tabs a:hover {
     color: #333;
 }
 
-/* アクティブなタブ */
 .mypage__tabs .active a {
     color: #000;
     border-bottom: 3px solid #ff6600;
     padding-bottom: 8px;
 }
 
-/* カード部分（出品・購入のアイテム一覧） */
 .mypage__sell-group,
 .mypage__bought-group {
     display: grid;

@@ -15,7 +15,6 @@
             <div class="sell__image-wrapper">
                 <label class="sell__image-upload-button" for="file-upload">画像を選択する</label>
                 <input type="file" id="file-upload" name="image" hidden>
-                <!-- <span class="file-name" id="file-name">選択されていません</span> -->
                 <p class="sell__error-message">
                     @error('image')
                     {{ $message }}
