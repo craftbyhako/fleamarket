@@ -47,13 +47,10 @@ class ItemDetailTest extends TestCase
             'content' => 'これはテストコメントです。',
         ]);
 
-        // ① 商品詳細ページにアクセス
         $response = $this->get('/item/' . $item->id);
 
-        // ② ステータスコード200
         $response->assertStatus(200);
 
-        // ③ 商品の主要情報がすべて表示されていることを確認
         $response->assertSee($item->item_name);
         $response->assertSee($item->brand);
         $response->assertSee(number_format($item->price));
@@ -62,33 +59,27 @@ class ItemDetailTest extends TestCase
         $response->assertSee($condition->condition);
         $response->assertSee($comment->content);
 
-        // ④ 画像のパスも含まれているか
         $response->assertSee('storage/' . $item->image);
     }
 
     public function test_item_detail_displays_multiple_categories()
     {
-        // 出品者ユーザーを作成
         $user = User::factory()->create();
 
-        // 商品を作成
         $item = Item::factory()->create([
             'user_id' => $user->id,
             'item_name' => 'テスト商品',
         ]);
 
-        // 複数カテゴリを作成して商品に紐付け
         $category1 = Category::factory()->create(['category_name' => 'カテゴリA']);
         $category2 = Category::factory()->create(['category_name' => 'カテゴリB']);
 
         $item->categories()->attach([$category1->id, $category2->id]);
 
-        // 商品詳細ページにアクセス
         $response = $this->get('/item/' . $item->id);
 
         $response->assertStatus(200);
 
-        // 各カテゴリがページに表示されていることを確認
         $response->assertSee($category1->category_name);
         $response->assertSee($category2->category_name);
     }

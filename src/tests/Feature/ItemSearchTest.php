@@ -37,7 +37,7 @@ class ItemSearchTest extends TestCase
 
         $hit1 = Item::factory()->create([
             'item_name' => '赤いリンゴ',
-            'user_id' => $user->id, // ← ここで紐付け
+            'user_id' => $user->id, 
         ]);
 
         $hit2 = Item::factory()->create([
@@ -47,16 +47,14 @@ class ItemSearchTest extends TestCase
 
         $miss = Item::factory()->create([
             'item_name' => 'みかん',
-            'user_id' => $user->id, // 必要に応じて
+            'user_id' => $user->id, 
         ]);
 
         $response = $this->actingAs($user)->get('/?keyword=りんご');
        
-        // 302 リダイレクトを確認
         $response->assertStatus(302);
         $response->assertRedirect('/mylist?tab=mylist');
 
-        // リダイレクト先の URL に検索キーワードが引き継がれているか確認
         $response = $this->actingAs($user)->get('/mylist?tab=mylist&keyword=りんご');
         $response->assertStatus(200);
         $response->assertSee('赤いリンゴ');

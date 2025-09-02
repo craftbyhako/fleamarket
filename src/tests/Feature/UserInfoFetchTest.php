@@ -17,7 +17,6 @@ class UserInfoFetchTest extends TestCase
 
     public function test_profile_page_displays_user_info_and_items()
     {
-        // Arrange: ユーザー作成
         $user = User::factory()->create([
             'user_name' => 'テストユーザー',
             'profile_image' => 'profile_test.png',
@@ -63,10 +62,8 @@ class UserInfoFetchTest extends TestCase
             'item_id' => $purchasedItem->id,
         ]);
 
-        // Act: プロフィールページを開く
-        $response = $this->actingAs($user)->get('/mylist?tab=mylist'); // マイページのプロフィールタブ
+        $response = $this->actingAs($user)->get('/mylist?tab=mylist');
 
-        // Assert: 正しい情報が表示されている
         $response->assertStatus(200);
 
         // ユーザー情報
@@ -75,7 +72,7 @@ class UserInfoFetchTest extends TestCase
 
         // 出品した商品一覧
         $response->assertSee('出品商品1');
-        $response->assertDontSee('他人の商品'); // 他人の商品は表示されない
+        $response->assertDontSee('他人の商品'); 
 
         // 購入した商品一覧
         $response->assertSee('購入商品1');

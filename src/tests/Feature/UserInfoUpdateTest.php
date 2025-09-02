@@ -14,7 +14,6 @@ class UserInfoUpdateTest extends TestCase
 
     public function test_profile_initial_values_are_displayed()
     {
-        // Arrange: ユーザー作成（過去設定の値）
         $user = User::factory()->create([
             'user_name' => 'テストユーザー',
             'profile_image' => 'profile_test.png',
@@ -23,16 +22,14 @@ class UserInfoUpdateTest extends TestCase
             'building' => 'テストビル101',
         ]);
 
-        // Act: プロフィールページを開く
-        $response = $this->actingAs($user)->get('/mypage/profile'); // プロフィール編集画面URL
+        $response = $this->actingAs($user)->get('/mypage/profile'); 
 
-        // Assert: 正しい初期値が表示されていること
         $response->assertStatus(200);
 
         // ユーザー名
         $response->assertSee('テストユーザー');
 
-        // プロフィール画像（Blade上に表示されるパスで確認）
+        // プロフィール画像
         $response->assertSee('profile_test.png');
 
         // 郵便番号

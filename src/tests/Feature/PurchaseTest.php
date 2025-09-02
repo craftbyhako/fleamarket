@@ -15,14 +15,12 @@ class PurchaseTest extends TestCase
 
     public function test_user_can_purchase_item()
     {
-        // ユーザーと商品を用意
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
         $this->actingAs($user);
 
 
-        // テスト用の住所情報
         session(['purchase_address' => [
             'postcode' => '123-4567',
             'address' => '東京都新宿区テスト町1-2-3',
@@ -31,12 +29,10 @@ class PurchaseTest extends TestCase
 
         $payment = 'カード払い';
 
-    // 購入処理
         $response = $this->post(route('purchase.store', ['item_id' => $item->id]), [
             'payment' => $payment,
         ]);
 
-    // Assert: リダイレクトされる（購入完了ページ想定）
         $response->assertStatus(302);
         $response->assertRedirect(route('mylist', ['tab' => 'mylist']));
         $response->assertSessionHas('success', '購入が完了しました');
@@ -62,12 +58,6 @@ class PurchaseTest extends TestCase
             'item_id' => $item->id,
             'payment' => 'カード払い',
         ]);
-
-        
-        // Soldリレーションが正しくあるか確認
-        // $itemFresh = Item::find($item->id);
-        // dd($itemFresh->sold);
-         // ←ここでnullでないかチェック
 
 
         $response = $this->actingAs($user)->get('mylist?tab=mylist');

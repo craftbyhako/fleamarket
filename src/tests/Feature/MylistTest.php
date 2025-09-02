@@ -65,7 +65,7 @@ class MylistTest extends TestCase
     {
         $response = $this->get('/mylist?tab=mylist'); 
 
-        $response->assertDontSee('商品名'); // テスト用に商品があれば確認
+        $response->assertDontSee('商品名'); 
     }
 
 }

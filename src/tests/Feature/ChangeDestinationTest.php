@@ -26,7 +26,6 @@ class ChangeDestinationTest extends TestCase
             'destination_building' => 'テストビル101',
         ];
 
-        // 1. PATCH で配送先住所を更新
         $this->actingAs($user)
             ->patch(route('purchase.updateDestination', ['item_id' => $item->id]), $addressData)
             ->assertRedirect()
@@ -36,7 +35,6 @@ class ChangeDestinationTest extends TestCase
                 'building' => 'テストビル101',
                 ]);
 
-        // 2. 商品購入ページを開いて、セッションの住所が表示されているか確認
         $response = $this->actingAs($user)
             ->get(route('purchase.form', ['item' => $item->id]));
 
@@ -48,25 +46,22 @@ class ChangeDestinationTest extends TestCase
 
     public function test_purchased_item_has_correct_destination_address()
     {
-        // Arrange: ユーザーと商品を作成
+        
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
-        // 送付先住所データ
         $addressData = [
             'postcode' => '123-4567',
             'address' => '東京都渋谷区1-1-1',
             'building' => 'テストビル101',
         ];
 
-        // Act: セッションに住所を登録
         $this->actingAs($user)
              ->withSession(['purchase_address' => $addressData])
              ->post(route('purchase.store', ['item_id' => $item->id]), [
                  'payment' => 'credit_card',
              ]);
 
-        // Assert: Soldテーブルに正しく保存されていることを確認
         $this->assertDatabaseHas('solds', [
             'user_id' => $user->id,
             'item_id' => $item->id,
