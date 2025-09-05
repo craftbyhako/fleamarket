@@ -48,7 +48,7 @@
                 @foreach ($sellItems as $sellItem)
                     <div class="mypage__card">
                         <div class="mypage__image">
-                            <img src="{{ asset('storage/' . $sellItem->image) }}" alt="{{ $sellItem->item_name }}">
+                            <img src="{{ asset($sellItem->image) }}" alt="{{ $sellItem->item_name }}">
                             <div class="mypage__item_name">
                     {{ $sellItem->item_name }}
                             </div>
