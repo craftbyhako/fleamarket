@@ -59,16 +59,18 @@
 
         @elseif ($tab ==='bought')
             <div  class="mypage__bought-group">
-                @foreach ($boughtItems as $boughtItem)
-                    <div class="mypage__card">
-                        <div class="mypage__image">
-                            <img src="{{ asset('storage/' . $boughtItem->image) }}" alt="{{ $boughtItem->item_name }}">
-                            <div class="mypage__item_name">
-                            {{ $boughtItem->item_name }}
+                @forelse ($boughtItems as $boughtItem)
+                        <div class="mypage__card">
+                            <div class="mypage__image">
+                                <img src="{{ asset($boughtItem->image) }}" alt="{{ $boughtItem->item_name }}">
+                                <div class="mypage__item_name">
+                                    {{ $boughtItem->item_name }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                @empty
+                    <p>購入した商品はありません。</p>
+                @endforelse
             </div>
         @endif
     </div>

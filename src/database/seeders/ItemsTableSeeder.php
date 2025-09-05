@@ -21,7 +21,7 @@ class ItemsTableSeeder extends Seeder
             'user_id' => 3,
             'condition_id' => 1,
             'item_name' => '腕時計',
-            'image' => 'storage/images/Armani+Mens+Clock.jpg',
+            'image' => 'images/Armani+Mens+Clock.jpg',
             'brand' => 'Rolex',
             'price' => '15000',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
@@ -29,7 +29,7 @@ class ItemsTableSeeder extends Seeder
         $item->categories()->attach([1,5]);
 
         $item = Item::create([
-            'user_id' => 11,
+            'user_id' => 4,
             'condition_id' => 2,
             'item_name' => 'HDD',
             'image' => 'storage/images/HDD+Hard+Disk.jpg',
@@ -40,7 +40,7 @@ class ItemsTableSeeder extends Seeder
         $item->categories()->attach([1,5]);
 
         $item = Item::create([
-            'user_id' => 8,
+            'user_id' => 4,
             'condition_id' => 3,
             'item_name' => '玉ねぎ３束',
             'image' => 'storage/images/onion.jpg',
@@ -63,7 +63,7 @@ class ItemsTableSeeder extends Seeder
         $item->categories()->attach([1,5]);
 
         $item = Item::create([
-            'user_id' => 6,
+            'user_id' => 3,
             'condition_id' => 1,
             'item_name' => 'ノートPC',
             'image' => 'storage/images/Living+Room+Laptop.jpg',
@@ -74,7 +74,7 @@ class ItemsTableSeeder extends Seeder
         $item->categories()->attach([2]);
 
         $item = Item::create([
-            'user_id' => 10,
+            'user_id' => 3,
             'condition_id' => 2,
             'item_name' => 'マイク',
             'image' => 'storage/images/Music+Mic+4632231.jpg',
@@ -98,7 +98,7 @@ class ItemsTableSeeder extends Seeder
 
 
         $item = Item::create([
-            'user_id' => 12,
+            'user_id' => 2,
             'condition_id' => 4,
             'item_name' => 'タンブラー',
             'image' => 'storage/images/Tumbler+souvenir.jpg',
@@ -109,7 +109,7 @@ class ItemsTableSeeder extends Seeder
         $item->categories()->attach([10]);
 
         $item = Item::create([
-            'user_id' => 7,
+            'user_id' => 2,
             'condition_id' => 1,
             'item_name' => 'コーヒーミル',
             'image' => 'storage/images/Waitress+with+Coffee+Grinder.jpg',
@@ -121,7 +121,7 @@ class ItemsTableSeeder extends Seeder
 
 
         $item = Item::create([
-            'user_id' => 9,
+            'user_id' => 4,
             'condition_id' => 2,
             'item_name' => 'メイクセット',
             'image' => 'storage/images/makeup.jpg',

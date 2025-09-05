@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Item;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -15,79 +15,44 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $param = [
-            'user_id' => 11,
-            'item_id' => 5,
+        $item = Item::where('item_name', '腕時計')->first();
+        DB::table('comments')->insert([
+            'user_id' => 1,
+            'item_id' => $item->id,
             'content' => '良品ですね',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 6,
-            'item_id' => 5,
+        ]);
+        
+
+        $item = Item::where('item_name', 'HDD')->first();
+        DB::table('comments')->insert([
+            'user_id' => 4,
+            'item_id' => $item->id,
             'content' => '美品ですね',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 6,
-            'item_id' => 7,
+        ]);
+       
+
+        $item = Item::where('item_name', 'メイクセット')->first();
+        DB::table('comments')->insert([
+            'user_id' => 3,
+            'item_id' => $item->id,
             'content' => 'ほしいです',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 6,
-            'item_id' => 8,
+        ]);
+
+
+        $item = Item::where('item_name', 'コーヒーミル')->first();
+        DB::table('comments')->insert([
+            'user_id' => 1,
+            'item_id' => $item->id,
             'content' => '良品ですね',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 11,
-            'item_id' => 14,
+        ]);
+
+       
+        $item = Item::where('item_name', '革靴')->first();
+        DB::table('comments')->insert([
+            'user_id' => 1,
+            'item_id' => $item->id,
             'content' => '美品ですね',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 10,
-            'item_id' => 15,
-            'content' => '最短発送はいつですか',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 12,
-            'item_id' => 15,
-            'content' => '色違いはありますか？',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 19,
-            'item_id' => 16,
-            'content' => '良品ですね',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 1,
-            'item_id' => 17,
-            'content' => '色違いはありますか',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 1,
-            'item_id' => 18,
-            'content' => '最短発送はいつですか？',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 8,
-            'item_id' => 19,
-            'content' => '良品ですね',
-        ];
-        DB::table('comments')->insert($param);
-        $param = [
-            'user_id' => 2,
-            'item_id' => 19,
-            'content' => '貴重な商品ですね',
-        ];
-        DB::table('comments')->insert($param);
-
-
+        ]);
+        
     }
 }

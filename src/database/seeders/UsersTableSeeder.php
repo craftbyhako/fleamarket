@@ -16,49 +16,53 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $param = [
-            'user_name' => 'テスト１００',
-            'email' => 'test@email.com100',
+        $users = [
+            [
+            'user_name' => 'test1',
+            'email' => 'test@example.com1',
             'password' => Hash::make('password'),
             'profile_image' => '',
-            'postcode' => '100-1001',
+            'postcode' => '111-1111',
             'address' => '東京都千代田区100',
             'building' => '100ビルディング',
-        ];
-        DB::table('users')->insert($param);
+            ],
 
-        $param = [
-            'user_name' => 'テスト１０１',
-            'email' => 'test@email.com101',
+            [
+            'user_name' => 'test2',
+            'email' => 'test@example.com2',
             'password' => Hash::make('password'),
             'profile_image' => '',
-            'postcode' => '101-1011',
-            'address' => '東京都千代田区101',
-            'building' => '101ビルディング',
-        ];
-        DB::table('users')->insert($param);
+            'postcode' => '222-2222',
+            'address' => '東京都千代田区200',
+            'building' => '200ビルディング',
+            ],
         
-        $param = [
-            'user_name' => 'テスト１０２',
-            'email' => 'test@email.com102',
+            [
+            'user_name' => 'test3',
+            'email' => 'test@example.com3',
             'password' => Hash::make('password'),
             'profile_image' => '',
-            'postcode' => '102-1021',
-            'address' => '東京都千代田区102',
+            'postcode' => '333-3333',
+            'address' => '東京都千代田区300',
             'building' => '',
-        ];
-        DB::table('users')->insert($param);
+            ],
         
-        $param = [
-            'user_name' => 'テスト１０３',
-            'email' => 'test@email.com103',
+            [
+            'user_name' => 'test4',
+            'email' => 'test@example.com4',
             'password' => Hash::make('password'),
-            'profile_image' => 'public/images/Leather+Shoes+Product+Photo.jpg',
-            'postcode' => '103-1031',
-            'address' => '東京都千代田区103',
-            'building' => '103ビルディング',
+            'profile_image' => '',
+            'postcode' => '444-4444',
+            'address' => '東京都千代田区400',
+            'building' => '400ビルディング',
+            ],
         ];
-        DB::table('users')->insert($param);
-
+        
+        foreach ($users as $param) {
+            User::firstOrCreate(
+                ['email' => $param['email']],
+                $param
+            );
+        }
     }
 }

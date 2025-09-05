@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Item;
+
 
 
 class LikesTableSeeder extends Seeder
@@ -15,71 +17,46 @@ class LikesTableSeeder extends Seeder
      */
     public function run()
     {        
-        $param = [
-            'user_id' => 6,
-            'item_id' => 19,
-        ];
-        DB::table('likes')->insert($param);
-        
-        $param = [
+        $item = Item::where('item_name', 'メイクセット')->first();
+        DB::table('likes')->insert([
             'user_id' => 1,
-            'item_id' => 6,
-        ];
-        DB::table('likes')->insert($param);
+            'item_id' => $item->id,
+        ]);
+        
+        $item = Item::where('item_name', 'マイク')->first();
+        DB::table('likes')->insert([
+            'user_id' => 1,
+            'item_id' => $item->id,
+        ]);
 
-        $param = [
+        $item = Item::where('item_name', 'ノートPC')->first();
+        DB::table('likes')->insert([
             'user_id' => 3,
-            'item_id' => 5,
-        ];
-        DB::table('likes')->insert($param);
-
-        $param = [
-            'user_id' => 6,
-            'item_id' => 15,
-        ];
-        DB::table('likes')->insert($param);
-
-        $param = [
+            'item_id' => $item->id,
+        ]);
+        
+        $item = Item::where('item_name', 'ショルダーバッグ')->first();
+        DB::table('likes')->insert([
             'user_id' => 2,
-            'item_id' => 14,
-        ];
-        DB::table('likes')->insert($param);
+            'item_id' => $item->id,
+        ]);
 
-        $param = [
-            'user_id' => 12,
-            'item_id' => 8,
-        ];
-        DB::table('likes')->insert($param);
+        $item = Item::where('item_name', 'コーヒーミル')->first();
+        DB::table('likes')->insert([
+            'user_id' => 2,
+            'item_id' => $item->id,
+        ]);
 
-        $param = [
-            'user_id' => 18,
-            'item_id' => 19,
-        ];
-        DB::table('likes')->insert($param);
+        $item = Item::where('item_name', 'タンブラー')->first();
+        DB::table('likes')->insert([
+            'user_id' => 4,
+            'item_id' => $item->id,
+        ]);
 
-        $param = [
-            'user_id' => 19,
-            'item_id' => 16,
-        ];
-        DB::table('likes')->insert($param);
-
-        $param = [
-            'user_id' => 19,
-            'item_id' => 8,
-        ];
-        DB::table('likes')->insert($param);
-
-        $param = [
-            'user_id' => 19,
-            'item_id' => 15,
-        ];
-        DB::table('likes')->insert($param);
-
-        $param = [
-            'user_id' => 7,
-            'item_id' => 7,
-        ];
-        DB::table('likes')->insert($param);
-
+        $item = Item::where('item_name', 'タンブラー')->first();
+        DB::table('likes')->insert([
+            'user_id' => 3,
+            'item_id' => $item->id,
+        ]);
     }
 }

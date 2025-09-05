@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Item;
 use Illuminate\Support\Facades\DB;
 
 
@@ -16,35 +17,39 @@ class SoldsTableSeeder extends Seeder
      */
     public function run()
     {
-       $param = [
+
+        $item = Item::where('item_name', '腕時計')->first();
+
+        DB::table('solds')->insert([
             'user_id' => 1,
-            'item_id' => 5,
-            'payment' => 'カード',
+            'item_id' => $item->id,
+            'payment' => 'カード払い',
             'destination_postcode' => '111-1111',
             'destination_address' => '東京都千代田区1',
             'destination_building' => '',
-        ];
-        DB::table('solds')->insert($param);
+        ]);
        
-        $param = [
-            'user_id' => 17,
-            'item_id' => 16,
-            'payment' => 'コンビニ',
+
+        $item = Item::where('item_name', 'ノートPC')->first();
+        DB::table('solds')->insert([
+            'user_id' => 2,
+            'item_id' => $item->id,
+            'payment' => 'コンビニ払い',
             'destination_postcode' => '171-7171',
             'destination_address' => '東京都千代田区17',
             'destination_building' => '',
-        ];
-        DB::table('solds')->insert($param);
+        ]);
 
-        $param = [
-            'user_id' => 9,
-            'item_id' => 18,
-            'payment' => 'コンビニ',
+        
+        $item = Item::where('item_name', 'メイクセット')->first();
+
+        DB::table('solds')->insert([
+            'user_id' => 3,
+            'item_id' => $item->id,
+            'payment' => 'コンビニ払い',
             'destination_postcode' => '100-1001',
             'destination_address' => '東京都千代田区100',
             'destination_building' => '100ビルディング',
-        ];
-        DB::table('solds')->insert($param);
-
+        ]);
     }
 }
