@@ -10,7 +10,7 @@
 <div class="item__all-contents">
     <div class="item__left-part">
 
-        <img class="item__img" src="{{ asset($item->image) }}" alt="商品画像">
+        <img class="item__img" src="{{ asset('storage/' . $item->image) }}" alt="商品画像">
     </div>
 
 

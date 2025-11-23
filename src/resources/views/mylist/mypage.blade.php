@@ -48,7 +48,7 @@
                 @foreach ($sellItems as $sellItem)
                     <div class="mypage__card">
                         <div class="mypage__image">
-                            <img src="{{ asset($sellItem->image) }}" alt="{{ $sellItem->item_name }}">
+                            <img src="{{ asset('storage/' . $sellItem->image) }}" alt="{{ $sellItem->item_name }}">
                             <div class="mypage__item_name">
                     {{ $sellItem->item_name }}
                             </div>
@@ -62,7 +62,7 @@
                 @forelse ($boughtItems as $boughtItem)
                         <div class="mypage__card">
                             <div class="mypage__image">
-                                <img src="{{ asset($boughtItem->image) }}" alt="{{ $boughtItem->item_name }}">
+                                <img src="{{ asset('storage/' . $boughtItem->image) }}" alt="{{ $boughtItem->item_name }}">
                                 <div class="mypage__item_name">
                                     {{ $boughtItem->item_name }}
                                 </div>
