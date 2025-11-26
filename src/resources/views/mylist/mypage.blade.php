@@ -38,6 +38,11 @@
             購入した商品
             </a>
         </li>
+        <li class="{{ $tab === 'pending' ? 'active' : '' }}">
+            <a href="{{ url()->current() }}?tab=pending">
+            取引中の商品
+            </a>
+        </li>
     </ul>
 
 
@@ -74,7 +79,7 @@
             </div>
         
         @elseif ($tab === 'penging')
-            <div class="mypage__penging-group">
+            <div class="mypage__pending-group">
                 @forelse ($pendingItems as $pengdingItem)
                 <div class="mypage__card">
                     <div class="mypage__image">

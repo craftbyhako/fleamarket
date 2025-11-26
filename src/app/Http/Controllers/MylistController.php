@@ -4,86 +4,76 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Like;
 use App\Models\Item;
-use Illuminate\Support\Facades\Storage;
-
 
 class MylistController extends Controller
 {
-
-
-    // ログイン後の一覧画面
     public function admin(Request $request)
     {
-
         $user = Auth::user();
-        $tab = $request->query('tab', 'mylist');
+        $tab = $request->query('tab', 'sell'); // デフォルトは sell
         $keyword = $request->input('keyword', null);
 
-        if ($tab === 'mylist') {
+        // 出品した商品
+        $sellItems = Item::with('user', 'sold')
+            ->whereHas('likes', fn($q) => $q->where('user_id', $user->id))
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+            ->get();
 
-            // いいねした商品を取得 ──────────────
-            $likedItems = $user->likedItems()->with('user', 'sold');
-            if (!empty($keyword)) {
-                $likedItems->where('item_name', 'like', '%' . $keyword . '%');
-            }
-            $likedItems = $likedItems->get();
+        // 購入した商品（status = 3 = complete）
+        $boughtItems = Item::with('user', 'sold')
+            ->whereHas('sold', fn($q) =>q->where('user_id', $user->id)->where('status', 3))
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+            ->get();
 
-            // 購入済み商品を取得 ──────────────
-            $purchasedItems = Item::with('user', 'sold')
-                ->whereHas('sold', function ($query) use ($user) {
-                    $query->where('user_id', $user->id);
-                });
-            if (!empty($keyword)) {
-                $purchasedItems->where('item_name', 'like', '%' . $keyword . '%');
-            }
-            $purchasedItems = $purchasedItems->get();
+        // 取引中の商品（status = 1,2）
+        $pendingItems = Item::with('user', 'sold')
+            ->whereHas('sold', fn($q) => $q->where('user_id', $user->id)->whereIn('status', [1, 2]))
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+            ->get();
 
-            //  マージして重複を削除 ──────────────
-            $items = $likedItems->merge($purchasedItems)->unique('id');
-
-            foreach ($items as $item) {
-                $item->isSold = $item->sold !== null;
-            }
-        } elseif ($tab === 'recommend') {
-            $query = Item::with('user', 'sold');
-            if ($user) {
-                $query->where('user_id', '<>', $user->id);
-            }
-            if (!empty($keyword)) {
-                $query->where('item_name', 'like', '%' . $keyword . '%');
-            }
-            $items = $query->get();
-            foreach ($items as $item) {
-                $item->isSold = $item->sold !== null;
-            }
+        // おすすめタブ用（ログインユーザーがいいねしていない商品）
+        if ($tab === 'recommend') {
+            $likedIds = $user ? $user->likedItems()->pluck('items.id')->toArray() : [];
+            $items = Item::with('user', 'sold')
+                ->when($user, fn($q) => $q->where('user_id', '<>', $user->id))
+                ->when(!empty($likedIds), fn($q) => $q->whereNotIn('id', $likedIds))
+                ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+                ->get();
         } else {
-            $items = collect();
-        }
-
-        $sellItems = $tab === 'mylist' ? $items : collect();
-
-        foreach ($items as $item) {
-            if ($item->image) {
-                $item->image = Storage::url($item->image);
-            }           
+            // sell / purchased / pending 用
+            switch ($tab) {
+                case 'sell':
+                    $items = $sellItems;
+                    break;
+                case 'bought':
+                    $items = $purchasedItems;
+                    break;
+                case 'pending':
+                    $items = $pendingItems;
+                    break;
+                default:
+                    $items = collect(); // 空コレクション
+            }
         }
 
         return view('mylist.index', [
-            'items' => $items,
-            'sellItems' => $sellItems,
             'tab' => $tab,
             'keyword' => $keyword,
+            'items' => $items,             // Bladeでのループ用
+            'sellItems' => $sellItems,
+            'boughtItems' => $boughtItems,
+            'pendingItems' => $pendingItems,
+            'user' => $user,
         ]);
-
-        
     }
+
     public function show($item_id)
     {
-        $item = Item::with('user', 'categories', 'comments.user', 'condition')->withCount(['likes', 'comments'])->findOrFail($item_id);
+        $item = Item::with('user', 'categories', 'comments.user', 'condition')
+            ->withCount(['likes', 'comments'])
+            ->findOrFail($item_id);
         $comments = $item->comments;
-
 
         return view('item', compact('item', 'comments'));
     }

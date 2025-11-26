@@ -6,6 +6,7 @@ use App\Http\Controllers\MylistController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
@@ -119,6 +120,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
 
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+
+    Route::get('/chat/{sold_id}', [ChatContorller::class, 'show'])->name('chat.show');
+
+    // Route::post('/chat/{sold_id}', [ChatController::class, 'create'])->name('chat.create');
 
     
 });

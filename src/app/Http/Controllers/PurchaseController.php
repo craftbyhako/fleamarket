@@ -67,6 +67,7 @@ class PurchaseController extends Controller
         Sold::create([
             'item_id' => $item_id,
             'user_id' => Auth::id(),
+            'status' => 1,
             'payment' => $payment,
             'destination_postcode' => $postcode,
             'destination_address' => $address,
@@ -75,7 +76,7 @@ class PurchaseController extends Controller
         
          $request->session()->forget('purchase_address');
 
-    return redirect()->route('mylist', ['tab' => 'mylist'])->with('success', '購入が完了しました');
+    return redirect()->route('mylist', ['tab' => 'pending']);
 
     }
 

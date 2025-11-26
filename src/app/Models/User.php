@@ -82,7 +82,14 @@ class User extends Authenticatable
 
     public function boughtItems()
     {
-        return $this->hasMany(Sold::class);
+        return $this->hasManyThrough(
+            Item::class,
+            Sold::class,
+            'user_id',
+            'id',
+            'id',
+            'item_id',
+        );
     }
 
     public function messages()
