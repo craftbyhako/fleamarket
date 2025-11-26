@@ -46,11 +46,12 @@
     </ul>
 
 
-<!-- タブ内容（出品・購入） -->
+<!-- タブ内容（出品・購入・取引中） -->
     <div class="mypage__tab">
         @if ($tab === 'sell')
             <div class="mypage__sell-group">       
                 @foreach ($sellItems as $sellItem)
+                   
                     <div class="mypage__card">
                         <div class="mypage__image">
                             <img src="{{ asset('storage/' . $sellItem->image) }}" alt="{{ $sellItem->item_name }}">
@@ -78,12 +79,12 @@
                 @endforelse
             </div>
         
-        @elseif ($tab === 'penging')
+        @elseif ($tab === 'pending')
             <div class="mypage__pending-group">
-                @forelse ($pendingItems as $pengdingItem)
+                @forelse ($pendingItems as $pendingItem)
                 <div class="mypage__card">
                     <div class="mypage__image">
-                        <img src="{{ asset('storage/' . $pengingItem->image) }}" alt="{{ $pengingItem->item_name }}">
+                        <img src="{{ asset('storage/' . $pendingItem->image) }}" alt="{{ $pendingItem->item_name }}">
                         <div class="mypage__item_name">
                             {{ $pendingItem->item_name }}
                         </div>

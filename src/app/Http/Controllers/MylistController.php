@@ -17,19 +17,19 @@ class MylistController extends Controller
         // 出品した商品
         $sellItems = Item::with('user', 'sold')
             ->whereHas('likes', fn($q) => $q->where('user_id', $user->id))
-            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
             ->get();
 
         // 購入した商品（status = 3 = complete）
         $boughtItems = Item::with('user', 'sold')
-            ->whereHas('sold', fn($q) =>q->where('user_id', $user->id)->where('status', 3))
-            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+            ->whereHas('sold', fn($q) => $q->where('user_id', $user->id)->where('status', 3))
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
             ->get();
 
         // 取引中の商品（status = 1,2）
         $pendingItems = Item::with('user', 'sold')
             ->whereHas('sold', fn($q) => $q->where('user_id', $user->id)->whereIn('status', [1, 2]))
-            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
             ->get();
 
         // おすすめタブ用（ログインユーザーがいいねしていない商品）
@@ -38,7 +38,7 @@ class MylistController extends Controller
             $items = Item::with('user', 'sold')
                 ->when($user, fn($q) => $q->where('user_id', '<>', $user->id))
                 ->when(!empty($likedIds), fn($q) => $q->whereNotIn('id', $likedIds))
-                ->when($keyword, fn($q) => $q->where('item_name', 'like', "%$keyword%"))
+                ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
                 ->get();
         } else {
             // sell / purchased / pending 用
@@ -47,7 +47,7 @@ class MylistController extends Controller
                     $items = $sellItems;
                     break;
                 case 'bought':
-                    $items = $purchasedItems;
+                    $items = $boughtItems;
                     break;
                 case 'pending':
                     $items = $pendingItems;
