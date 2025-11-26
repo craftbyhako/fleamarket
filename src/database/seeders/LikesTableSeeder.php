@@ -19,13 +19,13 @@ class LikesTableSeeder extends Seeder
     {        
         $item = Item::where('item_name', 'メイクセット')->first();
         DB::table('likes')->insert([
-            'user_id' => 1,
+            'user_id' => 3,
             'item_id' => $item->id,
         ]);
         
         $item = Item::where('item_name', 'マイク')->first();
         DB::table('likes')->insert([
-            'user_id' => 1,
+            'user_id' => 3,
             'item_id' => $item->id,
         ]);
 
@@ -37,25 +37,13 @@ class LikesTableSeeder extends Seeder
         
         $item = Item::where('item_name', 'ショルダーバッグ')->first();
         DB::table('likes')->insert([
-            'user_id' => 2,
+            'user_id' => 3,
             'item_id' => $item->id,
         ]);
 
         $item = Item::where('item_name', 'コーヒーミル')->first();
         DB::table('likes')->insert([
-            'user_id' => 2,
-            'item_id' => $item->id,
-        ]);
-
-        $item = Item::where('item_name', 'タンブラー')->first();
-        DB::table('likes')->insert([
-            'user_id' => 4,
-            'item_id' => $item->id,
-        ]);
-
-        $item = Item::where('item_name', 'タンブラー')->first();
-        DB::table('likes')->insert([
-            'user_id' => 3,
+            'user_id' => 1,
             'item_id' => $item->id,
         ]);
     }

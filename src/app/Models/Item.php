@@ -70,8 +70,28 @@ class Item extends Model
     // 購入済みか判定する
     public function getIsSoldAttribute()
     {
-    return $this->sold()->exists();
+        return $this->sold()->exists();
     }
+
+    // 取引中か判定
+    public function getIsPendingAttribute()
+    {
+        $sold = $this->sold;
+        return $sold && in_array($sold->status, [1,2]);
+    }
+    // 取引完了か判定
+    public function getIsCompletedAttribute()
+    {
+        $sold = $this->sold;
+        return $sold && $sold->status ==3;
+    }
+
+    // public function getIsRecievedAttribute()
+    // {
+    //         $sold = $this->sold;
+    //         return $sold && $sold->status ==2;
+    // }
+
 
     // Userモデルとのリレーション
     public function user()
@@ -101,4 +121,5 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'comments');
     }
 
+   
 }

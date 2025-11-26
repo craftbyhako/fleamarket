@@ -17,34 +17,34 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        $item = Item::create([ 
-            'user_id' => 3,
+        $item = Item::create([
+            'code' => 'CO01',
+            'user_id' => 1,
             'condition_id' => 1,
             'item_name' => '腕時計',
             'image' => 'images/Armani+Mens+Clock.jpg',
-            'brand' => 'Rolex',
             'price' => '15000',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
         ]);
         $item->categories()->attach([1,5]);
 
         $item = Item::create([
-            'user_id' => 4,
+            'code' => 'CO02',
+            'user_id' => 1,
             'condition_id' => 2,
             'item_name' => 'HDD',
             'image' => 'images/HDD+Hard+Disk.jpg',
-            'brand' => '西芝',
             'price' => '5000',
             'description' => '高速で信頼性の高いハードディスク',
         ]);
         $item->categories()->attach([1,5]);
 
         $item = Item::create([
-            'user_id' => 4,
+            'code' => 'CO03',
+            'user_id' => 1,
             'condition_id' => 3,
             'item_name' => '玉ねぎ３束',
             'image' => 'images/onion.jpg',
-            'brand' => 'なし',
             'price' => '300',
             'description' => '新鮮な玉ねぎの３束のセット',
         ]);
@@ -52,33 +52,33 @@ class ItemsTableSeeder extends Seeder
 
 
         $item = Item::create ([
+            'code' => 'CO04',
             'user_id' => 1,
             'condition_id' => 4,
             'item_name' => '革靴',
             'image' => 'images/Leather+Shoes+Product+Photo.jpg',
-            'brand' => '',
             'price' => '4000',
             'description' => 'クラシックなデザインの革靴',
         ]);
         $item->categories()->attach([1,5]);
 
         $item = Item::create([
-            'user_id' => 3,
+            'code' => 'CO05',
+            'user_id' => 1,
             'condition_id' => 1,
             'item_name' => 'ノートPC',
             'image' => 'images/Living+Room+Laptop.jpg',
-            'brand' => '',
             'price' => '45000',
             'description' => '高性能なノートパソコン',
         ]);
         $item->categories()->attach([2]);
 
         $item = Item::create([
-            'user_id' => 3,
+            'code' => 'CO06',
+            'user_id' => 2,
             'condition_id' => 2,
             'item_name' => 'マイク',
             'image' => 'images/Music+Mic+4632231.jpg',
-            'brand' => 'なし',
             'price' => '8000',
             'description' => '高音質のレコーディング用マイク',
         ]);
@@ -86,11 +86,11 @@ class ItemsTableSeeder extends Seeder
 
 
         $item = Item::create([
+            'code' => 'CO07',
             'user_id' => 2,
             'condition_id' => 3,
             'item_name' => 'ショルダーバッグ',
             'image' => 'images/Purse+fashion+pocket.jpg',
-            'brand' => '',
             'price' => '3500',
             'description' => 'おしゃれなショルダーバッグ',
         ]);
@@ -98,22 +98,22 @@ class ItemsTableSeeder extends Seeder
 
 
         $item = Item::create([
+            'code' => 'CO08',
             'user_id' => 2,
             'condition_id' => 4,
             'item_name' => 'タンブラー',
             'image' => 'images/Tumbler+souvenir.jpg',
-            'brand' => 'なし',
             'price' => '500',
             'description' => '使いやすいタンブラー',
         ]);
         $item->categories()->attach([10]);
 
         $item = Item::create([
+            'code' => 'CO09',
             'user_id' => 2,
             'condition_id' => 1,
             'item_name' => 'コーヒーミル',
             'image' => 'images/Waitress+with+Coffee+Grinder.jpg',
-            'brand' => 'Starbacks',
             'price' => '4000',
             'description' => '手動のコーヒーミル',
         ]);
@@ -121,11 +121,11 @@ class ItemsTableSeeder extends Seeder
 
 
         $item = Item::create([
-            'user_id' => 4,
+            'code' => 'CO10',
+            'user_id' => 2,
             'condition_id' => 2,
             'item_name' => 'メイクセット',
             'image' => 'images/makeup.jpg',
-            'brand' => '',
             'price' => '2500',
             'description' => '便利なメイクアップセット',
         ]);

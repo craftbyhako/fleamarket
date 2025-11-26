@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Like;
+use App\Models\Message;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
@@ -81,7 +82,14 @@ class User extends Authenticatable
 
     public function boughtItems()
     {
-        return $this->belongsToMany(Item::class, 'solds', 'user_id', 'item_id');
+        return $this->hasMany(Sold::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+    
+    
 }
 

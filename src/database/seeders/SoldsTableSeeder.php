@@ -21,8 +21,9 @@ class SoldsTableSeeder extends Seeder
         $item = Item::where('item_name', '腕時計')->first();
 
         DB::table('solds')->insert([
-            'user_id' => 1,
+            'user_id' => 3,
             'item_id' => $item->id,
+            'status' => null,
             'payment' => 'カード払い',
             'destination_postcode' => '111-1111',
             'destination_address' => '東京都千代田区1',
@@ -32,8 +33,9 @@ class SoldsTableSeeder extends Seeder
 
         $item = Item::where('item_name', 'ノートPC')->first();
         DB::table('solds')->insert([
-            'user_id' => 2,
+            'user_id' => 3,
             'item_id' => $item->id,
+            'status' => null,
             'payment' => 'コンビニ払い',
             'destination_postcode' => '171-7171',
             'destination_address' => '東京都千代田区17',
@@ -46,6 +48,7 @@ class SoldsTableSeeder extends Seeder
         DB::table('solds')->insert([
             'user_id' => 3,
             'item_id' => $item->id,
+            'status' => null,
             'payment' => 'コンビニ払い',
             'destination_postcode' => '100-1001',
             'destination_address' => '東京都千代田区100',

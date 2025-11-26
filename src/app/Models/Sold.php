@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Item;
+use App\Models\Message;
+
 
 class Sold extends Model
 {
@@ -14,6 +16,7 @@ class Sold extends Model
     [
         'user_id',
         'item_id',
+        'status',
         'payment',
         'destination_postcode',
         'destination_address',
@@ -24,6 +27,17 @@ class Sold extends Model
     public function item()
     {
     return $this->belongsTo(Item::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Messageモデルとリレーション
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 
 }

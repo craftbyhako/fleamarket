@@ -72,6 +72,22 @@
                     <p>購入した商品はありません。</p>
                 @endforelse
             </div>
+        
+        @elseif ($tab === 'penging')
+            <div class="mypage__penging-group">
+                @forelse ($pendingItems as $pengdingItem)
+                <div class="mypage__card">
+                    <div class="mypage__image">
+                        <img src="{{ asset('storage/' . $pengingItem->image) }}" alt="{{ $pengingItem->item_name }}">
+                        <div class="mypage__item_name">
+                            {{ $pendingItem->item_name }}
+                        </div>
+                    </div>
+                </div>
+                @empty
+                    <p>取引中の商品はありません。</p>
+                @endforelse
+            </div>
         @endif
     </div>
 

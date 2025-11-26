@@ -47,15 +47,6 @@ class UsersTableSeeder extends Seeder
             'building' => '',
             ],
         
-            [
-            'user_name' => 'test4',
-            'email' => 'test@example.com4',
-            'password' => Hash::make('password'),
-            'profile_image' => '',
-            'postcode' => '444-4444',
-            'address' => '東京都千代田区400',
-            'building' => '400ビルディング',
-            ],
         ];
         
         foreach ($users as $param) {

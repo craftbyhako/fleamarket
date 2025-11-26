@@ -17,7 +17,7 @@ class CommentsTableSeeder extends Seeder
     {
         $item = Item::where('item_name', '腕時計')->first();
         DB::table('comments')->insert([
-            'user_id' => 1,
+            'user_id' => 2,
             'item_id' => $item->id,
             'content' => '良品ですね',
         ]);
@@ -25,7 +25,7 @@ class CommentsTableSeeder extends Seeder
 
         $item = Item::where('item_name', 'HDD')->first();
         DB::table('comments')->insert([
-            'user_id' => 4,
+            'user_id' => 3,
             'item_id' => $item->id,
             'content' => '美品ですね',
         ]);
@@ -49,7 +49,7 @@ class CommentsTableSeeder extends Seeder
        
         $item = Item::where('item_name', '革靴')->first();
         DB::table('comments')->insert([
-            'user_id' => 1,
+            'user_id' => 3,
             'item_id' => $item->id,
             'content' => '美品ですね',
         ]);
