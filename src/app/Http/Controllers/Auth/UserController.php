@@ -70,23 +70,57 @@ class UserController extends Controller
     public function adminMypage(Request $request)
     {
         $user = Auth::user();
-
         $tab = $request->query('tab', 'sell');
-        
         $keyword = $request->query('keyword', '');
 
-        $query = Item::where('user_id', $user->id);
+        // 出品した商品
+        $sellItems = Item::where('user_id', $user->id)
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
+            ->get();
 
-        if (!empty($keyword)) {
-            $query->where('item_name', 'like', "%{$keyword}%");
+        // 購入済
+        $boughtItems = Item::whereHas('sold', function($query) use ($user)
+        {
+            $query->where('user_id', $user->id)
+               ->where('status', 3);
+        })
+        ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
+        ->get();
+
+        // 取引中
+        $pendingItems = Item::whereHas('sold', function ($query) use ($user) 
+        {
+            $query->where('user_id', $user->id)->whereIn('status', [1, 2]);
+        })
+        ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
+        ->get();
+
+        // タブに応じて、itemsもセット
+        switch ($tab) {
+            case 'sell':
+                $items = $sellItems;
+                break;
+            case 'bought':
+                $items = $boughtItems;
+                break;
+            case 'pending':
+                $items = $pendingItems;
+                break;
+            default:
+                $items = collect();
         }
-        $sellItems = Item::where('user_id', $user->id)->get();
-        
 
-        $boughtItems = $user->boughtItems()->get();
-
-        return view('mylist.mypage', compact('sellItems', 'boughtItems', 'user', 'tab', 'request', 'keyword'));
+        return view('mylist.mypage', compact(
+            'sellItems',
+            'boughtItems',
+            'pendingItems',
+            'items',
+            'user',
+            'tab',
+            'keyword'
+        ));
     }
+
 
     public function editProfile(Request $request)
     {

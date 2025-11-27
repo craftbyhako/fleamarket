@@ -11,60 +11,32 @@ class MylistController extends Controller
     public function admin(Request $request)
     {
         $user = Auth::user();
-        $tab = $request->query('tab', 'sell'); // デフォルトは sell
+        $tab = $request->query('tab', 'mylist'); // デフォルトはマイリスト
         $keyword = $request->input('keyword', null);
 
-        // 出品した商品
-        $sellItems = Item::with('user', 'sold')
-            ->whereHas('likes', fn($q) => $q->where('user_id', $user->id))
-            ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
-            ->get();
-
-        // 購入した商品（status = 3 = complete）
-        $boughtItems = Item::with('user', 'sold')
-            ->whereHas('sold', fn($q) => $q->where('user_id', $user->id)->where('status', 3))
-            ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
-            ->get();
-
-        // 取引中の商品（status = 1,2）
-        $pendingItems = Item::with('user', 'sold')
-            ->whereHas('sold', fn($q) => $q->where('user_id', $user->id)->whereIn('status', [1, 2]))
-            ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
-            ->get();
-
-        // おすすめタブ用（ログインユーザーがいいねしていない商品）
         if ($tab === 'recommend') {
+            // おすすめタブ：自分の出品を除外 & いいねしていない商品
             $likedIds = $user ? $user->likedItems()->pluck('items.id')->toArray() : [];
-            $items = Item::with('user', 'sold')
-                ->when($user, fn($q) => $q->where('user_id', '<>', $user->id))
+
+            $items = Item::with(['user', 'sold'])
+                ->when($user, fn($q) => $q->where('items.user_id', '<>', $user->id))
                 ->when(!empty($likedIds), fn($q) => $q->whereNotIn('id', $likedIds))
-                ->when($keyword, fn($q) => $q->where('item_name', 'like', ""%$keyword%""))
+                ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
                 ->get();
         } else {
-            // sell / purchased / pending 用
-            switch ($tab) {
-                case 'sell':
-                    $items = $sellItems;
-                    break;
-                case 'bought':
-                    $items = $boughtItems;
-                    break;
-                case 'pending':
-                    $items = $pendingItems;
-                    break;
-                default:
-                    $items = collect(); // 空コレクション
-            }
+            // マイリストタブ：いいねした商品 & 自分の出品は除外
+            $items = $user->likedItems()
+                ->with(['user', 'sold'])
+                ->where('items.user_id', '<>', $user->id)
+                ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
+                ->get();
         }
 
         return view('mylist.index', [
+            'items' => $items,
+            'user' => $user,
             'tab' => $tab,
             'keyword' => $keyword,
-            'items' => $items,             // Bladeでのループ用
-            'sellItems' => $sellItems,
-            'boughtItems' => $boughtItems,
-            'pendingItems' => $pendingItems,
-            'user' => $user,
         ]);
     }
 

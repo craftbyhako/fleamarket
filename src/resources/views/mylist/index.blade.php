@@ -25,11 +25,11 @@
     <div class="mylist__items">
         @if($tab === 'mylist')
             @auth
-                @if($sellItems->isEmpty())
+                @if($items->isEmpty())
                     <p>マイリストに商品がありません。</p>
                 @else
-                    @isset($sellItems)
-                        @foreach ($sellItems as $item)
+                    @isset($items)
+                        @foreach ($items as $item)
                         <!-- マイリスト商品表示 -->
                              <div class="mylist__item">
                                 <a href="{{ url('/item/' . $item->id . '?tab=mylist') }}" class="item-link">

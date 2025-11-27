@@ -17,6 +17,8 @@ class ChatController extends Controller
             ->orderBy('created_at')
             ->get();
 
+        $tab = null;
+        
         return view('mylist.chat', compact('sold', 'messages'));
     }
 

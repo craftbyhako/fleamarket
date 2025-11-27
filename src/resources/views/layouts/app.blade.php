@@ -24,7 +24,7 @@
         @auth
         <form class="header__form" action="{{ route('mylist') }}" method="GET" >
 
-            <input type="hidden" name="tab" value="{{ $tab }}">
+            <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
             <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
         </form>
         @else
