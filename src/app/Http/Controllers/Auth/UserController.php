@@ -88,12 +88,14 @@ class UserController extends Controller
         ->get();
 
         // 取引中
-        $pendingItems = Item::whereHas('sold', function ($query) use ($user) 
-        {
-            $query->where('user_id', $user->id)->whereIn('status', [1, 2]);
+        $pendingItems = Item::whereHas('sold', function ($query) use ($user) {
+            $query->where('user_id', $user->id)
+                  ->whereIn('status', [1,2]);
         })
         ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
         ->get();
+
+        // dd($pendingItems->pluck('id', 'item_name'));
 
         // タブに応じて、itemsもセット
         switch ($tab) {
