@@ -1,0 +1,110 @@
+.chat__content {
+
+}
+
+.chat__container {
+    display: flex;
+}
+
+.chat__left-part {
+    background-color: #808080;
+    width: 250px;
+    text-align: center;
+}
+
+.chat__left-part--title {
+    color: #ffffff;
+}
+
+.chat__left-part--pending_trades{
+    display: inline-block;
+    padding: 8px 25px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    background-color: #BBBBBB;
+    color: #000000;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chat__left-part--pending_trades:hover {
+    background-color:#FFFFE0;
+    color: #000000;
+}
+
+.chat__right-part {
+    /* margin-left: 30px; */
+    flex: 1;
+    width: 100%;
+}
+
+.chat__header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #000000;
+    align-items: center;
+    padding: 0 10px;
+        /* ← margin の代わりに内側余白 */
+    margin: 0;
+        /* ← margin は消す */
+}
+
+.chat__header--counterparty {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.chat__header--counterparty-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.chat__header--placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: #bfbfbf;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+
+.chat__header--counterparty-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.chat__complete-button {
+    margin: 20px;
+    padding: 10px 40px;
+    color: #ffffff;
+    background-color: #F08080;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.chat__bought-item {
+    display: flex;
+    justify-content: left;
+    border-bottom: 2px solid #000000;
+    align-items: center;
+    padding: 0 10px;
+    margin: 30px;
+}
+
+.chat__bought-item--wrapper{}
+
+.chat__bought-item--image{
+    width: 250px;
+    height: 250px;
+}
