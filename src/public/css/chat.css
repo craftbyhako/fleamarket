@@ -12,13 +12,14 @@
     text-align: center;
 }
 
+/* 左側のサイドバー部分 */
 .chat__left-part--title {
     color: #ffffff;
 }
 
 .chat__left-part--pending_trades{
     display: inline-block;
-    padding: 8px 25px;
+    padding: 8px 20px;
     border: 1px solid #000000;
     border-radius: 3px;
     background-color: #BBBBBB;
@@ -26,6 +27,7 @@
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 180px;
 }
 
 .chat__left-part--pending_trades:hover {
@@ -33,8 +35,8 @@
     color: #000000;
 }
 
+/* 右側のメイン部分 */
 .chat__right-part {
-    /* margin-left: 30px; */
     flex: 1;
     width: 100%;
 }
@@ -45,11 +47,10 @@
     border-bottom: 2px solid #000000;
     align-items: center;
     padding: 0 10px;
-        /* ← margin の代わりに内側余白 */
     margin: 0;
-        /* ← margin は消す */
 }
 
+/* 取引相手について  */
 .chat__header--counterparty {
     display: flex;
     align-items: center;
@@ -93,18 +94,43 @@
     font-size: 18px;
 }
 
+/* 取引商品について */
 .chat__bought-item {
     display: flex;
     justify-content: left;
     border-bottom: 2px solid #000000;
     align-items: center;
-    padding: 0 10px;
-    margin: 30px;
+    padding: 10px;
+    margin: 0px;
 }
 
-.chat__bought-item--wrapper{}
 
-.chat__bought-item--image{
-    width: 250px;
-    height: 250px;
+
+.chat__bought-item--wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
+
+.chat__bought-item--image {
+    width: 200px;
+    height: 200px;
+}
+
+.chat__bought-item--detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat__bought-item--name {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.chat__bought-item--price {
+    font-size: 24px;
+    margin-top: 3px;
+}
+
+.chat__messages
