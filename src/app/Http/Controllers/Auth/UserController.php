@@ -70,6 +70,7 @@ class UserController extends Controller
     public function adminMypage(Request $request)
     {
         $user = Auth::user();
+        $userId = auth()->id();
         $tab = $request->query('tab', 'sell');
         $keyword = $request->query('keyword', '');
 
@@ -88,12 +89,17 @@ class UserController extends Controller
         ->get();
 
         // 取引中
-        $pendingItems = Item::whereHas('sold', function ($query) use ($user) {
-            $query->where('user_id', $user->id)
-                  ->whereIn('status', [1,2]);
+        $pendingItems = Item::whereHas('sold', function ($q) use ($userId) {
+            $q->whereIn('status', [1, 2])
+                ->where(function ($query) use ($userId) {
+                    $query->where('user_id', $userId)     // 購入者としての取引
+                        ->orWhereHas('item', function ($q2) use ($userId) {
+                            $q2->where('user_id', $userId); // 出品者としての取引
+                        });
+                });
         })
-        ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
-        ->get();
+            ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
+            ->get();
 
         // dd($pendingItems->pluck('id', 'item_name'));
 

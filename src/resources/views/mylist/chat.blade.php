@@ -52,34 +52,45 @@
             </div>
 
             <div class=" chat__messages">
-                        <div class="chat__messages-content">
-                            @foreach($messages as $message)
-                            <div class="{{ $message->is_me ? 'chat__messages-content--sent' : 'chat__message-content--received' }}">
-                                <img class="chat__messages--profile-image" src="{{ asset('storage/' . $message->display_image) }}" alt="プロフィール画像">
-                                <p>{{ $message->display_name }}</p>
-                                <textarea class="chat__messages--text">{{ $message->message }}</textarea>
-
-                                @if ($message->is_me)
-                                <a href="">編集</a>
-                                <a href="">削除</a>
-                                @endif
+                <div class="chat__messages-content">
+                    @foreach($messages as $message)
+                    <div class="{{ $message->is_me ? 'chat__messages-content--sent' : 'chat__message-content--received' }}">
+                        <div class="chat__messages--user">
+                            @if($message->display_image && Storage::disk('public')->exists($message->display_image))
+                            <img class="chat__messages--profile-image" src="{{ asset('storage/' . $message->display_image) }}" alt="プロフィール画像">
+                            @else
+                            <div class="chat__messages--placeholder">
+                                {{ mb_substr($message->display_name, 0, 1) }}
                             </div>
-                            @endforeach
+                            @endif
+                            <p class="chat__messages--user-name">{{ $message->display_name }}</p>
+
                         </div>
+                        <textarea class="chat__messages--text">{{ $message->message }}</textarea>
 
-                        <div class="chat__messages--create">
-                            <form class="chat__messages--create-form" action="{{ route('chat.store', $trade->id) }}" method="POST">
-                                @csrf
-                                <textarea class="chat__messages--create-form-text" name="new_message" placeholder="取引メッセージを記入してください"></textarea>
-
-                                <label class="chat__messages--create-form-upload" for="imageUpload">画像を追加</label>
-                                <input type="file" id="imageUpload" name="profile_image" accept="image/*">
-                                <button type="submit">✈</button>
-
-                            </form>
+                        <div class="chat__messages--text-modify">
+                            @if ($message->is_me)
+                            <a class="chat__messages--text-edit" href="">編集</a>
+                            <a class="chat__messages--text-edit" href="">削除</a>
+                            @endif
                         </div>
                     </div>
+                    @endforeach
+                </div>
+
+                <div class="chat__messages--create">
+                    <form class="chat__messages--create-form" action="{{ route('chat.store', $trade->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <textarea class="chat__messages--create-form-text" name="new_message" placeholder="取引メッセージを記入してください"></textarea>
+
+                        <label class="chat__messages--create-form-upload" for="imageUpload">画像を追加</label>
+                        <input type="file" id="imageUpload" name="profile_image" accept="image/*">
+                        <button class="chat__button-send" type="submit">📨</button>
+
+                    </form>
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+</div>
+@endsection
