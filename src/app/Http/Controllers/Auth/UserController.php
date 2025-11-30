@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Sold;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileRequest;
@@ -98,10 +99,20 @@ class UserController extends Controller
                         });
                 });
         })
+            ->withCount(['messages as unread_count' => function($q) use ($userId){
+                $q->where('is_read', false)
+                ->where('messages.user_id', '<>', $userId);
+            }])
+            ->with(['messages' => fn($q) => $q->latest()])
             ->when($keyword, fn($q) => $q->where('item_name', 'like', "%{$keyword}%"))
-            ->get();
+            ->get()
+            ->sortByDesc(function ($item) {
+                $firstMessage = $item->messages->first();
+                return $firstMessage ? $firstMessage->created_at : null;
+            });
 
-        // dd($pendingItems->pluck('id', 'item_name'));
+            // 未読件数合計
+            $totalUnread = $pendingItems->sum('unread_count');
 
         // タブに応じて、itemsもセット
         switch ($tab) {
@@ -118,6 +129,12 @@ class UserController extends Controller
                 $items = collect();
         }
 
+        $averageRating = $user->receivedRatings()->avg('score');
+        $averageRatingRounded = $averageRating ? round($averageRating) : null;
+
+        // 評価数
+        $ratingsCount = $user->receivedRatings()->count();
+
         return view('mylist.mypage', compact(
             'sellItems',
             'boughtItems',
@@ -125,7 +142,10 @@ class UserController extends Controller
             'items',
             'user',
             'tab',
-            'keyword'
+            'keyword',
+            'totalUnread',
+            'averageRatingRounded',
+            'ratingsCount',
         ));
     }
 
@@ -156,6 +176,8 @@ class UserController extends Controller
         
         return redirect('mypage')->with('success', 'プロフィールを更新しました');
     }
+
+
 
     
 }

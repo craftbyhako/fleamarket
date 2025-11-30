@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{asset('css/sanitize.css')}}">
   <link rel="stylesheet" href="{{ asset('css/common.css')}}">
   @yield('css')
-  
+
 </head>
 
 <body>
@@ -19,42 +19,42 @@
 
         <nav class="header__nav">
 
-           <!-- 検索ボックス -->
-      <div class="search-form">
-        @auth
-        <form class="header__form" action="{{ route('mylist') }}" method="GET" >
+          <!-- 検索ボックス -->
+          <div class="search-form">
+            @auth
+            <form class="header__form" action="{{ route('mylist') }}" method="GET">
 
-            <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
-            <input class="header__keyword" type="text" name="keyword"  placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
-        </form>
-        @else
-        <form class="header__form" action="{{ route('home') }}" method="GET" >
-            <input class="header__keyword" type="text" name="keyword" value="{{ old('keyword', $keyword ?? '') }}" placeholder="なにをお探しですか？">
-            
-        </form>
-        @endauth 
-      </div>
-              
+              <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
+              <input class="header__keyword" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
+            </form>
+            @else
+            <form class="header__form" action="{{ route('home') }}" method="GET">
+              <input class="header__keyword" type="text" name="keyword" value="{{ old('keyword', $keyword ?? '') }}" placeholder="なにをお探しですか？">
 
-        @if (Auth::check())
+            </form>
+            @endauth
+          </div>
+
+
+          @if (Auth::check())
 
           <!-- ログアウト -->
           <form class="header__form" action="{{ route('logout') }}" method="post">
             @csrf
             <button class="header__button" type="submit">ログアウト</button>
           </form>
-        @else
+          @else
           <!-- ログイン前：ログイン -->
           <div class="header__nav--item">
             <a href="/login">ログイン</a>
           </div>
-        @endif
+          @endif
 
           <!-- マイページ -->
           <div class="header__nav--item">
-            <a href="{{ route('user.adminMypage') }}">マイページ</a>
+            <a href="{{ url('/mypage?tab=pending') }}">マイページ</a>
           </div>
-          
+
           <!-- 出品 -->
           <div class="header__nav--item">
             <a href="{{ route('item.create') }}">出品</a>
@@ -63,7 +63,7 @@
       </div>
     </header>
 
-    
+
     <div class="content">
       @yield('content')
     </div>

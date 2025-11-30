@@ -15,6 +15,7 @@ class Message extends Model
         'sold_id',
         'user_id',
         'message',
+        'image',
     ];
 
     public function sold()
@@ -25,5 +26,10 @@ class Message extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeUnread($query)
+    {
+        return $query->where('is_read', false);
     }
 }

@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\Sold;
 use App\Models\Item;
+use App\Http\Requests\ChatRequest;
+
 
 
 class ChatController extends Controller
 {
-    public function show($sold_id)
+    public function show($sold_id, Request $request)
     {
         // ログインユーザー
         $authUser = auth()->user();
@@ -21,6 +23,11 @@ class ChatController extends Controller
         // 正：相手はItemのユーザー＝出品者
         // 偽：相手はSoldのユーザー＝購入者
         $otherUser = $authUser->id == $trade->user_id ? $trade->item->user : $trade->user;
+
+        Message::where('sold_id', $sold_id)
+            ->where('user_id', '<>', $authUser->id)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
         
         $pendingTrades = Sold::whereIn('status', [1, 2])
             ->where(function($query) use ($authUser) {
@@ -46,28 +53,56 @@ class ChatController extends Controller
             return $message;
         });
 
-        $tab = null;
+        $editingId = $request->query('edit');
 
-        return view('mylist.chat', compact('trade', 'messages','pendingTrades', 'otherUser'));
+        return view('mylist.chat', compact('trade', 'messages','pendingTrades', 'otherUser', 'editingId'));
     }
 
 
-    public function store(Request $request, $sold_id)
+    public function store(ChatRequest $request, $sold_id)
     {
-        $request->validate([
-            'new_message' => 'required|string|max:450'
-        ]);
+        session(['draft_message_' . $sold_id => $request->message]);
 
-        Message::create([
+        $data = [
             'sold_id' => $sold_id,
             'user_id' => auth()->id(),
-            'message' => $request->new_message,
-        ]);
+            'message' => $request->message,
+        ];
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('message', 'public');
+            $data['image'] = $path;
+        }
+
+        Message::create($data);
 
         $sold = Sold::findOrFail($sold_id);
         $sold->status = 2;
         $sold->save();
 
+        session()->forget('draft_message_' . $sold_id);
+
+        return back();
+    }
+
+    public function update(Request $request, $message_id)
+    {
+        $request->validate([
+            'content' => 'required|string|max:400'
+        ]);
+
+        $message = Message::findOrFail($message_id);
+        $message->message = $request->content;
+        $message->save();
+
+        return redirect()->route('chat.show', $message->sold_id);
+    }
+
+
+    public function destroy($message_id)
+    {
+        $message = Message::findOrFail($message_id);
+        $message->delete();
         return back();
     }
 

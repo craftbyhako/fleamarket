@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Like;
 use App\Models\Message;
+use App\Models\Rating;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
@@ -96,7 +97,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
-    
+
+    public function receivedRatings()
+    {
+        return $this->hasMany(Rating::class, 'target_user_id');
+    }
+
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class, 'rater_id');
+    }
     
 }
 

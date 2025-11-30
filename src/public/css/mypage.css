@@ -67,11 +67,6 @@
     color: #333;
 }
 
-.mypage__tabs li.active a {
-    background-color: #f0f0f0;
-    border-bottom: 2px solid #000;
-}
-
 .mypage__tabs {
     display: flex;
     justify-content: center;
@@ -101,9 +96,17 @@
 }
 
 .mypage__tabs .active a {
-    color: #000;
-    border-bottom: 3px solid #ff6600;
+    color: red;
     padding-bottom: 8px;
+}
+
+.mypage__tab-unread {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 .mypage__sell-group,
@@ -121,6 +124,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 10px;
     text-align: center;
+    position: relative;
 }
 
 .mypage__image img {
@@ -128,6 +132,7 @@
     border-radius: 6px;
     height: 150px;
     object-fit: cover;
+    position: relative;
 }
 
 .mypage__item_name {
@@ -136,6 +141,30 @@
     color: #333;
 }
 
+.mypage__unread-badge {
+    position: absolute;
+    /* 親の .mypage__image に対して絶対配置 */
+    top: 10px;
+    /* 左上の微調整 */
+    left: 16px;
+    background-color: red;
+    /* 赤丸 */
+    color: white;
+    /* 文字色 */
+    font-size: 12px;
+    /* バッジ内の文字サイズ */
+    font-weight: bold;
+    width: 20px;
+    /* 丸のサイズ */
+    height: 20px;
+    border-radius: 50%;
+    /* 完全な円形にする */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    /* 画像より前面に表示 */
+}
 
 
 @media screen and (min-width: 768px) and (max-width: 850px) {}

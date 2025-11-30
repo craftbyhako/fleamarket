@@ -9,6 +9,7 @@ use App\Models\Condition;
 use App\Models\Sold;
 use App\Models\User;
 use App\Models\Like;
+use App\Models\Message;
 
 
 class Item extends Model
@@ -86,13 +87,6 @@ class Item extends Model
         return $sold && $sold->status ==3;
     }
 
-    // public function getIsRecievedAttribute()
-    // {
-    //         $sold = $this->sold;
-    //         return $sold && $sold->status ==2;
-    // }
-
-
     // Userモデルとのリレーション
     public function user()
     {
@@ -121,5 +115,17 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'comments');
     }
 
+    // Messageモデルとのリレーション
+    public function messages()
+    {
+        return $this->hasManyThrough(
+            Message::class,
+            Sold::class,
+            'item_id',
+            'sold_id',
+            'id',
+            'id'
+        );
+    }
    
 }

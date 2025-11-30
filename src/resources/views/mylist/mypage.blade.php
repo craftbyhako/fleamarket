@@ -21,6 +21,20 @@
         <div class="mypage__user-name">
             {{ $user->user_name }}
         </div>
+
+        @if ($averageRatingRounded)
+            <div class="rating">
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <=$averageRatingRounded)
+                    <span style="color: gold;">★</span>
+                    @else
+                    <span>★</span>
+                    @endif
+                    @endfor
+                    <span>({{ $ratingsCount }})</span>
+            </div>
+        @endif
+
         <div class="mypage__profile-edit-button">
             <a class="mypage__edit-button" href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
         </div>
@@ -41,6 +55,9 @@
         <li class="{{ $tab === 'pending' ? 'active' : '' }}">
             <a href="{{ url()->current() }}?tab=pending">
                 取引中の商品
+                @if($totalUnread > 0)
+                <span class="mypage__tab-unread">{{ $totalUnread }}</span>
+                @endif
             </a>
         </li>
     </ul>
@@ -86,6 +103,12 @@
                 <a href="{{ route('chat.show', $pendingItem->sold->id) }}">
                     <div class="mypage__image">
                         <img src="{{ asset('storage/' . $pendingItem->image) }}" alt="{{ $pendingItem->item_name }}">
+
+                        <!-- 未読メッセージフラグ -->
+                        @if($pendingItem->unread_count > 0)
+                        <span class="mypage__unread-badge">{{ $pendingItem->unread_count }}</span>
+                        @endif
+
                         <div class="mypage__item_name">
                             {{ $pendingItem->item_name }}
                         </div>
