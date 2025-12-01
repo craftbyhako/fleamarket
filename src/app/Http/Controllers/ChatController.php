@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\Sold;
 use App\Models\Item;
+use App\Models\Rating;
 use App\Http\Requests\ChatRequest;
 
 
@@ -130,7 +131,7 @@ class ChatController extends Controller
                 $existingRating->save();
             }else{
                 Rating::create([
-                    'rating_id' => $authUser->id,
+                    'rater_id' => $authUser->id,
                     'target_user_id' => $targetUserId,
                     'score' => $request->rating,
                 ]);

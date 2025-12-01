@@ -18,20 +18,22 @@
             </div>
             @endif
         </div>
-        <div class="mypage__user-name">
-            {{ $user->user_name }}
-        </div>
 
-        @if ($user->rounded_average_rating)
+        <div class="mypage__profile-info">
+            <div class="mypage__name-edit">
+                <div class="mypage__user-name">{{ $user->user_name }}</div>
+                <div class="mypage__profile-edit-button">
+                    <a class="mypage__edit-button" href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
+                </div>
+            </div>
+
+            @if ($user->rounded_average_rating)
             <div class="rating">
                 @for ($i = 1; $i <= 5; $i++)
                     <span class="mypage__rating {{ $i <=$user->rounded_average_rating ? 'is-active' : '' }}">★</span>
                 @endfor
             </div>
-        @endif
-
-        <div class="mypage__profile-edit-button">
-            <a class="mypage__edit-button" href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
+            @endif
         </div>
     </div>
 

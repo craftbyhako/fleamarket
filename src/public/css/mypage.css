@@ -5,11 +5,27 @@
 
 .mypage__profile-group {
     display: flex;
-    flex-direction: row;
-    margin: 50px 0;
-    gap: 100px;
+    gap: 50px;
+    align-items: flex-start;
+    margin-top: 100px;
     align-items: center;
+    height: 200px;
+   
+
 }
+
+.mypage__profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mypage__name-edit {
+    display: flex;
+    align-items: center;
+    gap: 250px;
+}
+
 
 .mypage__profile_image {
     width: 200px;
@@ -29,7 +45,6 @@
 .mypage-profile__placeholder {
     border-radius: 50%;
     overflow: hidden;
-    /* はみ出し防止 */
     background-color: #ccc;
     display: flex;
     justify-content: center;
@@ -40,9 +55,14 @@
     font-size: 20px;
 }
 
+.rating {
+    display: flex;
+    gap: 5px;
+}
+
 .mypage__rating {
     color: gray;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .mypage__rating.is-active {
@@ -152,27 +172,19 @@
 
 .mypage__unread-badge {
     position: absolute;
-    /* 親の .mypage__image に対して絶対配置 */
     top: 10px;
-    /* 左上の微調整 */
     left: 16px;
     background-color: red;
-    /* 赤丸 */
     color: white;
-    /* 文字色 */
     font-size: 12px;
-    /* バッジ内の文字サイズ */
     font-weight: bold;
     width: 20px;
-    /* 丸のサイズ */
     height: 20px;
     border-radius: 50%;
-    /* 完全な円形にする */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
-    /* 画像より前面に表示 */
 }
 
 
