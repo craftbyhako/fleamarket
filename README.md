@@ -55,7 +55,7 @@ MySQL8.0.26　<br>
 
 ## ER 図
 
-![image](ER_fleamarket.png)
+![image](ER_fleamarket2.png)
 
 ## テストアカウント
 name: test1  
