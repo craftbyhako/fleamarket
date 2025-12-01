@@ -23,7 +23,7 @@ class SoldsTableSeeder extends Seeder
         DB::table('solds')->insert([
             'user_id' => 3,
             'item_id' => $item->id,
-            'status' => null,
+            'status' => 1,
             'payment' => 'カード払い',
             'destination_postcode' => '111-1111',
             'destination_address' => '東京都千代田区1',
@@ -35,7 +35,7 @@ class SoldsTableSeeder extends Seeder
         DB::table('solds')->insert([
             'user_id' => 3,
             'item_id' => $item->id,
-            'status' => null,
+            'status' => 1,
             'payment' => 'コンビニ払い',
             'destination_postcode' => '171-7171',
             'destination_address' => '東京都千代田区17',
@@ -48,7 +48,31 @@ class SoldsTableSeeder extends Seeder
         DB::table('solds')->insert([
             'user_id' => 3,
             'item_id' => $item->id,
-            'status' => null,
+            'status' => 1,
+            'payment' => 'コンビニ払い',
+            'destination_postcode' => '100-1001',
+            'destination_address' => '東京都千代田区100',
+            'destination_building' => '100ビルディング',
+        ]);
+
+        $item = Item::where('item_name', '革靴')->first();
+
+        DB::table('solds')->insert([
+            'user_id' => 2,
+            'item_id' => $item->id,
+            'status' => 3,
+            'payment' => 'コンビニ払い',
+            'destination_postcode' => '100-1001',
+            'destination_address' => '東京都千代田区100',
+            'destination_building' => '100ビルディング',
+        ]);
+
+        $item = Item::where('item_name', 'タンブラー')->first();
+
+        DB::table('solds')->insert([
+            'user_id' => 1,
+            'item_id' => $item->id,
+            'status' => 3,
             'payment' => 'コンビニ払い',
             'destination_postcode' => '100-1001',
             'destination_address' => '東京都千代田区100',
