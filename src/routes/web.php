@@ -119,6 +119,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
 
+    Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+
     Route::post('/chat/{sold_id}/message', [ChatController::class, 'store'])->name('chat.store');
 
     Route::get('/chat/{sold_id}', [ChatController::class, 'show'])->name('chat.show');

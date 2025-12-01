@@ -114,7 +114,6 @@ class UserController extends Controller
             // 未読件数合計
             $totalUnread = $pendingItems->sum('unread_count');
 
-        // タブに応じて、itemsもセット
         switch ($tab) {
             case 'sell':
                 $items = $sellItems;

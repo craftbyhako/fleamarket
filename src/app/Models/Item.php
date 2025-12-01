@@ -18,14 +18,22 @@ class Item extends Model
 
     protected $fillable = 
     [
+        'code',
         'user_id',
         'condition_id',
         'item_name',
         'image',
-        'brand',
         'price',
         'description',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($item) {
+            $item->code = 'CO' . str_pad($item->id, 2, '0', STR_PAD_LEFT);
+            $item->save();
+        });
+    }
 
     public function condition()
     {

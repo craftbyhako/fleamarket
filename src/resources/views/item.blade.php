@@ -18,9 +18,6 @@
     <div class="item__right-part">
         <!-- 商品名 -->
         <h1>{{ $item->item_name }}</h1> 
-
-        <!-- ブランド名 -->
-        <div class="brand-name">{{ $item->brand }}</div>
         
         <!-- 値段 -->
         <div class="price">￥{{ number_format($item->price) }} (税込）</div>

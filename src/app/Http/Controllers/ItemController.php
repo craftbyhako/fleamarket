@@ -56,10 +56,9 @@ class ItemController extends Controller
 
     public function store(ExhibitionRequest $request)
     {
-        // dd($request->all());
+    
         $data = $request->validated();
 
-        $data['brand'] = $data['brand'] ?? '';
 
         // 画像保存
         if($request->hasFile('image')) {

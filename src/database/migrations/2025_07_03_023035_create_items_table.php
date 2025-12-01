@@ -15,7 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('code')->nullable()->unique();
             $table->foreignId('user_id')->constrained()->casacadeOnDelete();
             $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
             $table->string('item_name');
