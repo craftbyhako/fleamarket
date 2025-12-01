@@ -1,4 +1,3 @@
-.chat__content {}
 
 .chat__container {
     display: flex;
@@ -131,8 +130,6 @@
     margin-top: 3px;
 }
 
-.chat__messages {}
-
 .chat__messages-content {
     display: flex;
     flex-direction: column;
@@ -143,7 +140,6 @@
 }
 
 .chat__messages-content--sent {
-    /*text-align: left; */
     margin-bottom: 10px;
     align-self: flex-end;
 
@@ -151,8 +147,6 @@
 }
 
 .chat__message-content--received {
-    /* display: flex;
-    text-align: right; */
     align-self: flex-start;
     margin-bottom: 10px;
 }
@@ -243,10 +237,8 @@
     font-size: 15px;
     display: inline-flex;
     align-items: center;
-    /* ← これが文字の中央揃え */
     justify-content: center;
     line-height: 1;
-    /* ← デフォルトのズレを解消 */
     height: 25px;
 }
 
@@ -314,7 +306,6 @@
 .rating {
     display: flex;
     flex-direction: row-reverse;
-    /* 右から左に塗る */
     justify-content: flex-end;
     margin-bottom: 15px;
     padding: 10px 20px;
@@ -322,7 +313,6 @@
 
 .rating input {
     display: none;
-    /* ラジオボタンは非表示 */
 }
 
 .rating label {
@@ -333,7 +323,6 @@
     margin: 0 2px;
 }
 
-/* 選択済みとホバーで黄色 */
 .rating input:checked~label,
 .rating label:hover,
 .rating label:hover~label {
