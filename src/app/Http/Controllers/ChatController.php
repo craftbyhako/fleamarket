@@ -55,7 +55,7 @@ class ChatController extends Controller
 
         $editingId = $request->query('edit');
 
-        return view('mylist.chat', compact('trade', 'messages','pendingTrades', 'otherUser', 'editingId'));
+        return view('mylist.chat', compact('trade', 'messages','pendingTrades', 'otherUser', 'editingId', 'sold_id'));
     }
 
 
@@ -104,6 +104,40 @@ class ChatController extends Controller
         $message = Message::findOrFail($message_id);
         $message->delete();
         return back();
+    }
+
+    public function complete (Request $request, $sold_id)
+    { 
+        $authUser = auth()->user();
+        $sold = SOld::with('item', 'item.user')->findOrFail($sold_id);
+
+        $sold->status = 3;
+        $sold->save();
+
+        if ($request->has('rating')) {
+            $targetUserId = $authUser->id == $sold->user_id 
+                ? $sold->item->user_id
+                // 購入者なら出品者評価
+                : $sold->user_id;
+                // 出品者なら購入者評価
+                
+            $existingRating = Rating::where('rater_id', $authUser->id)
+                ->where('target_user_id', $targetUserId)
+                ->first();
+
+            if ($existingRating) {
+                $existingRating->score = $request->rating;
+                $existingRating->save();
+            }else{
+                Rating::create([
+                    'rating_id' => $authUser->id,
+                    'target_user_id' => $targetUserId,
+                    'score' => $request->rating,
+                ]);
+            }            
+        }
+
+        return redirect()->route('mylist');
     }
 
 

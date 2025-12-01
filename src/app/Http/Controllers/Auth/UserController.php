@@ -129,12 +129,6 @@ class UserController extends Controller
                 $items = collect();
         }
 
-        $averageRating = $user->receivedRatings()->avg('score');
-        $averageRatingRounded = $averageRating ? round($averageRating) : null;
-
-        // 評価数
-        $ratingsCount = $user->receivedRatings()->count();
-
         return view('mylist.mypage', compact(
             'sellItems',
             'boughtItems',
@@ -144,11 +138,8 @@ class UserController extends Controller
             'tab',
             'keyword',
             'totalUnread',
-            'averageRatingRounded',
-            'ratingsCount',
         ));
     }
-
 
     public function editProfile(Request $request)
     {

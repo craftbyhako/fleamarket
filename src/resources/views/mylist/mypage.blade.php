@@ -22,16 +22,11 @@
             {{ $user->user_name }}
         </div>
 
-        @if ($averageRatingRounded)
+        @if ($user->rounded_average_rating)
             <div class="rating">
                 @for ($i = 1; $i <= 5; $i++)
-                    @if ($i <=$averageRatingRounded)
-                    <span style="color: gold;">★</span>
-                    @else
-                    <span>★</span>
-                    @endif
-                    @endfor
-                    <span>({{ $ratingsCount }})</span>
+                    <span class="mypage__rating {{ $i <=$user->rounded_average_rating ? 'is-active' : '' }}">★</span>
+                @endfor
             </div>
         @endif
 

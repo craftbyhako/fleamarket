@@ -126,4 +126,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/chat/messages/{message_id}', [ChatController::class, 'destroy'])->name('chat.destroy');
 
     Route::patch('/chat/messages/{message_id}', [ChatController::class, 'update'])->name('chat.update');
+
+    Route::post('/chat/{sold_id}/complete', [ChatController::class, 'complete'])->name('chat.complete');
 });

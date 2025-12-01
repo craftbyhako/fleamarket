@@ -37,7 +37,9 @@
 
                     <p class="chat__header--counterparty-title">{{ $otherUser->user_name }}さんとの取引画面 </p>
                 </div>
-                <button class="chat__complete-button" type="submit">取引を完了する</button>
+
+                <!-- 取引完了ボタン -->
+                <label class="chat__complete-button" for="modal-toggle">取引を完了する</label>
             </div>
 
             <div class="chat__bought-item">
@@ -98,7 +100,6 @@
                             </a>
                         </div>
                         @endif
-
                     </div>
                     @endforeach
                 </div>
@@ -125,7 +126,42 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
 
-@endsection
+        <!-- モーダル用トグル -->
+        <input type="checkbox" id="modal-toggle" hidden>
+        <!-- モーダルウィンドウ -->
+        <div class="chat__modal">
+            <div class="chat__modal-content">
+                <div class="chat__modal-content--information">
+                    <h2>取引が完了しました。</h2>
+                </div>
+                
+                <p class="chat__modal-content--question">今回の取引相手はどうでしたか？</p>
+                    <form method="POST" action="{{ route('chat.complete', $sold_id) }}">
+                        @csrf
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" required />
+                            <label for="star5" title="5 stars">★</label>
+
+                            <input type="radio" id="star4" name="rating" value="4" />
+                            <label for="star4" title="4 stars">★</label>
+
+                            <input type="radio" id="star3" name="rating" value="3" />
+                            <label for="star3" title="3 stars">★</label>
+
+                            <input type="radio" id="star2" name="rating" value="2" />
+                            <label for="star2" title="2 stars">★</label>
+
+                            <input type="radio" id="star1" name="rating" value="1" />
+                            <label for="star1" title="1 star">★</label>
+                        </div>
+
+                        <div class="chat__modal-footer">
+                            <button class="chat__modal-button" type="submit">送信する</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        @endsection

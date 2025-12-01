@@ -70,7 +70,7 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function CommentedItems()
+    public function commentedItems()
     {
         return $this->belongsToMany(Item::class, 'comments');
     }
@@ -101,6 +101,18 @@ class User extends Authenticatable
     public function receivedRatings()
     {
         return $this->hasMany(Rating::class, 'target_user_id');
+    }
+
+    public function getRoundedAverageRatingAttribute()
+    {
+        $avg = $this->receivedRatings()->avg('score');
+
+        return $avg ? round($avg) : null; 
+    }
+
+    public function getRatingsCountAttribute()
+    {
+        return $this->receivedRatings()->count();
     }
 
     public function givenRatings()

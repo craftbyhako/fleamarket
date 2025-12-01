@@ -40,6 +40,15 @@
     font-size: 20px;
 }
 
+.mypage__rating {
+    color: gray;
+    font-size: 20px;
+}
+
+.mypage__rating.is-active {
+    color: gold;
+}
+
 .mypage__edit-button {
     color: red;
     border: 1px solid red;
