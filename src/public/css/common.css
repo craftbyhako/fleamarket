@@ -2,7 +2,8 @@ html,
 body {
     height: 100%;
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .flex-box {
@@ -19,6 +20,7 @@ body {
     height: 80px;
     border: 1px solid #E0DFDE;
     width: 100%;
+    margin: 0;
 }
 
 .header__inner {
@@ -28,19 +30,26 @@ body {
     height: 80px;
     max-width: 1340px;
     margin: 0 auto;
-    padding: 0 20px;
+    width: 100%;
 }
 
 .header__heading a {
-    margin: 0 auto;
+    /* display:inline-block; */
     width: 80px;
     text-decoration: none;
     color: white;
 }
 
+.header__heading img {
+    margin-left: 20px;
+    width:300px;
+    height: auto;
+}
+
 .header__nav {
     display: flex;
     gap: 20px;
+    margin-right: 20px;
 }
 
 .header__form {

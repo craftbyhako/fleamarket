@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.login_register')
 
 @section('css')
 <link rel="stylesheet" href="{{asset('css/chat.css')}}?v={{ time() }}">
@@ -23,7 +23,7 @@
 
         <div class="chat__right-part">
             <div class="chat__header">
-
+                <!-- 取引相手 -->
                 <div class="chat__header--counterparty">
                     @if ($otherUser->profile_image && Storage::disk('public')->exists($otherUser->profile_image))
                     <img class="chat__header--counterparty-image"
@@ -39,7 +39,9 @@
                 </div>
 
                 <!-- 取引完了ボタン -->
-                <label class="chat__complete-button" for="modal-toggle">取引を完了する</label>
+                @if (Auth::user()->id == $trade->user_id )
+                    <label class="chat__complete-button" for="modal-toggle">取引を完了する</label>
+                @endif
             </div>
 
             <div class="chat__bought-item">
@@ -53,6 +55,7 @@
                 </div>
             </div>
 
+            <!-- 「メッセージ閲覧」グループ -->
             <div class=" chat__messages">
                 <div class="chat__messages-content">
                     @foreach($messages as $message)
@@ -105,6 +108,7 @@
                 </div>
             </div>
 
+            <!-- 「メッセージ作成」グループ -->
             <div class="chat__messages--create">
                 <form class="chat__messages--create-form" action="{{ route('chat.store', ['sold_id' => $trade->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf

@@ -15,7 +15,7 @@
   <div class="app">
     <header class="header">
       <div class="header__inner">
-        <a href="/"><img src="{{ asset('storage/logo.svg') }}" alt="coachtechロゴ"></a>
+        <a class="header__heading" href="/"><img src="{{ asset('storage/logo.svg') }}" alt="coachtechロゴ"></a>
 
         <nav class="header__nav">
 
