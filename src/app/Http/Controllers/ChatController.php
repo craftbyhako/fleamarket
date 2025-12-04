@@ -110,35 +110,44 @@ class ChatController extends Controller
     public function complete (Request $request, $sold_id)
     { 
         $authUser = auth()->user();
-        $sold = SOld::with('item', 'item.user')->findOrFail($sold_id);
-
-        $sold->status = 3;
-        $sold->save();
+        $sold = SOld::with(['user', 'item.user'])->findOrFail($sold_id);
 
         if ($request->has('rating')) {
-            $targetUserId = $authUser->id == $sold->user_id 
-                ? $sold->item->user_id
+            $targetUserId = $authUser->id == $sold->user_id
+                 ?$sold->item->user_id
                 // 購入者なら出品者評価
-                : $sold->user_id;
-                // 出品者なら購入者評価
-                
-            $existingRating = Rating::where('rater_id', $authUser->id)
-                ->where('target_user_id', $targetUserId)
-                ->first();
+                :$sold->user->id
+            // 出品者なら購入者評価
 
-            if ($existingRating) {
-                $existingRating->score = $request->rating;
-                $existingRating->save();
-            }else{
-                Rating::create([
+            Rating::updateOrCreate(
+                [
                     'rater_id' => $authUser->id,
                     'target_user_id' => $targetUserId,
-                    'score' => $request->rating,
-                ]);
-            }            
+                ],
+                ['score' => $request->rating]
+            );
         }
 
-        return redirect()->route('mylist');
+        $buyerRated = Rating::where('rater_id', $sold->user_id)
+            ->where('target_user_id', $sold->user_id)
+            ->exists();
+
+        if($buyerRated && sellerRated)
+        {
+            $sold->status = 4;
+            $sold->save();
+        
+
+            Mail::to($sold->item->user->email)->send(
+                new TransactionCompleted($sold->item,$sold->user)
+            );
+
+        }else{
+            $sold->status = 3;
+            $sold->save();
+        }
+
+        return redirect()->route('mylist', ['tab' => 'pending']);
     }
 
 
