@@ -222,7 +222,7 @@ class ChatController extends Controller
             $sold->save();
         }
 
-        return redirect()->route('chat.show', $sold_id);
+        return redirect()->route('mylist');
     }
     
 }
