@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Sold;
 use App\Models\Message;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileRequest;

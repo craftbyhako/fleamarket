@@ -10,6 +10,7 @@ class Rating extends Model
     use HasFactory;
 
     protected $fillable = [
+        'sold_id',
         'target_user_id',
         'rater_id',
         'score'
@@ -23,5 +24,10 @@ class Rating extends Model
     public function rater()
     {
         return $this->belongsTo(User::class, 'rater_id');
+    }
+
+    public function sold()
+    {
+        return $this->belongsTo(Sold::class, 'sold_id');
     }
 }

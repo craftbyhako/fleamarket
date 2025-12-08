@@ -123,7 +123,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/chat/{sold_id}/message', [ChatController::class, 'store'])->name('chat.store');
 
-    Route::get('/chat/{sold_id}', [ChatController::class, 'show'])->name('chat.show');
+    Route::match(['get', 'post'], '/chat/{sold_id}', [ChatController::class, 'show'])->name('chat.show');
+
+    Route::post('/chat/{sold_id}/message', [ChatController::class, 'store'])
+        ->name('chat.store');
 
     Route::delete('/chat/messages/{message_id}', [ChatController::class, 'destroy'])->name('chat.destroy');
 

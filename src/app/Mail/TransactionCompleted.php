@@ -25,6 +25,7 @@ class TransactionCompleted extends Mailable
 
     public function build()
     {
+
         return $this->subject('取引が完了しました')
             ->view('emails.transaction_completed');
     }

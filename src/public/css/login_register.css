@@ -3,19 +3,36 @@ body {
     height: 100%;
 }
 
+main {
+    background-color: #fff;
+    flex: 1;
+}
+
 .app {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background: #fff;
 }
 
 .header {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 16px;
-    height: 80px;
     background-color: black;
     color: white;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+
+.header__inner img {
+    height: 40px;
+    display: block;
 }
 
 .header__logo {

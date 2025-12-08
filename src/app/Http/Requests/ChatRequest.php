@@ -23,17 +23,24 @@ class ChatRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'message' => ['required', 'string', 'max:400'],
+        $rules = [
+            'draft_message' => ['nullable', 'max:400'],
             'image' => ['nullable', 'mimes:jpeg,png'],
         ];
+
+        // ★送信ボタンが押された場合のみ本文必須
+        if ($this->has('send_message')) {
+            $rules['draft_message'][] = 'required';
+        }
+
+        return $rules;
     }
 
     public function messages()
     {
         return [
-            'message.required' => '本文を入力してください',
-            'message.max' => '本文は４００文字以内で入力してください',
+            'draft_message.required' => '本文を入力してください',
+            'draft_message.max' => '本文は４００文字以内で入力してください',
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください'
         ];
     }

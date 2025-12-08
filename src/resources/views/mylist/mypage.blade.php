@@ -31,7 +31,7 @@
             <div class="rating">
                 @for ($i = 1; $i <= 5; $i++)
                     <span class="mypage__rating {{ $i <=$user->rounded_average_rating ? 'is-active' : '' }}">★</span>
-                @endfor
+                    @endfor
             </div>
             @endif
         </div>
@@ -94,28 +94,25 @@
         </div>
 
         @elseif ($tab === 'pending')
-        <div class="mypage__pending-group">
-            @forelse ($pendingItems as $pendingItem)
-            <div class="mypage__card">
-                <a href="{{ route('chat.show', $pendingItem->sold->id) }}">
-                    <div class="mypage__image">
-                        <img src="{{ asset('storage/' . $pendingItem->image) }}" alt="{{ $pendingItem->item_name }}">
+            <div class="mypage__pending-group">
+                @forelse ($pendingItems as $pendingItem)
+                    <a href="{{ route('chat.show', $pendingItem->sold->id) }}" class="mypage__card">
+                        <div class="mypage__image">
+                            <img src="{{ asset('storage/' . $pendingItem->image) }}" alt="{{ $pendingItem->item_name }}">
 
-                        <!-- 未読メッセージフラグ -->
-                        @if($pendingItem->unread_count > 0)
-                        <span class="mypage__unread-badge">{{ $pendingItem->unread_count }}</span>
-                        @endif
-
+                            <!-- 未読メッセージフラグ -->
+                            @if($pendingItem->unread_count > 0)
+                            <span class="mypage__unread-badge">{{ $pendingItem->unread_count }}</span>
+                            @endif
+                        </div>
                         <div class="mypage__item_name">
                             {{ $pendingItem->item_name }}
                         </div>
-                    </div>
-                </a>
+                    </a>
+                @empty
+                    <p>取引中の商品はありません。</p>
+                @endforelse
             </div>
-            @empty
-            <p>取引中の商品はありません。</p>
-            @endforelse
-        </div>
         @endif
     </div>
 
