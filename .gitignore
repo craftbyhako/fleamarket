@@ -3,3 +3,15 @@ docker/mysql/data_backup/
 
 !docker/mysql/data/.gitkeep
 !docker/mysql/data_backup/.gitkeep
+
+
+# ユーザーがアップロードする画像は無視して、ディレクトリは管理対象にする
+
+src/storage/app/public/profile_images/*
+!src/storage/app/public/profile_images/.gitkeep
+
+src/storage/app/public/items/*
+!src/storage/app/public/items/.gitkeep
+
+src/storage/app/public/message/*
+!src/storage/app/public/message/.gitkeep
